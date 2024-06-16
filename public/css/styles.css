@@ -755,6 +755,10 @@ video {
   height: max-content;
 }
 
+.h-\[50rem\]{
+  height: 50rem;
+}
+
 .max-h-\[calc\(100vh-7\.1rem\)\]{
   max-height: calc(100vh - 7.1rem);
 }
