@@ -1,0 +1,47 @@
+.active-blur div {
+  display: block !important;
+}
+.ellipsis {
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.item-main:hover .item-chirld {
+  display: block;
+}
+
+.item-categories-active + .co-dropMenuCategory__menu_link{
+    display: block !important;
+}
+.item-categories-active.co-dropMenuCategory__menu__title__item::after{
+    transform: rotate(0deg);
+}
+.co-dropMenuCategory__menu__title__item::before {
+  position: absolute;
+  content: "";
+  transition: all 0.3s ease;
+  background-image: url(data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%3E%20%3Cg%20transform%3D%22translate%28-346.525%20-1246%29%22%3E%20%3Cpath%20d%3D%22M12%2C.75H0A.75.75%2C0%2C0%2C1-.75%2C0%2C.75.75%2C0%2C0%2C1%2C0-.75H12a.75.75%2C0%2C0%2C1%2C.75.75A.75.75%2C0%2C0%2C1%2C12%2C.75Z%22%20transform%3D%22translate%28347.525%201253%29%22%20fill%3D%22%233c3c43%22%2F%3E%20%3C%2Fg%3E%20%3Crect%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22none%22%2F%3E%3C%2Fsvg%3E);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 14px;
+  right: 17px;
+  width: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.co-dropMenuCategory__menu__title__item::after {
+  position: absolute;
+  content: "";
+  transition: all 0.3s ease;
+  background-image: url(data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%3E%20%3Cg%20transform%3D%22translate%28-346.525%20-1246%29%22%3E%20%3Cpath%20d%3D%22M12%2C.75H0A.75.75%2C0%2C0%2C1-.75%2C0%2C.75.75%2C0%2C0%2C1%2C0-.75H12a.75.75%2C0%2C0%2C1%2C.75.75A.75.75%2C0%2C0%2C1%2C12%2C.75Z%22%20transform%3D%22translate%28347.525%201253%29%22%20fill%3D%22%233c3c43%22%2F%3E%20%3C%2Fg%3E%20%3Crect%20width%3D%2214%22%20height%3D%2214%22%20fill%3D%22none%22%2F%3E%3C%2Fsvg%3E);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  height: 14px;
+  right: 17px;
+  width: 14px;
+  top: calc(50% - 7px);
+  transform: rotate(90deg);
+}

@@ -1,0 +1,5 @@
+mixin drop-menu-header(items,width='30rem')
+  div(class=`w-[30rem] item-chirld h-max hidden  absolute top-[7rem]  text-[1.3rem] right-0 transition-all duration-150 ease-in-out text-left z-[101] `)
+    div(class=" bg-[#e8e8e8]   transition-all duration-150 ease-in-out py-3 text-left")
+      each item in items
+        a(href="/" class="hover:text-main text-[1.3rem] text-[#333]   hover:bg-[#dfdfdf] cursor-pointer block pl-5 py-5")= item
