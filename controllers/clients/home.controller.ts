@@ -87,9 +87,18 @@ export const index = async function (
         }
       ],
     ];
+
+
+    const banner = [
+      "https://www.muji.com/public/media/jp/img/top_banner/1640_fragrance_240614.jpg",
+      "https://www.muji.com/public/media/jp/img/top_banner/1640_clear-care_240614.jpg",
+      "https://www.muji.com/public/media/jp/img/top_banner/1640_wind-summer_240607.jpg",
+      "https://www.muji.com/public/media/jp/img/top_banner/1640_cool-fabric_240614.jpg",
+    ]
     res.render(prefix_client + "/pages/home/index", {
       title: "Home",
       data: data,
+      banner: banner,
     });
   } catch (error) {
     console.log(error);

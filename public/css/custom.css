@@ -45,3 +45,6 @@
   top: calc(50% - 7px);
   transform: rotate(90deg);
 }
+.slick-prev:before, .slick-next:before{
+  color: #c6c6c6
+}
