@@ -1,0 +1,32 @@
+mixin slick-item-sample-one(slickItemsSampleOne)
+    div(class="slick-item text-[1.4rem] leading-[1.6] text-main mb-[2.4rem]" href="#")
+        each item in slickItemsSampleOne
+            a(class="slick-box hover:text-main mr-[1rem] w-[20rem]  sm:w-[24rem] md:w-[20rem] md:mr-[1rem]  lg:w-[18.9rem] lg:mr-[1.5rem] xl:mr-[2.5rem] xl:w-[25.3rem]" href="#")
+                div(class="slick-item__img mb-[1.5rem] relative transition-all duration-500 ease-in-out")
+                    img(class=" h-auto " src=item.img alt="sample-1")
+                div(class="slick-item_content")
+                    span(class="") #{item.content}
+
+mixin slick-item-sample-two(slickItemsSampleOne)
+    div(class="slick-item text-[1.4rem] leading-[1.6] text-main mb-[2.4rem]" href="#")
+        each item in slickItemsSampleOne
+            div(class="slick-box hover:text-main mr-[1rem] w-[20rem]  sm:w-[24rem] md:w-[20rem] md:mr-[1rem]  lg:w-[18.9rem] lg:mr-[1.5rem] xl:mr-[2.5rem] xl:w-[25.3rem]" href="#")
+                a(class="slick-item__img-index mb-[1.5rem] relative transition-all duration-500 ease-in-out cursor-pointer" href="#")
+                    img(class=" h-auto " src=item.listImages[0].img alt="sample-1")
+                div(class="slick-item_listColor mt-5")
+                    div(class="items-color flex p-[0_1.5rem_0.8rem] gap-1")
+                        each itemColor, $indexColor in item.listImages
+                            div(class="item-color min-w-[1.4rem] min-h-[1.4rem] w-[1.4rem] h-[1.4rem] mr-[0.5rem] cursor-pointer" link-img=itemColor.img)
+                                - var className = $indexColor === 0 ? "rounded-full active-outline" : "rounded-full"
+                                - className = itemColor.color ? className + "" : className + "hidden-opacity"
+                                img(class=className src=itemColor.color)
+
+                div(class="slick-item_content p-[0_1.5rem]")
+                    a(class="hover:text-main" href="#") #{item.title}
+                div(class="slick-item_price p-[0_1.5rem] mt-[2rem] text-[1.4rem] font-[500] text-main-200")
+                    div(class="flex justify-between items-center")
+                        span(class="text-main") <span class="font-bold ">#{item.price}</span>円
+                        span(class="w-[3rem]")
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none"><path d="M40 20C40 31.0457 31.0457 40 20 40C8.9543 40 0 31.0457 0 20C0 8.9543 8.9543 0 20 0C31.0457 0 40 8.9543 40 20Z" fill="#F4EEDE"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M20 39C30.4934 39 39 30.4934 39 20C39 9.50659 30.4934 1 20 1C9.50659 1 1 9.50659 1 20C1 30.4934 9.50659 39 20 39ZM20 40C31.0457 40 40 31.0457 40 20C40 8.9543 31.0457 0 20 0C8.9543 0 0 8.9543 0 20C0 31.0457 8.9543 40 20 40Z" fill="#E0CEAA"></path><path d="M24.6303 13.0475C21.1599 12.6141 20.1325 15.2731 19.9498 15.8939C19.9498 15.929 19.8927 15.929 19.8813 15.8939C19.6872 15.2731 18.6712 12.6141 15.2008 13.0475C10.7942 13.598 9.94946 19.2323 12.2212 21.8913C13.7624 23.6834 18.1347 28.2166 19.516 29.6574C19.7329 29.8799 20.0754 29.8799 20.2923 29.6574C21.6736 28.2166 26.0231 23.6483 27.5985 21.8913C29.8246 19.3846 29.0255 13.598 24.6303 13.0592V13.0475Z" fill="white"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M20.71 13.7155C21.5303 12.9243 22.8044 12.3156 24.6923 12.5513L25.1303 12.606V12.6345C27.314 13.0817 28.6041 14.7598 29.0816 16.6125C29.5838 18.5614 29.2205 20.8178 27.9723 22.2232L27.9708 22.225C26.3886 23.9896 22.0328 28.5644 20.6532 30.0034L20.6504 30.0063C20.2372 30.4303 19.5711 30.4303 19.1579 30.0063L19.1551 30.0034C19.0204 29.8629 18.8567 29.6924 18.6696 29.4975C16.9484 27.7051 13.2425 23.8458 11.8421 22.2172L11.8411 22.216C10.5806 20.7407 10.2109 18.4905 10.7232 16.551C11.2417 14.5881 12.6912 12.8571 15.1388 12.5513C17.0268 12.3156 18.2983 12.9244 19.1172 13.7158C19.4631 14.0501 19.7219 14.4106 19.9131 14.7399C20.1043 14.4099 20.3636 14.0496 20.71 13.7155ZM20.4367 16.0109C20.4106 16.1259 20.3464 16.23 20.2517 16.3052C20.1392 16.3945 20.0145 16.4202 19.9198 16.4202C19.7436 16.4202 19.4942 16.3207 19.4058 16.0484L19.4041 16.0431C19.3181 15.7679 19.0477 15.0393 18.4222 14.4349C17.817 13.8499 16.8452 13.346 15.2628 13.5436M20.4367 16.0109C20.5237 15.7266 20.7953 15.0226 21.4043 14.4352C21.9606 13.8986 22.8266 13.4302 24.1869 13.5086L24.5695 13.5555C26.5138 13.7938 27.68 15.181 28.1132 16.862C28.5527 18.5673 28.2028 20.4571 27.2253 21.5584C25.6567 23.3078 21.3185 27.8645 19.9334 29.3092C19.9258 29.3168 19.9197 29.3202 19.9158 29.3218C19.9115 29.3236 19.9076 29.3243 19.9041 29.3243L19.8997 29.3239C19.8975 29.3235 19.8951 29.3229 19.8925 29.3218C19.8885 29.3201 19.882 29.3165 19.8741 29.3084L19.516 29.6573L19.8769 29.3113C19.7411 29.1696 19.5769 28.9986 19.3897 28.8037C17.6628 27.0052 13.9813 23.1711 12.6009 21.5659C11.59 20.3822 11.2464 18.4861 11.6901 16.8064C12.1276 15.1498 13.3038 13.7884 15.2628 13.5436" fill="#E0CEAA"></path></svg>
+        
+        

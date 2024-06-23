@@ -1,0 +1,27 @@
+extends ../../layout/default.pug
+include ../../mixin/select-tree.pug
+block main
+    div(class="bg-white  py-3 px-5 ")
+        h1(class="text-4xl font-bold pb-5") Add Category
+        div(class="")  
+            form(method='POST', action='/admin/categories/add-categorie', enctype='multipart/form-data')
+                div(class='form-group pb-5')
+                    label(for='title' class="block text-2xl font-semibold mb-2 text-main-300") Title
+                    input(id="name" class="form-control w-full py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5" name='title', type='text', placeholder='Enter name')
+                div(class='form-group pb-5 ')
+                    label(for='title' class="block text-2xl font-semibold mb-2 text-main-300") Parent Categories
+                    select(id="parent_id" class="form-control custom-select  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 " name='parent_id')
+                        option(value='') Select Categories
+                        +select-tree-create(categories)
+                    
+                div(class="form-group pb-5")
+                    label(for="description" class="block text-2xl font-semibold mb-2 text-main-300") Description
+                    textarea(id="description" tinymce class="form-control w-full py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5" name='description', placeholder='Enter description')
+                div(class='form-group pb-5')
+                    label(for='image' class="block text-2xl font-semibold mb-2 text-main-300") Image
+                    input(id="image" preview class=" form-control border border-gray-300  file:outline-none file:border-none file:px-3 file:py-5 file:cursor-pointer file:bg-main file:text-white file:rounded-l-lg rounded-xl cursor-pointer" name='image', type='file')
+                    div(class="preview mt-4 overflow-hidden ")
+                        div(class="inline-block ")
+                            img(id="imagePreview" class="w-[18rem] h-[15rem] object-cover rounded-tl-2xl rounded-tr-2xl" src="/images/no-image.png" )
+                            div(class="button-delete-image  font-bold text-center rounded-bl-2xl rounded-br-2xl   cursor-pointer   bg-[#7c1818] text-white px-2 py-2 hidden hover:bg-main-200 transition-all") Delete
+                button(class="bg-main px-3 py-5 text-white rounded-lg inline-block w-full font-bold") Add Categorie

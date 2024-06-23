@@ -1,0 +1,16 @@
+mixin menu-bar(text_main,icon="", children = [],router="")
+    a(href=text_main.key class="menu-bar text-main  hover:text-main flex justify-between items-center py-6 px-4   transition-all duration-300 ease-in-out")
+        div(class="")
+            i(class=`${icon} icon-c  text-2xl `)
+            span(class="ml-4 text-c  font-bold")
+                | #{text_main.text}
+        if children.length>0
+            div(class="button-menu-sider-icon")
+                i(class="bi bi-caret-down-fill")
+    if(children.length>0)
+        div(class="children-menu-sider hidden")
+            each item in children
+                a(href=`/admin${router}/${item.key}` class="" key=item.key)
+                    i(class=`bi bi-plus text-2xl`)
+                    span(class="ml-4  font-bold")
+                        | #{item.text}

@@ -6,6 +6,9 @@ import slugify from "slugify";
 //   CategoryName VARCHAR(255) NOT NULL,
 //   Slug VARCHAR(255) NOT NULL,
 //   ParentID INT,
+//  Description TEXT,
+//   Deleted BOOLEAN DEFAULT FALSE,
+//   Thumbnail VARCHAR(255),
 //   Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 //   Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 // );
@@ -29,7 +32,18 @@ const Categorie = sequelize.define(
     },
     ParentID: {
       type: DataTypes.INTEGER,
+      defaultValue: null,
     },
+    Thumbnail: {
+      type: DataTypes.STRING,
+    },
+    Deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
+    Description:{
+      type: DataTypes.STRING
+    }
   },
   {
     tableName: "Categories",
@@ -47,7 +61,14 @@ const Categorie = sequelize.define(
         }
         categorie["Slug"] = slug;
       },
+     
     },
+    indexes: [
+      {
+        unique: true,
+        fields: ['Slug']
+      }
+    ]
   }
 );
 

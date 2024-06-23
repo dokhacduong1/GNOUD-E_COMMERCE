@@ -1,0 +1,6 @@
+mixin select-tree-create(items,level =1,idOrigin=null)
+    each item in items
+        - const prefix  = Array(level + 1).join("- ")
+        option(value=item.ParentID ) <strong>#{prefix}</strong>#{item.CategoryName} 
+          if item.children && item.children.length >0
+            +select-tree-create(item.children,level +1,idOrigin)

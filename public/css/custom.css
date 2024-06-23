@@ -8,7 +8,9 @@
   display: -webkit-box;
   overflow: hidden;
 }
-
+.hidden-opacity{
+  opacity: 0;
+}
 .item-main:hover .item-chirld {
   display: block;
 }
@@ -45,6 +47,83 @@
   top: calc(50% - 7px);
   transform: rotate(90deg);
 }
+
+
+
 .slick-prev:before, .slick-next:before{
-  color: #c6c6c6
+  color: #3c3c43;
+  font-weight: 900;
+  font-family: "Font Awesome 6 free";
+  transition: all 0.3s ease;
+}
+
+.slick-prev:hover:before, .slick-next:hover:before{
+  color: #c6c6c6;
+}
+.slick-next:before{
+  content:"\f054";
+}
+.slick-prev:before{
+  content:"\f104";
+}
+
+//Đoạn này của 
+.slick-item__img{
+  opacity:0;
+}
+.slick-item__img:after , .slick-item__img-index:after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  opacity: 0;
+}
+.slick-box:hover .slick-item__img:hover:after {
+  opacity: 0.1;
+}
+
+.slick-box:hover .slick-item__img-index:hover:after {
+  opacity: 0.1;
+}
+
+
+
+.select2-container--default .select2-selection--single{
+  border:none;
+  background:#f2f2f2;
+  padding: 0.75rem 1.25rem;
+  height:38px
+}
+.select2-container .select2-selection--single .select2-selection__rendered{
+  padding-left:0;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+  top:0.7rem;
+}
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable{
+  background-color: #3C3C43;
+  color: #fff;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field {
+  border:1px solid #3C3C43;
+}
+.select2-container--default .select2-results__option--selected {
+  background-color: #f9f9f9;
+
+}
+.select2-dropdown {
+  border: 1px solid #dcdcdc;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field {
+  border-radius:5px;
+}
+.select2-container--default .select2-search--dropdown .select2-search__field:focus-visible {
+  outline: none;
+}
+.select2-results__option {
+  padding:1.3rem;
 }

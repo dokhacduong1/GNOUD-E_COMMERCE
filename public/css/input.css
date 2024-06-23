@@ -12,8 +12,49 @@ html{
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+a{
+    @apply hover:text-main
+}
 
 .select-categories{
     @apply before:bg-main before:bottom-0 before:h-[0.3rem] before:left-0 before:absolute before:w-full before:content-[''];
 }
+.active-outline{
+    @apply outline-1 outline-offset-1 outline
+}
+
+/* slider */
+.active-menu-sider > a{
+    @apply bg-main text-white rounded-2xl hover:!text-white
+}
+.active-menu-sider{
+    @apply hover:!bg-transparent
+}
+.children-menu-sider{
+    @apply pl-[2rem] bg-[#f5f5f5] mt-1 py-4 !text-main-50 text-[1.4rem]
+}
+.children-menu-sider a{
+    @apply flex items-center py-6 px-4   transition-all duration-300 ease-in-out
+}
+.active-menu-sider .children-menu-sider a.active{
+    @apply text-main font-bold
+}
+.active-size-slider{
+    @apply w-[10rem]
+}
+.active-size-slider .text-c{
+    @apply hidden
+}
+.active-size-slider .icon-c{
+    @apply text-[2rem]
+}
+.active-size-slider .button-menu-sider-icon{
+    @apply hidden;
+}
+.active-size-slider .children-menu-sider{
+    @apply absolute top-0 left-[9.3rem] z-50
+}
+.active-size-slider .nav-slider .menu-bar{
+    @apply !justify-center
+}
+/* end slider */

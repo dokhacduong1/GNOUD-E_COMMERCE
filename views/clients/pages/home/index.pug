@@ -1,13 +1,20 @@
 extends ../../layout/default.pug
 include ../../mixin/slick-banner.pug
+include ../../mixin/slick-item.pug
+include ../../mixin/title-content.pug
+include ../../mixin/button-custom.pug
 block main
     div(class="d-notice mt-[2.4rem] ")
         div(class="bg-[#F5F5F5] p-[2rem] mb-[2.4rem] mt-[7rem]")
             a(class="text-[1.4rem] text-main-200 leading-3 font-[300] hover:text-main-200 hover:underline transition-all" href="#") ・【再度のお願い】2023年発売「お手入れがしやすい首振りサーキュレーター6畳」商品回収のお知らせ
 
     +slick-banner(banner)
-        
+    +slick-item-sample-one(slickItemsSampleOne)
+    +title-content('新商品')
+    +slick-item-sample-two(slickItemsSampleTwo)
+    +button-one('もっと見る')
 
 block script
-    script(src="js/client/slick-banner.js")
+    script(src="js/client/slick-slick.js")
+    script(src="js/client/slick-item-sample-two.js")
     

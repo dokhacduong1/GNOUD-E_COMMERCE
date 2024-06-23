@@ -1,0 +1,17 @@
+include ../mixin/menu-bar.pug
+div(class="w-[30rem] h-full  md:h-screen  transition-all box-witdh-slider")
+    div(class="box-slider relative")
+        div(class="box-logo flex justify-center items-center mb-4 px-3")
+            img(src="/images/logo.png" alt="logo")
+        div(class="box-slider-content")
+            nav(class="nav-slider")
+                ul(class="flex flex-col")
+                    li(class="mb-4 p-[1rem] hover:bg-[#f3f3f3] menu-menu relative"  key = "admin")
+                        +menu-bar({key:'/admin',text:'Dashboard'},"bi bi-house-door-fill")          
+                    li(class="mb-4 p-[1rem] hover:bg-[#f3f3f3] menu-menu relative" key="products")
+                        +menu-bar({key:'#',text:'Products'},"bi bi-box-fill", [{key:'add-product',text:'Add Product'}, {key:'management-product',text:'Management Product'}]  ,router="/products")                
+                    li(class="mb-4 p-[1rem] hover:bg-[#f3f3f3] menu-menu relative" key = "categories")
+                        +menu-bar({key:'#',text:'Categories'},"bi bi-bookmark-star-fill",[{key:'add-categorie',text:'Add Category'}, {key:'management-categorie',text:'Management Categories'}]  ,router="/categories")
+
+        div(class="box-icon-arrow absolute top-[4rem] -right-3 cursor-pointer")
+            i(class="bi bi-arrow-left-circle-fill text-[2rem] w-full h-full")
