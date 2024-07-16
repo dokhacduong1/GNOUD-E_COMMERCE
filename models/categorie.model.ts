@@ -2,26 +2,27 @@ import { DataTypes, Op } from "sequelize";
 import sequelize from "../configs/database";
 import slugify from "slugify";
 // CREATE TABLE Categories (
-//   CategoryID INT AUTO_INCREMENT PRIMARY KEY,
-//   CategoryName VARCHAR(255) NOT NULL,
+//   ID INT AUTO_INCREMENT PRIMARY KEY,
+//   Title VARCHAR(255) NOT NULL,
 //   Slug VARCHAR(255) NOT NULL,
 //   ParentID INT,
 //  Description TEXT,
 //   Deleted BOOLEAN DEFAULT FALSE,
 //   Thumbnail VARCHAR(255),
+//   Status ENUM('active', 'inactive') DEFAULT 'active',
 //   Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 //   Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 // );
 
 const Categorie = sequelize.define(
-  "Categorie",
+  "Categories",
   {
-    CategoryID: {
+    ID: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
       primaryKey: true,
     },
-    CategoryName: {
+    Title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -43,6 +44,10 @@ const Categorie = sequelize.define(
     },
     Description:{
       type: DataTypes.STRING
+    },
+    Status:{
+      type: DataTypes.STRING,
+      defaultValue: "active"
     }
   },
   {
@@ -51,15 +56,20 @@ const Categorie = sequelize.define(
     createdAt: "Created_At",
     updatedAt: "Updated_At", 
     hooks: {
+    
       beforeValidate: async (categorie, options) => {
-        let slug = slugify(categorie["CategoryName"], { lower: true });
-        const similarSlugsCount = await Categorie.count({
-          where: { Slug: { [Op.like]: `${slug}%` } },
-        });
-        if (similarSlugsCount > 0) {
-          slug = `${slug}-${similarSlugsCount + 1}`;
+        if (typeof categorie["Title"] === 'string') {
+          let slug = slugify(categorie["Title"], { lower: true });
+          const similarSlugsCount = await Categorie.count({
+            where: { Slug: { [Op.like]: `${slug}%` } },
+          });
+          if (similarSlugsCount > 0) {
+            slug = `${slug}-${similarSlugsCount + 1}`;
+          }
+          categorie["Slug"] = slug;
+        } else {
+          console.error('Title is not a string:', categorie["Title"]);
         }
-        categorie["Slug"] = slug;
       },
      
     },

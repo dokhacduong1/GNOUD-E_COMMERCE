@@ -1,0 +1,6 @@
+mixin select-row(arr=[],key_select_row="")
+    if arr.length
+        div(class="select-row flex items-center border border-gray-200 rounded-lg overflow-hidden ")
+            each item, $index in arr
+                div(class=`border-r border-gray-200 pr-4 p-3 ${key_select_row === item.key ? 'active-select-row' : ''}` key=item.key)
+                    a(class="hover:text-main")= item.name

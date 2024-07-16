@@ -2,19 +2,19 @@ import { DataTypes } from "sequelize";
 import sequelize from "../configs/database";
 
 // CREATE TABLE ProductCategories (
-//     ProductID INT,
+//     ID INT,
 //     CategoryID INT,
 //     PRIMARY KEY (ProductID, CategoryID),
 //     CONSTRAINT FK_Products_ProductCategories
 //     FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
 //     CONSTRAINT FK_Categories_ProductCategories
-//     FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
+//     FOREIGN KEY (CategoryID) REFERENCES Categories(ID)
 // );
 
 const ProductCategorie = sequelize.define(
   "ProductCategorie",
   {
-    ProductID: {
+    ID: {
       type: DataTypes.INTEGER,
       primaryKey: true,
     },

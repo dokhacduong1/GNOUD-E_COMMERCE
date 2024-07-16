@@ -1,5 +1,5 @@
 interface TreeNode {
-    CategoryID: number;
+    ID: number;
     ParentID?: number;
     children: TreeNode[];
     // Thêm các thuộc tính khác của item ở đây nếu cần
@@ -11,17 +11,17 @@ export const createTree = (arr: TreeNode[]): TreeNode[] => {
   
     // Tạo một mục nhập trong bản đồ cho mỗi nút và sắp xếp lại arr theo id
     arr.forEach((item) => {
-      treeMap[item.CategoryID] = item;
-      treeMap[item.CategoryID].children = [];
+      treeMap[item.ID] = item;
+      treeMap[item.ID].children = [];
     });
   
     // Duyệt qua lại arr để xây dựng cây và cập nhật mảng tree
     arr.forEach((item) => {
       const parent = treeMap[item.ParentID];
       if (parent) {
-        parent.children.push(treeMap[item.CategoryID]);
+        parent.children.push(treeMap[item.ID]);
       } else {
-        tree.push(treeMap[item.CategoryID]);
+        tree.push(treeMap[item.ID]);
       }
     });
   

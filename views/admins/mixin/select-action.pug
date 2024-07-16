@@ -1,0 +1,15 @@
+mixin select-action(path="")
+    form( 
+        select-options 
+        class=" w-[30rem] mb-5 flex flex-row gap-3"
+        action=path 
+        method='POST' 
+    )
+        select(class="form-control custom-select  py-3 outline-none rounded-lg  px-5 " name='type')
+            option(value='') Select Options
+            option(value='active') Active
+            option(value='inactive') Inactive
+            option(value='delete-all') Delete
+        input(class="hidden form-control" type="text" name="ids" value="")
+        div(class="")
+            button(type='submit' class="bg-main px-3 py-3 text-white rounded-lg inline-block w-full font-bold hover:bg-main-50 transition-all") Action

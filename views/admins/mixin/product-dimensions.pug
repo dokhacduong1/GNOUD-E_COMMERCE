@@ -1,0 +1,26 @@
+mixin product-dimensions()
+    div(class="product-dimensions mb-5")
+        div(class="pb-5 ")
+            label(class="block text-xl font-semibold mb-2 text-main-300") Product Dimensions?
+            +switch()
+        div(class="list-product-dimensions hidden")
+            div(class="flex flex-row items-center justify-between mb-4")
+                label(class="block text-xl font-semibold  text-main-300") Options Dimensions
+                div(class="add-row-dimension flex items-center pr-3 basis-12/12 select-none")
+                    div(class="text-white text-2xl rounded-xl  p-5 cursor-pointer bg-main-50 hover:bg-main flex gap-3 items-center")
+                        span Add Row
+                        i(class="fa-solid fa-plus")
+            div(class="flex flex-row gap-3 flex-wrap  items-center")
+                div(class="inline-flex flex-wrap flex-row gap-1  dimensions-product border  rounded-lg basis-full")
+                    div(class="2xl:basis-[14%] xl:basis-[24%] lg:basis-[49%] sm:basis-full flex-col overflow-hidden p-3  dimension-product relative flex"  key=1)
+                        div(class="flex flex-row gap-1 items-center")
+                            div(class="mb-2 label_dimension flex flex-row justify-between items-center w-full")
+                                label(class="block text-xl font-semibold  text-main-300") Options 1
+                        div(class="dimension-check")
+                            div(class="title_dimension")
+                                input(type="text" class="text-main-200 bg-[#efefef] outline-none border border-gray-200 rounded-lg p-3 w-full mb-2")
+                            div(class="flex flex-row gap-1 options-dimension mb-2 item-node")
+                                input(type="text" class="bg-white  outline-none border border-gray-200 rounded-lg p-3 w-full ")
+                            div(class="button-add-option select-none")
+                                div(class=" text-center transition-all bg-main text-white inline-block p-4 rounded-md cursor-pointer hover:text-ellipsis w-full hover:bg-main-50") Add Option
+

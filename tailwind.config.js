@@ -44,10 +44,15 @@ module.exports = {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(50%)' }
         },
+        modalShow: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 }
+        },
       },
       animation: {
         modalSlideIn: 'modalSlideIn 0.2s ease-in-out',
-        modalSlideOut: 'modalSlideOut 0.5s ease-in-out'
+        modalSlideOut: 'modalSlideOut 0.5s ease-in-out',
+        modalShow: 'modalShow 0.5s ease-in-out'
       }
     },
     screens: {

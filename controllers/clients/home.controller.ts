@@ -7,13 +7,7 @@ export const index = async function (
   res: Response
 ): Promise<void> {
   try {
-    const coutProduct = await Product.findAll({
-      where: {
-        Status: "Active",
-        Deleted: false,
-      },
-      raw: true,
-    });
+  
     const data = [
       [
         {

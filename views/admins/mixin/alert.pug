@@ -1,0 +1,33 @@
+mixin alert-success(time)
+    if (messages.success)
+        .message.info
+        div(
+            class="alert alert-success text-2xl bg-green-100 text-green-500 rounded-xl p-[1rem_3rem] flex items-center gap-[3rem]"
+            show-alert
+            data-time=time
+            )
+            div(class="flex gap-5 items-center")
+                div(class="icon-demo")
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                div(class="content-message")
+                    span(class="font-bold") Success: 
+                    span #{messages.success}
+
+            <div close-alert class="cursor-pointer bg-green-200 rounded-full w-[2.5rem] h-[2.5rem] flex items-center justify-center"><i class="fa-solid fa-xmark font-bold"></i></div>
+
+mixin alert-error(time)
+    if (messages.error)
+        .message.error
+        div(
+            class="alert alert-danger text-2xl bg-red-100 text-red-500 rounded-xl p-[1rem_3rem] flex items-center gap-[3rem]"
+            show-alert
+            data-time=time
+            )
+            div(class="flex gap-5 items-center")
+                div(class="icon-demo")
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                div(class="content-message")
+                    span(class="font-bold") Error: 
+                    span #{messages.error}
+
+            <div close-alert class="cursor-pointer bg-red-200 rounded-full w-[2.5rem] h-[2.5rem] flex items-center justify-center"><i class="fa-solid fa-xmark font-bold"></i></div>
