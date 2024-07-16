@@ -1,14 +1,20 @@
+include ../mixin/alert.pug
 doctype html
 html(lang="en")
     head
         title= title
         meta(charset="UTF-8")
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
-        script(src="https://cdn.tiny.cloud/1/9yecvyh5m7fyb3z4mofetyifuc2ktpz5de78j55h483do465/tinymce/7/tinymce.min.js" referrerpolicy="origin")
+        <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.2.1/tinymce.min.js" referrerpolicy="origin")
+
         script(src="https://code.jquery.com/jquery-3.6.0.min.js")
         link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.16.13/antd.min.css")
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css")
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css")
+       
         link(rel="stylesheet" href="/css/styles.css")
 
         link(rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css")
@@ -16,6 +22,8 @@ html(lang="en")
         link(rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css")
         link(rel="stylesheet" href="/css/custom.css")
     body
+        +alert-success(3000)
+        +alert-error(3000)
         div(class="root box-border")
             div(class="font-Hiragino")
                 div(class="flex flex-row")
@@ -23,10 +31,16 @@ html(lang="en")
                     div(class="bg-[#f3f3f3] w-full ")
                         div(class="ml-10")
                             block main
+        
         script(src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js")
         script(src="/js/admins/select-custom.js")
         script(src="/js/admins/tinymce.js") 
         script(src="/js/admins/slider-bar.js")
         script(src="/js/admins/preview-image.js")
+        script(src="/js/admins/showAlert.js")
+        script(src="/js/admins/modal-custom.js")
+        script(src="/js/admins/checkBoxMulti.js")
+        
+       
         block script 
 

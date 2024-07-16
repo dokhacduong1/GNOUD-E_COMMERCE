@@ -1,6 +1,15 @@
-mixin select-tree-create(items,level =1,idOrigin=null)
+mixin select-tree-create(items,level =1,idOrigin="")
     each item in items
         - const prefix  = Array(level + 1).join("- ")
-        option(value=item.ParentID ) <strong>#{prefix}</strong>#{item.CategoryName} 
+        - const selected = idOrigin == item.ID ? "selected" : ""
+        option(value=item.ID selected=(item.ID == idOrigin) )  <strong>#{prefix}</strong>#{item.Title}
+          if item.children && item.children.length >0
+            +select-tree-create(item.children,level +1,idOrigin)
+
+mixin select-tree-edit(items,level =1,idOrigin="")
+    each item in items
+        - const prefix  = Array(level + 1).join("- ")
+        - const selected = idOrigin == item.ID ? "selected" : ""
+        option(value=item.ID selected=(item.ID == idOrigin) )  <strong>#{prefix}</strong>#{item.Title}
           if item.children && item.children.length >0
             +select-tree-create(item.children,level +1,idOrigin)

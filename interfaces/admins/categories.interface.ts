@@ -1,6 +1,7 @@
+
 export interface CategoryInterface{
-    CategoryID ?: number;
-    CategoryName ?: string;
+    ID ?: number;
+    Title ?: string;
     Description ?: string;
     Thumbnail ?: string;
     ParentID ?: number;
@@ -8,3 +9,5 @@ export interface CategoryInterface{
     Created_At ?: Date;
     Updated_At ?: Date;
 }
+
+

@@ -1,0 +1,22 @@
+mixin modal(id, title,)
+  div(id=id class="fixed z-10 inset-0 overflow-y-auto  animate-modalShow modal-custom hidden")
+    div(class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0")
+      div(class="fixed inset-0 transition-opacity")
+        div(class="absolute inset-0 bg-gray-500 opacity-75")
+      div(class="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-[50rem] sm:w-full")
+        div(class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4")
+          div(class="sm:flex sm:items-start")
+            div(class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left")
+              h3(class="text-2xl font-bold leading-6  text-gray-900") #{title}
+              div(class="mt-5")
+                block
+        div(class="bg-gray-50 px-4 py-3 sm:px-6 flex gap-5 flex-row w-full")
+          button(type="button" class="basis-1/2 p-5 bg-[#f4f4f4] text-main rounded-xl font-medium btn-close")
+            span(class=" ") Close
+          button(type="button" class="basis-1/2 p5 bg-main text-white rounded-xl font-medium")
+            span(class=" ") Filter
+        div(class="absolute top-[1.5rem] right-[2.5rem] cursor-pointer close-modal")
+            div(class="")
+                <i class="fa-solid fa-xmark text-3xl"></i>
+
+    

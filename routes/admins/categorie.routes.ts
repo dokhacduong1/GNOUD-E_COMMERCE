@@ -7,13 +7,24 @@ import multer from "multer";
 const upload = multer();
 
 const router: Router = Router();
+//[GET]
+router.get("/management", controller.index);
+router.get("/create", controller.getCreate);
+router.get("/delete-categorie/:id", controller.deleteCategory);
+router.get("/edit/:id",controller.getEdit);
 
-router.get("/add-categorie", controller.addCategorie);
+//[POST]
 router.post(
-  "/add-categorie",
+  "/create",
   upload.single("image"),
   validate.createCategorie,
   uploadToCloud.upload_single,
-  controller.createCategorie
+  controller.postCreate
 );
+
+//[PATCH]
+router.patch("/change-status/:status/:id",validate.changeStatus, controller.changeStatus);
+router.patch("/change-multi",controller.changeMulti)
+router.patch("/edit/:id",upload.single("image"),validate.editCategorie,uploadToCloud.upload_single,controller.patchEdit)
+
 export const categorieRoutes: Router = router;

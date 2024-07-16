@@ -5,7 +5,12 @@ const sequelize = new Sequelize(
     '270901',
     {
         host: 'localhost',
-        dialect: 'mysql'
+        dialect: 'mysql',
+        logging: (query, elapsedTime) => {
+            console.log(`Query: ${query}`);
+            console.log(`Thời gian chạy: ${elapsedTime}ms`);
+        },
+        benchmark: true
     }
 )
 sequelize.authenticate().then(() => {

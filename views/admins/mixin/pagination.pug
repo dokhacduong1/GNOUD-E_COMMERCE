@@ -1,0 +1,7 @@
+mixin pagination(objectPagination)
+    div(class="page-row flex items-center justify-between pagination" current=objectPagination.currentPage )
+        div(class="flex items-center gap-5")
+            span(class="text-xl font-bold") Page #{objectPagination.currentPage} of #{objectPagination.totalPage}
+        div(class="flex items-center gap-5")
+            div( class="cursor-pointer p-4 border border-x-gray-200 rounded-xl font-bold hover:bg-main hover:text-white pagination-prev" value=1) Previous 
+            div( class="cursor-pointer p-4 border border-x-gray-200 rounded-xl font-bold hover:bg-main hover:text-white pagination-next" value=objectPagination.totalPage) Next

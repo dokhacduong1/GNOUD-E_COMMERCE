@@ -2,7 +2,7 @@
 create database product_sql
 
 CREATE TABLE Categories (
-    CategoryID INT AUTO_INCREMENT PRIMARY KEY,
+    ID INT AUTO_INCREMENT PRIMARY KEY,
     CategoryName VARCHAR(255) NOT NULL,
     Slug VARCHAR(255) NOT NULL,
     ParentID INT,
@@ -12,22 +12,69 @@ CREATE TABLE Categories (
 -- Tạo bảng Products
 -- Tạo bảng Products với thêm các cột ShortDescription, Description và ImageLink
 CREATE TABLE Products (
-    ProductID INT AUTO_INCREMENT PRIMARY KEY,
-    ProductName VARCHAR(255) NOT NULL,
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Title VARCHAR(255) NOT NULL,
+    Category_ID INT,
     Slug VARCHAR(255) NOT NULL,
     Featured BOOLEAN DEFAULT FALSE,
-    Stock INT DEFAULT 0,
     Status ENUM('Active', 'Inactive') DEFAULT 'Active',
     DiscountPercent INT DEFAULT 0,
     Description TEXT,
-    ImageLink VARCHAR(255),
+    ImageLink VARCHAR(255) DEFAULT "",
     Price DECIMAL(10, 2) NOT NULL,
     Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+CREATE TABLE ProductInformation (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    Product_ID INT,
+    Info_Key VARCHAR(255),
+    Info_Value TEXT,
+    FOREIGN KEY (Product_ID) REFERENCES Products(ID),
+    Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE SizeSpecifications (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    Product_ID INT,
+    TextOption TEXT,
+    FOREIGN KEY (Product_ID) REFERENCES Products(ID),
+    Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
 
 
+CREATE TABLE ProductOptions (
+  ID INT PRIMARY KEY AUTO_INCREMENT,
+  Product_ID INT,
+  Title VARCHAR(50),
+  Color VARCHAR(255),
+  List_Options Text,
+  Stock INT,
+  FOREIGN KEY (Product_ID) REFERENCES Products(ID),
+  Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE ProductImages (
+    ID INT PRIMARY KEY AUTO_INCREMENT,
+    Option_ID INT,
+    ImageURL VARCHAR(255),
+    FOREIGN KEY (Option_ID) REFERENCES ProductOptions(ID),
+    Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+CREATE INDEX idx_productinformation_product_id ON ProductInformation(Product_ID);
+CREATE INDEX idx_sizespecifications_product_id ON SizeSpecifications(Product_ID);
+
+CREATE INDEX idx_productoptions_product_id ON ProductOptions(Product_ID);
+CREATE INDEX idx_productoptions_product_id_title_color_lo_stock ON ProductOptions(Product_ID,Title,Color);
+
+
+CREATE INDEX idx_productimages_option_id ON ProductImages(Option_ID);
+CREATE INDEX idx_productimages_option_id_image_url ON ProductImages(Option_ID,ImageURL);
 -- Tạo bảng Users
 CREATE TABLE Users (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
@@ -80,76 +127,17 @@ CREATE TABLE OrderDetails (
 );
 
 
--- Tạo bảng Colors với thêm cột ColorLink
-CREATE TABLE Colors (
-    ColorID INT AUTO_INCREMENT PRIMARY KEY,
-    ColorName VARCHAR(50) NOT NULL,
-    ColorLink VARCHAR(255),
-    Status ENUM('Active', 'Inactive') DEFAULT 'Active',
-    Slug VARCHAR(255) NOT NULL,
-    Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
--- Tạo bảng ProductColors
-CREATE TABLE ProductColors (
-    ProductID INT,
-    ColorID INT,
-    Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (ProductID, ColorID),
-    CONSTRAINT FK_Products_ProductColors
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
-    CONSTRAINT FK_Colors_ProductColors
-    FOREIGN KEY (ColorID) REFERENCES Colors(ColorID)
-);
-
-
-CREATE TABLE Sizes (
-    SizeID INT AUTO_INCREMENT PRIMARY KEY,
-    SizeName VARCHAR(50) NOT NULL,
-    Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-CREATE TABLE ProductSizes (
-    ProductID INT,
-    SizeID INT,
-    Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (ProductID, SizeID),
-    CONSTRAINT FK_Products_ProductSizes
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
-    CONSTRAINT FK_Sizes_ProductSizes
-    FOREIGN KEY (SizeID) REFERENCES Sizes(SizeID)
-);
 
 
 
-CREATE TABLE ProductCategories (
-    ProductID INT,
-    CategoryID INT,
-    Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (ProductID, CategoryID),
-    CONSTRAINT FK_Products_ProductCategories
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
-    CONSTRAINT FK_Categories_ProductCategories
-    FOREIGN KEY (CategoryID) REFERENCES Categories(CategoryID)
-);
 
 
-CREATE TABLE ProductImages (
-    ImageID INT AUTO_INCREMENT PRIMARY KEY,
-    ProductID INT,
-    ColorID INT,
-    ImageLink VARCHAR(255),
-    Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    CONSTRAINT FK_Products_ProductImages
-    FOREIGN KEY (ProductID) REFERENCES Products(ProductID),
-    CONSTRAINT FK_Colors_ProductImages
-    FOREIGN KEY (ColorID) REFERENCES Colors(ColorID)
-);
+
+
+
+
+
+
 
 
 
@@ -173,3 +161,144 @@ INSERT INTO Products (ProductName, Slug, Featured, Stock, Status, DiscountPercen
 VALUES 
 ('Áo Polo Ngắn Tay', 'ao-polo-ngan-tay', TRUE, 50, 'Active', 0, 'Nó nhẹ, bền và dễ khô sau khi giặt. Có thể mặc cả khi bật và tắt.', 'https://www.muji.com/public/media/img/item/4550583721800_1260.jpg', 299999,false),
 ('Áo Thun Ngắn Tay', 'ao-thun-ngan-tay', TRUE, 50, 'Active', 0, 'Nó nhẹ, bền và dễ khô sau khi giặt. Có thể mặc cả khi bật và tắt.', 'https://www.muji.com/public/media/img/item/4550583935757_1260.jpg?im=Resize,width=800', 399999,false)
+
+
+--Tạo bảng category_count để lưu số lượng sản phẩm của từng danh mục
+CREATE TABLE categories_count (
+    id INT PRIMARY KEY,
+    count INT DEFAULT 0,
+    count_status_inactive INT DEFAULT 0,
+    
+);
+INSERT INTO category_count (id, count) VALUES (1, 0);
+--Tạo trigger sau khi thêm danh mục
+DELIMITER //
+
+CREATE TRIGGER after_category_insert
+AFTER INSERT ON categories
+FOR EACH ROW
+BEGIN
+    UPDATE categories_count SET count = count + 1 WHERE id = 1;
+END //
+
+CREATE TRIGGER after_category_update
+AFTER UPDATE ON categories
+FOR EACH ROW
+BEGIN
+    IF NEW.Status = 'inactive' THEN
+        UPDATE categories_count SET count_status_inactive = count_status_inactive + 1,count = count-1 WHERE id = 1;
+    END IF;
+    IF NEW.Status = 'active' THEN
+        UPDATE categories_count SET count_status_inactive = count_status_inactive - 1,count = count+1 WHERE id = 1;
+    END IF;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER after_category_delete
+AFTER DELETE ON categories
+FOR EACH ROW
+BEGIN
+    DECLARE status_check VARCHAR(50);
+    
+    -- Set status_check to 'active' or 'inactive' based on OLD.Status
+    SET status_check = CASE 
+        WHEN OLD.Status = 'inactive' THEN 'inactive'
+        ELSE 'active'
+    END;
+    
+    -- Update categories_count based on status_check
+    UPDATE categories_count
+    SET count_status_inactive = count_status_inactive + CASE status_check
+            WHEN 'inactive' THEN -1
+            ELSE 0
+        END,
+        count = count + CASE status_check
+            WHEN 'active' THEN -1
+            ELSE 0
+        END
+    WHERE id = 1;
+END //
+
+DELIMITER ;
+
+
+
+
+--Tạo bảng products_count để lưu số lượng sản phẩm của từng danh mục
+CREATE TABLE products_count (
+    id INT PRIMARY KEY,
+    count INT DEFAULT 0,
+    count_status_inactive INT DEFAULT 0
+);
+INSERT INTO products_count (id, count) VALUES (1, 0);
+--Tạo trigger sau khi thêm danh mục
+DELIMITER //
+
+CREATE TRIGGER after_product_insert
+AFTER INSERT ON products
+FOR EACH ROW
+BEGIN
+    UPDATE products_count SET count = count + 1 WHERE id = 1;
+END //
+
+CREATE TRIGGER after_product_update
+AFTER UPDATE ON products
+FOR EACH ROW
+BEGIN
+    IF NEW.Status = 'inactive' THEN
+        UPDATE products_count SET count_status_inactive = count_status_inactive + 1,count = count-1 WHERE id = 1;
+    END IF;
+    IF NEW.Status = 'active' THEN
+        UPDATE products_count SET count_status_inactive = count_status_inactive - 1,count = count+1 WHERE id = 1;
+    END IF;
+END //
+
+DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER after_product_delete
+AFTER DELETE ON products
+FOR EACH ROW
+BEGIN
+    DECLARE status_check VARCHAR(50);
+    
+    -- Set status_check to 'active' or 'inactive' based on OLD.Status
+    SET status_check = CASE 
+        WHEN OLD.Status = 'inactive' THEN 'inactive'
+        ELSE 'active'
+    END;
+    
+    -- Update products_count based on status_check
+    UPDATE products_count
+    SET count_status_inactive = count_status_inactive + CASE status_check
+            WHEN 'inactive' THEN -1
+            ELSE 0
+        END,
+        count = count + CASE status_check
+            WHEN 'active' THEN -1
+            ELSE 0
+        END
+    WHERE id = 1;
+END //
+
+DELIMITER ;
+
+
+
+
+
+CREATE TABLE trash (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    table_name VARCHAR(255),
+    data: TEXT,
+     Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+SHOW VARIABLES LIKE 'event_scheduler';
+SET GLOBAL event_scheduler = ON;
+
+

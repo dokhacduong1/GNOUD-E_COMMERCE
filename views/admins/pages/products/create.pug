@@ -1,0 +1,115 @@
+extends ../../layout/default.pug
+include ../../mixin/select-tree.pug
+include ../../mixin/upload-box.pug
+include ../../mixin/size.pug
+include ../../mixin/switch.pug
+include ../../mixin/product-dimensions.pug
+include ../../mixin/product-details.pug
+block main
+    script.
+        var dropzones = {};
+
+    div(class="bg-white  py-3 px-5 ")
+        div(class="border-b border-gray-300 pb-2 mb-5 ")
+            h1(class="text-4xl font-bold pb-3") Welcome back, Admin
+            h2(class="text-xl font-bold pb-5 text-main-50") This page adds a new product
+
+
+        div(class="")  
+                  
+            div(class='flex flex-row gap-10')
+                form(method='POST' class="create-record" action='/admin/categories/create' enctype='multipart/form-data' class="basis-8/12")
+                    div(class="basis-8/12")
+                        div(class="font-bold mb-4 text-3xl") Basis Infomation
+                        div(class='form-group pb-5')
+                            label(for='title' class="block text-xl font-semibold mb-2 text-main-300") Product Name
+                            input(id="title" class="form-control w-full py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5" name='title' type='text' placeholder='Enter name')
+                        div(class='form-group pb-5 ')
+                            label(for='category_id' class="block text-xl font-semibold mb-2 text-main-300") Category
+                            select(id="category_id" class="form-control custom-select  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 " name='category_id')
+                                option(value='') Select Category
+                                +select-tree-create(categories)
+
+                        div(class="form-group pb-5")
+                            label(for="description" class="block text-2xl font-semibold mb-2 text-main-300") Description
+                            textarea(id="description" tinymce class="form-control w-full py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5" name='description' placeholder='Enter description')
+                        div(class="form-group pb-5")
+                            label(for="price" class="block text-xl font-semibold mb-2 text-main-300") Price
+                            input(id="price" class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 inline-block" name='price',min=0,max=1000000000, type='number' placeholder='Enter price')
+                        div(class="form-group pb-5")
+                            label(for="discount" class="block text-xl font-semibold mb-2 text-main-300") Discount
+                            input(id="discount" class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 inline " name='discount',min=0,max=100, type='number' placeholder='Enter discount')
+                        div(class="form-group pb-5")
+                            label(for="featured" class="block text-xl font-semibold mb-2 text-main-300") Featured
+                            div(class="flex flex-row items-center gap-4")
+                                div(class="flex items-center gap-3")
+                                    input(id="default-radio-1" type="radio" value="1" name="featured" class="accent-main text-white")
+                                    label(for="default-radio-1" class="") Yes
+                                div(class="flex items center gap-3")
+                                    input(checked id="default-radio-2" type="radio" value="0" name="featured" class="accent-main text-white")
+                                    label(for="default-radio-2" class="") No
+                    +product-dimensions()
+                    +product-details()
+                    button(class="bg-main px-3 py-5 text-white rounded-lg inline-block w-full font-bold submit-button-product") Add Product
+                            
+                                
+                                                
+
+
+
+
+                div(class="basis-4/12 options-product")
+                    div(class="font-bold mb-4 text-3xl") Options Product
+                    div(class="border border-main-50 rounded-lg p-5 mb-4 option-product relative")
+                        div(class="form-group pb-5")
+                            label(for="title-option" class="block text-xl font-semibold mb-2 text-main-300") Name Color
+                            input(id="title-option" class="form-control w-full py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5" name='title-option' type='text' placeholder='Enter name color')
+                        div(class="form-group pb-5 color-check")
+                            label(for="color" class="block text-xl font-semibold mb-2 text-main-300") Color Product
+                            +uploadBoxMultiple("color", 1, 120, 120)
+                        div(class="form-group pb-5 list-image-check")
+                            label(for="listImages" class="block text-xl font-semibold mb-2 text-main-300") List Image Product
+                            +uploadBoxMultiple("listImages", 8, 80, 80)
+                        div(class="pb-5 what-size-check")
+                            label(class="block text-xl font-semibold mb-2 text-main-300") What Size?
+                            +switch()
+                        div(class="hidden size-check")
+                            div(class="form-group pb-5 size-check")
+                                label(for="size" class="block text-xl font-semibold mb-2 text-main-300") Size Product
+                                +size()
+                            div(class="pb-5 stock-size flex flex-row flex-wrap gap-6 items-center justify-start")
+                                div(class="form-group pb-5 basis-1/4")
+                                    label(for="stockXS" class="block text-xl font-semibold mb-2 text-main-300 overflow-hidden overflow-ellipsis whitespace-nowrap w-[10rem]") Stock Size XS
+                                    input(id="stockXS" sizeColor="XS" disabled class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 block w-full" name='stock',min=0,max=100,value=0, type='number' placeholder='Enter stock')
+                                div(class="form-group pb-5 basis-1/4")
+                                    label(for="stockS" class="block text-xl font-semibold mb-2 text-main-300 overflow-hidden overflow-ellipsis whitespace-nowrap w-[10rem]") Stock Size S
+                                    input(id="stockS" sizeColor="S" disabled class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 block w-full" name='stock',min=0,max=100,value=0, type='number' placeholder='Enter stock')
+                                div(class="form-group pb-5 basis-1/4")
+                                    label(for="stockM" class="block text-xl font-semibold mb-2 text-main-300 overflow-hidden overflow-ellipsis whitespace-nowrap w-[10rem]") Stock Size M
+                                    input(id="stockM" sizeColor="M" disabled class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 block w-full" name='stock',min=0,max=100,value=0, type='number' placeholder='Enter stock')
+                                div(class="form-group pb-5 basis-1/4")
+                                    label(for="stockL" class="block text-xl font-semibold mb-2 text-main-300 overflow-hidden overflow-ellipsis whitespace-nowrap w-[10rem]") Stock Size L
+                                    input(id="stockL" sizeColor="L" disabled class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 block w-full" name='stock',min=0,max=100,value=0, type='number' placeholder='Enter stock')
+                                div(class="form-group pb-5 basis-1/4")
+                                    label(for="stockXL" class="block text-xl font-semibold mb-2 text-main-300 overflow-hidden overflow-ellipsis whitespace-nowrap w-[10rem]") Stock Size XL
+                                    input(id="stockXL" sizeColor="XL" disabled class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 block w-full" name='stock',min=0,max=100,value=0, type='number' placeholder='Enter stock')
+                                div(class="form-group pb-5 basis-1/4")
+                                    label(for="stockXXL" class="block text-xl font-semibold mb-2 text-main-300 overflow-hidden overflow-ellipsis whitespace-nowrap w-[10rem]") Stock Size XXL
+                                    input(id="stockXXL" sizeColor="XXL" disabled class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 block w-full" name='stock',min=0,max=100,value=0, type='number' placeholder='Enter stock')
+                        div(class="form-group pb-5 normal-check")
+                            label(for="stock" class="block text-xl font-semibold mb-2 text-main-300") Stock
+                            input(id="stock" class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 inline-block" name='stock',min=0,max=100,value=0, type='number' placeholder='Enter stock')
+
+                        div(class="add-options mb-3")
+                            div(class="btn bg-main text-white inline-block p-4 rounded-md cursor-pointer hover:text-ellipsis") Add Options
+
+                        div(class="remove-option text-3xl cursor-pointer text-red-500 font-semibold absolute top-4 right-[1.25rem] hidden")
+                            i(class="fa-solid fa-xmark")
+
+
+block script
+    script(src="/js/admins/upload-box.js")
+    script(src="/js/admins/create-product.js")
+    script(src="/js/admins/list_dimensions.js")
+    script(src="/js/admins/list_details.js")
+    //- script(src="/js/admins/test-sendata.js") 

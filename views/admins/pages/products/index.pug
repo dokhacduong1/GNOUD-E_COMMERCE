@@ -1,0 +1,77 @@
+extends ../../layout/default.pug
+include ../../mixin/select-tree.pug
+include ../../mixin/select-row.pug
+include ../../mixin/search.pug
+include ../../mixin/pagination.pug
+include ../../mixin/modal.pug
+include ../../mixin/select-action.pug
+block main
+    +modal('myModal', 'Set Filter Conditions')
+        div ok
+    div(class="bg-white  py-3 px-5 ")
+        div(class="")
+            h1(class="text-4xl font-bold pb-3") Welcome back, Admin
+            h2(class="text-xl font-bold pb-5 text-main-50") This page is for managing categories
+        div(class="mt-8")
+            div(class="border border-gray-200 rounded-lg p-5")
+                div(class="flex justify-between items-center pb-5")
+                    div(class="")
+                        div(class="font-bold text-2xl pb-2")
+                            h3 All Categories
+                        div(class="text-main-50")
+                            p Keep track of all categories
+                    div(class="flex items-center gap-5")
+                        div(class="flex items-center gap-2 border border-gray-200 rounded-xl p-4 cursor-pointer font-bold")
+                            <i class="bi bi-cloud-arrow-up text-3xl"></i>
+                            span(class="") Immport
+                        div(class="flex items-center gap-2 bg-main text-white rounded-xl p-4 cursor-pointer font-bold")
+                            <i class="bi bi-plus text-3xl"></i>
+                            a(class="hover:text-white" href="/admin/products/create") Add Product
+                div(class="mt-5 options-all")
+                    div(class="flex justify-between  flex-col items-start md:flex-row md:items-center")
+                        +select-row([{key: '', name: 'View All'}, {key: 'active', name: 'Active'}, {key: 'inactive', name: 'Inactive'}],key_select_row)
+                        div(class="search-row flex items-center gap-5 mt-3 md:mt-0")
+                            +search(keyword)
+                            div(class="filter-row flex items-center gap-2")
+                                div(class="border border-gray-200 rounded-lg p-3 cursor-pointer font-bold flex items-center gap-3")
+                                    <i class="bi bi-filter text-3xl"></i>
+                                    span(class="") Filter
+                                
+                div(class="mt-6")
+                    +select-action("/admin/products/change-multi?_method=PATCH")
+                    table(class="w-full border border-transparent block" checkbox-multi)
+                        thead(class="border-b border-t border-gray-200 bg-gray-50 block w-full")
+                            tr(class="flex flex-row items-center")
+                                th(class=" text-left py-3 basis-1/12")
+                                    input(type="checkbox" name="checkall" class="accent-main text-white")
+                                th(class=" text-left py-3 basis-3/12") Info
+                                th(class=" text-left py-3 basis-3/12") Status
+                                th(class=" text-left py-3 basis-3/12") Image
+                                th(class=" text-left py-3 basis-2/12") Action
+                        tbody(class="max-h-[60.4rem] block w-full overflow-auto")
+                            tr(class="border-b border-gray-200 flex flex-row items-center")
+                                td(class="basis-1/12")
+                                    input(type="checkbox" name="id" value="" class="accent-main text-white")
+                                td(class="basis-3/12 truncate ")
+                                    p(title="紳士　風を通すストレッチ半袖布帛ポロシャツ" class="text-2xl py-2")
+                                        <strong>Title: </strong> 紳士　風を通すストレッチ半袖布帛ポロシャツ
+                                    p(class="text-2xl py-2")
+                                        <strong>Price:</strong> 1000 円
+                                    p(class="text-2xl py-2")
+                                        <strong>Stock:</strong> 100
+                                    
+                                td(class="basis-3/12 ")
+                                    span( change-status="" class=` text-xl font-bold cursor-pointer p-2 rounded-md ${'active' == "active" ? "text-green-500 bg-green-100" :"text-red-500 bg-red-100"}` status='active') #{'active' == "active" ? 'Active' : 'Inactive'}
+                           
+                           
+                div(class="mt-8")
+                    +pagination(objectPagination)
+                
+block script
+    script(src="/js/admins/select-row.js")
+    script(src="/js/admins/search.js")  
+    script(src="/js/admins/pagination.js")
+    script(src="/js/admins/filter-row.js")
+    script(src="/js/admins/changeStatus.js")
+    script(src="/js/admins/selectAction.js") 
+                                 
