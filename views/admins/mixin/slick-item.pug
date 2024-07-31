@@ -1,0 +1,27 @@
+mixin slick-item-sample-one(slickItemsSampleOne)
+    div(class="slick-item text-[1.4rem] leading-[1.6] text-main mb-[2.4rem]" href="#")
+        each item in slickItemsSampleOne
+            a(class="slick-box hover:text-main mr-[1rem] w-[20rem]  sm:w-[24rem] md:w-[20rem] md:mr-[1rem]  lg:w-[18.9rem] lg:mr-[1.5rem] xl:mr-[2.5rem] xl:w-[25.3rem]" href="#")
+                div(class="slick-item__img mb-[1.5rem] relative transition-all duration-500 ease-in-out")
+                    img(class=" h-auto " src=item.img alt="sample-1")
+                div(class="slick-item_content")
+                    span(class="") #{item.content}
+
+mixin slick-item-sample-two(item)
+    div(class="slick-item text-[1.4rem] leading-[1.6]  mb-[0.5rem]" href="#")
+        div(class="slick-box " href="#")
+            div(class="slick-item__img-index mb-[1.5rem] relative transition-all duration-500 ease-in-out " href="#")
+                img(class=" h-[8rem] w-[8rem] min-w-[8rem] object-cover rounded-lg" src=item.ListItems[0].img alt="sample-1")
+            div(class="slick-item_listColor mt-2 text-center")
+                div(class="items-color flex gap-1 flex-wrap")
+                    each itemColor, $indexColor in item.ListItems
+                        div(class="item-color min-w-[1.4rem] min-h-[1.4rem] w-[1.4rem] h-[1.4rem] mr-[0.5rem] cursor-pointer mb-[0.5rem]" link-img=itemColor.img title=itemColor.NameColor)
+                            - var className = $indexColor === 0 ? "rounded-full active-outline" : "rounded-full"
+                            - className = itemColor.color ? className + "" : className + "hidden-opacity"
+                            img(class=className src=itemColor.color)
+                            script(class="list-options" type="application/json") !{itemColor.ListOptions}
+
+            
+            
+    
+        

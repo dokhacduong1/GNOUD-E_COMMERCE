@@ -1,0 +1,93 @@
+mixin option-product()
+    div(class="basis-4/12 options-product")
+        div(class="font-bold mb-4 text-3xl") Options Product
+        div(class="border border-main-50 rounded-lg p-5 mb-4 option-product relative")
+            div(class="form-group pb-5")
+                label(for="title-option" class="block text-xl font-semibold mb-2 text-main-300") Name Color
+                input(id="title-option" class="form-control w-full py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5" name='title-option' type='text' placeholder='Enter name color')
+            div(class="form-group pb-5 color-check")
+                label(for="color" class="block text-xl font-semibold mb-2 text-main-300") Color Product
+                +uploadBoxMultiple("color", 1, 120, 120)
+            div(class="form-group pb-5 list-image-check")
+                label(for="listImages" class="block text-xl font-semibold mb-2 text-main-300") List Image Product
+                +uploadBoxMultiple("listImages", 8, 80, 80)
+            div(class="pb-5 what-size-check")
+                label(class="block text-xl font-semibold mb-2 text-main-300") What Size?
+                +switch()
+            div(class="hidden size-check")
+                div(class="form-group pb-5 size-check")
+                    label(for="size" class="block text-xl font-semibold mb-2 text-main-300") Size Product
+                    +size()
+                div(class="pb-5 stock-size flex flex-row flex-wrap gap-6 items-center justify-start")
+                    div(class="form-group pb-5 basis-1/4")
+                        label(for="stockXS" class="block text-xl font-semibold mb-2 text-main-300 overflow-hidden overflow-ellipsis whitespace-nowrap w-[10rem]") Stock Size XS
+                        input(id="stockXS" sizeColor="XS" disabled class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 block w-full" name='stock',min=0,max=100,value=0, type='number' placeholder='Enter stock')
+                    div(class="form-group pb-5 basis-1/4")
+                        label(for="stockS" class="block text-xl font-semibold mb-2 text-main-300 overflow-hidden overflow-ellipsis whitespace-nowrap w-[10rem]") Stock Size S
+                        input(id="stockS" sizeColor="S" disabled class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 block w-full" name='stock',min=0,max=100,value=0, type='number' placeholder='Enter stock')
+                    div(class="form-group pb-5 basis-1/4")
+                        label(for="stockM" class="block text-xl font-semibold mb-2 text-main-300 overflow-hidden overflow-ellipsis whitespace-nowrap w-[10rem]") Stock Size M
+                        input(id="stockM" sizeColor="M" disabled class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 block w-full" name='stock',min=0,max=100,value=0, type='number' placeholder='Enter stock')
+                    div(class="form-group pb-5 basis-1/4")
+                        label(for="stockL" class="block text-xl font-semibold mb-2 text-main-300 overflow-hidden overflow-ellipsis whitespace-nowrap w-[10rem]") Stock Size L
+                        input(id="stockL" sizeColor="L" disabled class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 block w-full" name='stock',min=0,max=100,value=0, type='number' placeholder='Enter stock')
+                    div(class="form-group pb-5 basis-1/4")
+                        label(for="stockXL" class="block text-xl font-semibold mb-2 text-main-300 overflow-hidden overflow-ellipsis whitespace-nowrap w-[10rem]") Stock Size XL
+                        input(id="stockXL" sizeColor="XL" disabled class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 block w-full" name='stock',min=0,max=100,value=0, type='number' placeholder='Enter stock')
+                    div(class="form-group pb-5 basis-1/4")
+                        label(for="stockXXL" class="block text-xl font-semibold mb-2 text-main-300 overflow-hidden overflow-ellipsis whitespace-nowrap w-[10rem]") Stock Size XXL
+                        input(id="stockXXL" sizeColor="XXL" disabled class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 block w-full" name='stock',min=0,max=100,value=0, type='number' placeholder='Enter stock')
+            div(class="form-group pb-5 normal-check")
+                label(for="stock" class="block text-xl font-semibold mb-2 text-main-300") Stock
+                input(id="stock" class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 inline-block" name='stock',min=0,max=100,value=0, type='number' placeholder='Enter stock')
+
+            div(class="add-options mb-3")
+                div(class="btn bg-main text-white inline-block p-4 rounded-md cursor-pointer hover:text-ellipsis") Add Options
+
+            div(class="remove-option text-3xl cursor-pointer text-red-500 font-semibold absolute top-4 right-[1.25rem] hidden")
+                i(class="fa-solid fa-xmark")
+
+mixin option-product-edit(data=[])
+    div(class="basis-4/12 options-product")
+        div(class="font-bold mb-4 text-3xl") Options Product
+        each item,index in data
+            - var nameClass = "option-" + Math.random().toString(36).substring(7);
+            - var nameClass2 = "option-" + Math.random().toString(36).substring(7);
+            div(class="border border-main-50 rounded-lg p-5 mb-4 option-product relative" id-option = item.ID)
+                div(class="form-group pb-5")
+                    label(for="title-option" class="block text-xl font-semibold mb-2 text-main-300") Name Color
+                    input(id="title-option" class="form-control w-full py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5" name='title-option' type='text' placeholder='Enter name color' value=item.Title)
+                div(class="form-group pb-5 color-check")
+                    label(for="color" class="block text-xl font-semibold mb-2 text-main-300") Color Product
+                    +uploadBoxMultipleEdit(nameClass, 1, 120, 120,[{ImageURL:item.Color,ID:item.ID}],'w=95&h=95')
+                div(class="form-group pb-5 list-image-check")
+                    label(for="listImages" class="block text-xl font-semibold mb-2 text-main-300") List Image Product
+                    +uploadBoxMultipleEdit(nameClass2, 8, 80, 80,item.ListImages,'w=80&h=80')
+                div(class="pb-5 what-size-check")
+                    label(class="block text-xl font-semibold mb-2 text-main-300") What Size?
+                    if(item.List_Options !== null)
+                        +switch(true)
+                    else
+                        +switch()
+                if(item.List_Options !== null)
+                    div(class=`${item.List_Options ? '' : 'hidden'} size-check`)
+                        div(class="form-group pb-5 size-check")
+                            label(for="size" class="block text-xl font-semibold mb-2 text-main-300") Size Product
+                            +size-edit(item.List_Options)
+                        div(class="pb-5 stock-size flex flex-row flex-wrap gap-6 items-center justify-start")
+                            each itemStock in item.List_Options
+                                div(class="form-group pb-5 basis-1/4")
+                                    label(for=`stock${itemStock.size}` class="block text-xl font-semibold mb-2 text-main-300 overflow-hidden overflow-ellipsis whitespace-nowrap w-[10rem]") Stock Size #{itemStock.size}
+                                    input(id=`stock${itemStock.size}` sizeColor=itemStock.size  class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 block w-full" name='stock',min=0,max=100,value=itemStock.stock, type='number' placeholder='Enter stock')
+                            
+                else
+                    div(class="form-group pb-5 normal-check")
+                        label(for="stock" class="block text-xl font-semibold mb-2 text-main-300") Stock
+                        input(id="stock" class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 inline-block" name='stock',min=0,max=100, type='number' placeholder='Enter stock' value=item.Stock)
+                if(index === 0)
+                    div(class="add-options mb-3")
+                        div(class="btn bg-main text-white inline-block p-4 rounded-md cursor-pointer hover:text-ellipsis") Add Options
+
+                div(class="remove-option text-3xl cursor-pointer text-red-500 font-semibold absolute top-4 right-[1.25rem] hidden")
+                    i(class="fa-solid fa-xmark")
+                

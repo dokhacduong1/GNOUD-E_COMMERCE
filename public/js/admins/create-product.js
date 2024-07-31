@@ -426,12 +426,13 @@ addOptions.addEventListener("click", function (e) {
 
 
   //ĐOạn này js cho chọn size
-  const sizeCheckboxesAll = document.querySelectorAll("[name='size']");
+  const sizeCheckboxesAll = newOption.querySelectorAll("[name='size']");
   sizeCheckboxesAll.forEach(checkbox => {
     checkbox.addEventListener("change", function () {
-      console.log(this);
+   
       const atr = this.getAttribute("id");
       const inputColor = newOption.querySelector(`input[sizeColor='${atr}']`);
+ 
       if (this.checked) {
         inputColor.removeAttribute("disabled");
       } else {
@@ -488,39 +489,42 @@ addOptions.addEventListener("click", function (e) {
 
 
 // Thêm sự kiện khi nút có class "add-size-product" được click
-document.querySelector(".add-size-product")?.addEventListener("click", function () {
-  let userInput = prompt("Please enter size:"); // Hiển thị prompt để nhập size
-  if (!userInput) return;
-  // Tạo slug từ size và thêm một đoạn HTML mới trước nút add-size-product
-  const idConvertSlug = convertToSlug(`${userInput}`);
-  const sizeConvertSlug = convertToSlug(`stock${userInput}`);
-  this.insertAdjacentHTML("beforebegin", `
-    <div class="flex items-center gap-3 bg-main-50 p-3 text-white rounded-md basic-4/12">
-      <input class="accent-main text-white cursor-pointer border-none" type="checkbox" id="${idConvertSlug}" name="size" value="${userInput}"/>
-      <label for="coding">${userInput}</label>
-    </div>
-  `);
-  
-  // Thêm một đoạn HTML mới vào phần tử cha có class "options-product"
-  this.closest(".options-product").querySelector(".stock-size").insertAdjacentHTML("beforeend", `
-    <div class="form-group pb-5 basis-1/4">
-      <label title="${userInput}" class="block text-xl font-semibold mb-2 text-main-300 overflow-hidden overflow-ellipsis whitespace-nowrap w-[10rem]" for="${sizeConvertSlug}">Stock Size ${userInput}</label>
-      <input class="form-control py-3 outline-none bg-[#f2f2f2] rounded-lg px-5 block w-full" id="${sizeConvertSlug}" sizecolor="${idConvertSlug}" disabled name="stock" min="0" max="100" value="0" type="number" placeholder="Enter stock"/>
-    </div>
-  `);
-  
-  // Thêm sự kiện khi checkbox mới được thêm vào có sự thay đổi
-  document.getElementById(idConvertSlug)?.addEventListener("change", function () {
-    const inputColor = document.querySelector(`input[sizeColor='${this.getAttribute("id")}']`);
-    console.log(`input[sizeColor='${this.getAttribute("id")}]`);
-    if (this.checked) {
-      inputColor.removeAttribute("disabled");
-    } else {
-      inputColor.value = 0;
-      inputColor.setAttribute("disabled", "disabled");
-    }
+document.querySelectorAll(".add-size-product")?.forEach(addSizeProduct => {
+  addSizeProduct.addEventListener("click", function () {
+    console.log(this.closest(".option-product"));
+    let userInput = prompt("Please enter size:"); // Hiển thị prompt để nhập size
+    if (!userInput) return;
+    // Tạo slug từ size và thêm một đoạn HTML mới trước nút add-size-product
+    const idConvertSlug = convertToSlug(`${userInput}`);
+    const sizeConvertSlug = convertToSlug(`stock${userInput}`);
+    this.insertAdjacentHTML("beforebegin", `
+      <div class="flex items-center gap-3 bg-main-50 p-3 text-white rounded-md basic-4/12">
+        <input class="accent-main text-white cursor-pointer border-none" type="checkbox" id="${idConvertSlug}" name="size" value="${userInput}"/>
+        <label for="coding">${userInput}</label>
+      </div>
+    `);
+    
+    // Thêm một đoạn HTML mới vào phần tử cha có class "options-product"
+    this.closest(".option-product").querySelector(".stock-size").insertAdjacentHTML("beforeend", `
+      <div class="form-group pb-5 basis-1/4">
+        <label title="${userInput}" class="block text-xl font-semibold mb-2 text-main-300 overflow-hidden overflow-ellipsis whitespace-nowrap w-[10rem]" for="${sizeConvertSlug}">Stock Size ${userInput}</label>
+        <input class="form-control py-3 outline-none bg-[#f2f2f2] rounded-lg px-5 block w-full" id="${sizeConvertSlug}" sizecolor="${idConvertSlug}" disabled name="stock" min="0" max="100" value="0" type="number" placeholder="Enter stock"/>
+      </div>
+    `);
+    
+    // Thêm sự kiện khi checkbox mới được thêm vào có sự thay đổi
+    document.getElementById(idConvertSlug)?.addEventListener("change", function () {
+      const inputColor = document.querySelector(`input[sizeColor='${this.getAttribute("id")}']`);
+      console.log(`input[sizeColor='${this.getAttribute("id")}]`);
+      if (this.checked) {
+        inputColor.removeAttribute("disabled");
+      } else {
+        inputColor.value = 0;
+        inputColor.setAttribute("disabled", "disabled");
+      }
+    });
   });
-});
+})
 
 
 // Thêm sự kiện khi có sự thay đổi trên input trong phần tử có class "switch"
@@ -535,9 +539,12 @@ document.querySelector(".what-size-check .switch input").addEventListener("chang
 
 // Thêm sự kiện khi có thay đổi trên các checkbox có name "size"
 document.querySelectorAll("[name='size']").forEach(checkbox => {
+ 
   checkbox.addEventListener("change", function () {
+   
     // Lấy input có thuộc tính sizeColor tương ứng với id của checkbox
-    const inputColor = document.querySelector(`input[sizeColor='${this.getAttribute("id")}']`);
+    const inputColor = this.closest(".option-product").querySelector(`input[sizeColor='${this.getAttribute("id")}']`);
+
     if (this.checked) {
       inputColor.removeAttribute("disabled"); // Bỏ thuộc tính disabled nếu checkbox được chọn
     } else {

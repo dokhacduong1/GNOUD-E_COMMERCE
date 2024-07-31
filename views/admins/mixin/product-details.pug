@@ -19,5 +19,33 @@ mixin product-details()
                         div(class="border-r border-t basis-1/2 relative value-detail")
                             label(for="title-option" class="absolute -top-[1.2rem] left-[0.5rem] font-bold bg-white px-3 rounded-lg") Value
                             input(type="text" class="bg-white  outline-none p-3 w-full h-full")
-                        div(class="delete-product-details absolute top-0 h-full flex justify-center items-center -right-8 cursor-pointer hidden")
+                        div(class="delete-product-details absolute top-0 h-full  justify-center items-center -right-8 cursor-pointer hidden")
                             i(class="fa-solid fa-trash-alt text-2xl")
+
+mixin product-details-edit(checked=false,productInfomation=[])
+    div(class="product-details mb-5")
+        div(class="pb-5 ")
+            label(class="block text-xl font-semibold mb-2 text-main-300") Product Detail?
+            +switch(checked)
+        div(class=`list-product-details ${checked ? '' : 'hidden'}`)
+            div(class="flex flex-row items-center justify-between mb-4")
+                label(class="block text-xl font-semibold  text-main-300") Options Details
+                div(class="add-col-details flex items-center pr-3 basis-12/12 select-none")
+                    div(class="text-white text-2xl rounded-xl  p-5 cursor-pointer bg-main-50 hover:bg-main flex gap-3 items-center")
+                        span Add Col
+                        i(class="fa-solid fa-plus")
+            div(class="")
+                div(class="item-product-details")
+                    each item,index in productInfomation
+                        div(class="flex flex-row relative item-product-detail" id-detail=item.ID)
+                            div(class="basis-1/2 relative key-detail border-b border-[#d7d8d9]")
+                                if(index ==0)
+                                    label(for="title-option" class="absolute -top-[1.2rem] left-[0.5rem] font-bold bg-white px-3 rounded-lg") Key
+                                input(type="text" class="text-main-200 bg-[#f1f0f0] outline-none p-3 w-full mb-2 h-full" value=item.Info_Key) 
+                            div(class="border-r border-t basis-1/2 relative value-detail")
+                                if(index ==0)
+                                    label(for="title-option" class="absolute -top-[1.2rem] left-[0.5rem] font-bold bg-white px-3 rounded-lg") Value
+                                input(type="text" class="bg-white  outline-none p-3 w-full h-full" value=item.Info_Value)
+                            if(index>0)
+                                div(class="delete-product-details absolute top-0 h-full flex justify-center items-center -right-8 cursor-pointer ")
+                                    i(class="fa-solid fa-trash-alt text-2xl")

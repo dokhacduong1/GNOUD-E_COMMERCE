@@ -7,9 +7,9 @@ mixin slick-item-sample-one(slickItemsSampleOne)
                 div(class="slick-item_content")
                     span(class="") #{item.content}
 
-mixin slick-item-sample-two(slickItemsSampleOne)
+mixin slick-item-new-product(data)
     div(class="slick-item text-[1.4rem] leading-[1.6] text-main mb-[2.4rem]" href="#")
-        each item in slickItemsSampleOne
+        each item in data
             div(class="slick-box hover:text-main mr-[1rem] w-[20rem]  sm:w-[24rem] md:w-[20rem] md:mr-[1rem]  lg:w-[18.9rem] lg:mr-[1.5rem] xl:mr-[2.5rem] xl:w-[25.3rem]" href="#")
                 a(class="slick-item__img-index mb-[1.5rem] relative transition-all duration-500 ease-in-out cursor-pointer" href="#")
                     img(class=" h-auto " src=item.listImages[0].img alt="sample-1")

@@ -2,7 +2,7 @@
 function toggleProductDimensions() {
   const list_product_dimensions = document.querySelector(".list-product-dimensions");
   list_product_dimensions.classList.toggle("hidden");
-  window.scrollTo(0, document.body.scrollHeight);
+ 
 }
 
 
@@ -19,7 +19,7 @@ function createDivProductDimension(element) {
   `;
   element.insertAdjacentElement("beforebegin", div);
   div.querySelector(".button-remove-option").addEventListener("click", () => div.remove());
-  window.scrollTo(0, document.body.scrollHeight);
+ 
 }
 
 
@@ -62,4 +62,17 @@ document.querySelector(".product-dimensions .button-add-option")?.addEventListen
   createDivProductDimension(this);
 });
 document.querySelector(".product-dimensions .add-row-dimension")?.addEventListener("click", addRowDimension);
+
+
+document.querySelectorAll(".button-remove-option")?.forEach(element =>{
+  const div = element.closest(".options-dimension");
+  element.addEventListener("click", () => div.remove());
+});
+  
+document.querySelectorAll(".delete-option")?.forEach(element =>{
+  const div = element.closest(".dimension-product");
+  element.addEventListener("click", () => div.remove());
+});
+  
+
 

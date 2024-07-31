@@ -20,3 +20,13 @@ mixin size()
                 input(type="checkbox" id="XXL" name="size" value="XXL" class="accent-main text-white cursor-pointer")
                 label(for="XXL") XXL
             div(class="add-size-product cursor-pointer flex items-center gap-3 bg-main hover:bg-main-100 transition-all p-3 text-white rounded-md basic-4/12" ) Add Size
+
+mixin size-edit(data)
+    fieldset
+        div(class="flex flex-row flex-wrap gap-5 list-size-products")
+            each item in data
+                div(class=" flex  items-center gap-3 bg-main-50 p-3 text-white rounded-md basic-4/12")
+                    input(type="checkbox" id=item.size name="size" value=item.size class="accent-main text-white cursor-pointer border-none" checked)
+                    label(for=item.size) #{item.size}
+            div(class="add-size-product cursor-pointer flex items-center gap-3 bg-main hover:bg-main-100 transition-all p-3 text-white rounded-md basic-4/12" ) Add Size
+            

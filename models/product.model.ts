@@ -17,7 +17,12 @@ import slugify from "slugify";
 //   Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 //   Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 // );
-
+const autoCalcSlug = (word) =>
+    word
+    .toLowerCase()
+    .trim()
+    .replace(/ +/g, '_')
+    .replace(/_+/g, '-')
 const Product = sequelize.define(
   "Product",
   {
@@ -74,6 +79,9 @@ const Product = sequelize.define(
       beforeValidate: async (product, options) => {
         if (typeof product["Title"] === "string") {
           let slug = slugify(product["Title"], { lower: true });
+          if(!slug) {
+            slug = autoCalcSlug(product["Title"])
+          }
           const similarSlugsCount = await Product.count({
             where: { Slug: { [Op.like]: `${slug}%` } },
           });
@@ -90,3 +98,4 @@ const Product = sequelize.define(
 );
 
 export default Product;
+'ベビー あたまするっと プリント半袖Ｔシャツ'

@@ -16,47 +16,51 @@ block main
             h2(class="text-xl font-bold pb-5 text-main-50") This page adds a new product
 
 
-        div(class="")  
-                  
+        div(class="")        
             div(class='flex flex-row gap-10')
                 form(method='POST' class="create-record" action='/admin/categories/create' enctype='multipart/form-data' class="basis-8/12")
                     div(class="basis-8/12")
                         div(class="font-bold mb-4 text-3xl") Basis Infomation
                         div(class='form-group pb-5')
                             label(for='title' class="block text-xl font-semibold mb-2 text-main-300") Product Name
-                            input(id="title" class="form-control w-full py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5" name='title' type='text' placeholder='Enter name')
+                            input(id="title" class="form-control w-full py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5" name='title' type='text' placeholder='Enter name' value=product.Title)
                         div(class='form-group pb-5 ')
                             label(for='category_id' class="block text-xl font-semibold mb-2 text-main-300") Category
                             select(id="category_id" class="form-control custom-select  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 " name='category_id')
                                 option(value='') Select Category
-                                +select-tree-create(categories)
+                                +select-tree-create(categories,1,idOrigin)
 
                         div(class="form-group pb-5")
                             label(for="description" class="block text-2xl font-semibold mb-2 text-main-300") Description
-                            textarea(id="description" tinymce class="form-control w-full py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5" name='description' placeholder='Enter description')
+                            textarea(id="description" tinymce class="form-control w-full py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5" name='description' placeholder='Enter description') #{product.Description}
                         div(class="form-group pb-5")
                             label(for="price" class="block text-xl font-semibold mb-2 text-main-300") Price
-                            input(id="price" class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 inline-block" name='price',min=0,max=1000000000, type='number' placeholder='Enter price')
+                            input(id="price" class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 inline-block" name='price',min=0,max=1000000000, type='number' placeholder='Enter price' value=product.Price)
                         div(class="form-group pb-5")
                             label(for="discount" class="block text-xl font-semibold mb-2 text-main-300") Discount
-                            input(id="discount" class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 inline " name='discount',min=0,max=100, type='number' placeholder='Enter discount')
+                            input(id="discount" class="form-control  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 inline " name='discount',min=0,max=100, type='number' placeholder='Enter discount' value=product.DiscountPercent)
                         div(class="form-group pb-5")
                             label(for="featured" class="block text-xl font-semibold mb-2 text-main-300") Featured
                             div(class="flex flex-row items-center gap-4")
                                 div(class="flex items-center gap-3")
-                                    input(id="default-radio-1" type="radio" value="1" name="featured" class="accent-main text-white")
+                                    input(id="default-radio-1" type="radio" value="1" name="featured" class="accent-main text-white" checked = product.Featured === 1 ? true : false)
                                     label(for="default-radio-1" class="") Yes
                                 div(class="flex items center gap-3")
-                                    input(checked id="default-radio-2" type="radio" value="0" name="featured" class="accent-main text-white")
+                                    input( id="default-radio-2" type="radio" value="0" name="featured" class="accent-main text-white"  checked = product.Featured === 0 ? true : false)
                                     label(for="default-radio-2" class="") No
-                    +product-dimensions()
-                    +product-details()
-                    button(class="bg-main px-3 py-5 text-white rounded-lg inline-block w-full font-bold submit-button-product") Add Product
-                +option-product()
-
+                    if(size_product.length > 0)
+                        +product-dimensions-edit(true,size_product)
+                    else
+                        +product-dimensions()
+                    if(productInfomation.length > 0)
+                        +product-details-edit(true,productInfomation)
+                    else
+                        +product-details()
+                    button(class="bg-main px-3 py-5 text-white rounded-lg inline-block w-full font-bold submit-button-product") Add Product                                           
+                +option-product-edit(productOptions)
 
 block script
-    script(src="/js/admins/upload-box.js")
+    script(src="/js/admins/upload-box-edit.js")
     script(src="/js/admins/create-product.js")
     script(src="/js/admins/list_dimensions.js")
     script(src="/js/admins/list_details.js")

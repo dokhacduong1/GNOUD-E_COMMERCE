@@ -55,7 +55,7 @@ block main
                                         input(type="checkbox" name="id" value=category.ID class="accent-main text-white")
                                     td(class="basis-3/12")
                                         span(class="text-xl font-bold ") #{category.Title}
-                                    td(class="basis-3/12")
+                                    td(class="basis-3/12" prefix-status="/admin/categories/change-status/")
                                         span( change-status=category.ID class=` text-xl font-bold cursor-pointer p-2 rounded-md ${category.Status == "active" ? "text-green-500 bg-green-100" :"text-red-500 bg-red-100"}` status=category.Status) #{category.Status == "active" ? 'Active' : 'Inactive'}
                                     td(class="py-4 basis-3/12")
                                         if category.Thumbnail

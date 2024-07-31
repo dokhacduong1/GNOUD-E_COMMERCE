@@ -40,16 +40,90 @@ mixin uploadBoxMultiple(nameClass="",maxFile=1,thumbWidth=120, thumbHeight=120)
                     if (this.files.length > this.options.maxFiles && this.files.length > 1) {
                         this.removeFile(this.files[this.files.length-1]); // remove the first file
                     }
-                    console.log()
+                   
                      if (this.files.length >= this.options.maxFiles) {
+                        
                         this.previewsContainer.querySelector(".bg-main").style.display = 'none';
                     }
+                    
                 });
                 this.on("removedfile", (file) => {
                 // If a file is removed and the number of files is less than the limit, show the add file button
                     if (this.files.length < this.options.maxFiles) {
                         this.previewsContainer.querySelector(".bg-main").style.display = 'block';
                     }
+                });
+            }
+        });
+mixin uploadBoxMultipleEdit(nameClass="",maxFile=1,thumbWidth=120, thumbHeight=120,dataImage = [],sizeEdit="")
+   
+    style.
+        .dropzone-#{nameClass} .dz-preview .dz-image{
+            width: #{thumbWidth}px;
+            height: #{thumbHeight}px;
+        }
+        .dropzone-#{nameClass} .dz-preview .dz-image{
+            width: auto !important;
+            height: auto !important;
+            max-width: #{thumbWidth}px;
+            max-height: #{thumbHeight}px;
+        }
+        .dropzone-#{nameClass} .dz-preview .dz-image{
+            width:100%;
+            height:100%;
+        }
+    div(class="my-3")
+        div(action="/admin/upload/multi-image" class=`dropzone dropzone-${nameClass}  flex-wrap border-none flex flex-row items-center p-0 min-h-0` id=nameClass method="POST" enctype="multipart/form-data")
+            div(id=`btnDraw-${nameClass}` class="mr-[1rem]  bg-main text-white px-7 py-5 rounded-lg inline-block cursor-pointer hover:bg-gray-500 transition-all")
+                <i class="fa-solid fa-plus"></i>
+    script.
+
+        Dropzone.autoDiscover = false;
+        var IDoption = [];
+        var nameClass = !{JSON.stringify(nameClass)};
+        dropzones[nameClass] =  new Dropzone(`#${nameClass}`, { 
+            autoProcessQueue: false,
+            paramName: "file",
+            uploadMultiple: true,
+            parallelUploads: 100,
+            maxFilesize: 2,
+            acceptedFiles: 'image/*',
+            addRemoveLinks: true,
+            clickable: true,
+            clickable: `#btnDraw-${nameClass}`,
+            maxFiles: #{maxFile},
+            dictRemoveFile: "<i class=\"fa-solid fa-xmark\"></i>",
+            thumbnailWidth: #{thumbWidth},
+            thumbnailHeight: #{thumbHeight},
+            init: function() {
+                !{JSON.stringify(dataImage)}.forEach((item)=>{
+                    const linkURL = `https://localhost:3000/images/item/${item.ImageURL}.avif?${!{JSON.stringify(sizeEdit)}}`
+                   
+                    let mockFile = { status: "no-edit", size: 12345, accepted: true,ID:item.ID };
+                    this.emit("addedfile", mockFile);
+                    this.emit("thumbnail", mockFile, linkURL);
+                    this.files.push(mockFile); // Add to files array
+                })
+  
+
+                this.on("addedfile", (file) => {
+                    file.ID = IDoption.length > 0 ? IDoption.shift() : null;
+                    if (this.files.length > this.options.maxFiles && this.files.length > 1) {
+                        this.removeFile(this.files[this.files.length-1]); // remove the first file
+                    }
+                  
+                     if (this.files.length >= this.options.maxFiles) {
+                        this.previewsContainer.querySelector(".bg-main").style.display = 'none';
+                    }
+
+                });
+                this.on("removedfile", (file) => {
+                // If a file is removed and the number of files is less than the limit, show the add file button
+                    if (this.files.length < this.options.maxFiles) {
+                        this.previewsContainer.querySelector(".bg-main").style.display = 'block';
+                    }
+
+                   IDoption.push(file.ID)
                 });
             }
         });
