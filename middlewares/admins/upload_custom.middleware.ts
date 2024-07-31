@@ -24,7 +24,7 @@ const axiosInstance = axios.create({
   withCredentials: true, // Allow cookies for this request
 });
 
-const streamUpload = async (base64: string, retries = 0) => {
+const streamUpload = async (base64: string, id = null, retries = 0) => {
   const MAX_RETRIES = 99; // Maximum number of retries
   if (retries >= MAX_RETRIES) {
     console.error("Maximum retries exceeded");
@@ -53,6 +53,7 @@ const streamUpload = async (base64: string, retries = 0) => {
         response?.data.data?.src
           .split(`${process.env.BASE_IMAGE_URL}/`)[1]
           ?.split(".image")[0] || "";
+
       return link;
     } else {
       return "";
@@ -60,6 +61,51 @@ const streamUpload = async (base64: string, retries = 0) => {
   } catch (error) {
     console.error(error);
     return streamUpload(base64, retries + 1);
+  }
+};
+
+const streamUploadEdit = async (base64: string, id = null, retries = 0) => {
+  const MAX_RETRIES = 99; // Maximum number of retries
+  if (retries >= MAX_RETRIES) {
+    console.error("Maximum retries exceeded");
+    return "";
+  }
+
+  const TOKEN = "TndEPk5RVdyKGBePRBRQMcL9iam0UPrf";
+  const form = createFormData(base64);
+
+  try {
+    const response = await axiosInstance.post("/", form, {
+      headers: {
+        ...form.getHeaders(),
+        Cookie: `csrftoken=${TOKEN};`,
+        "x-csrftoken": `${TOKEN}`,
+      },
+    });
+
+    if (response?.data?.code === 100006) {
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // Wait for 2 seconds
+      return streamUploadEdit(base64, id, retries + 1); // Retry the request
+    }
+
+    if (response?.data?.message === "success") {
+      const link =
+        response?.data.data?.src
+          .split(`${process.env.BASE_IMAGE_URL}/`)[1]
+          ?.split(".image")[0] || "";
+      let objectNew = {};
+      if (id) {
+        objectNew["id"] = id;
+      }
+      objectNew["link"] = link;
+
+      return objectNew;
+    } else {
+      return "";
+    }
+  } catch (error) {
+    console.error(error);
+    return streamUploadEdit(base64, id, retries + 1);
   }
 };
 
@@ -75,7 +121,108 @@ const createFormData = (base64: string) => {
 
   return form;
 };
+export const upload_single_base64_products_edit = async function (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> {
+  try {
+    if (req.body.options.length > 0) {
+      for (let item of req.body.options) {
+        const listImages = item.listImages.filter(item=>item.image) || [];
+       
+        if (listImages.length > 0) {
+      
+          const listItem = listImages.map((item: any) =>
+            streamUploadEdit(item.image, item.id)
+          );
 
+          const results = await Promise.allSettled(listItem);
+          console.log(results);
+          item.listImages = results.map((result) =>
+            result.status === "fulfilled" ? result.value : ""
+          );
+          
+        } else {
+          item.listImages = [];
+        }
+
+        if (item.color.length > 0) {
+          const color = item.color[0].image || "";
+          item.color = await streamUpload(color);
+        } else {
+          item.color = "";
+        }
+      }
+    }
+
+    next();
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+// export const upload_single_base64_products_edit = async function (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ): Promise<void> {
+//   try {
+//     if (req.body.options.length > 0) {
+//       for (let item of req.body.options) {
+//         const listImages = item.listImages.filter(item=>item.image) || [];
+       
+//         if (listImages.length > 0) {
+//           item.listImages = [];
+//           for (let imageItem of listImages) {
+//             const result = await streamUploadEdit(imageItem.image, imageItem.id);
+//             item.listImages.push(result);
+//           }
+//         } else {
+//           item.listImages = [];
+//         }
+
+//         if (item.color.length > 0) {
+//           const color = item.color[0].image || "";
+//           item.color = await streamUpload(color);
+//         } else {
+//           item.color = "";
+//         }
+//       }
+//     }
+
+//     next();
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// };
+// export const upload_single_base64_products = async function (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ): Promise<void> {
+//   try {
+//     if (req.body.options.length > 0) {
+//       for (let item of req.body.options) {
+//         const listImages = item.listImages || [];
+//         if (listImages.length > 0) {
+//           const results = await Promise.all(listImages.map(imageItem => streamUpload(imageItem)));
+//           item.listImages = results;
+//         }
+//         if (item.color.length > 0) {
+//           const color = item.color[0] || "";
+//           item.color = await streamUpload(color);
+//         }
+//       }
+//     }
+//     console.log(req.body.options);
+//     next();
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ message: "Internal server error" });
+//   }
+// };
 export const upload_single_base64_products = async function (
   req: Request,
   res: Response,
@@ -97,7 +244,6 @@ export const upload_single_base64_products = async function (
           item.color = await streamUpload(color);
         }
       }
- 
     }
 
     next();
@@ -106,3 +252,4 @@ export const upload_single_base64_products = async function (
     res.status(500).json({ message: "Internal server error" });
   }
 };
+

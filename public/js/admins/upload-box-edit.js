@@ -4,6 +4,11 @@ function getFormObject(form) {
 
 function getOptions() {
   return Array.from(document.querySelectorAll(".option-product")).map(boxOption => {
+    const idOption = boxOption.getAttribute("id-option");
+
+
+
+   
     const titleOption = boxOption.querySelector("#title-option")?.value;
     if (!titleOption) {
       alert("Please enter title option");
@@ -12,11 +17,12 @@ function getOptions() {
     
     const colorCheck = boxOption.querySelector(".color-check .dropzone");
     const listImageCheck = boxOption.querySelector(".list-image-check .dropzone");
-    console.log(dropzones);
+ 
     const record = {
+      id: idOption,
       title: titleOption,
-      color: dropzones[colorCheck.getAttribute("id")].files.map(file =>  file.dataURL ),
-      listImages: dropzones[listImageCheck.getAttribute("id")].files.map(file =>  file.dataURL ),
+      color: dropzones[colorCheck.getAttribute("id")].files.map(file => ({image: file.dataURL,id:file.ID})),
+      listImages: dropzones[listImageCheck.getAttribute("id")].files.map(file => ({image: file.dataURL,id:file.ID})),
     };
   
 
@@ -54,10 +60,11 @@ function getDimensionsOptions() {
 function getDetails() {
   if (document.querySelector(".product-details .switch input").checked) {
     return Array.from(document.querySelectorAll(".item-product-detail")).map(item => {
-      console.log(item);
+      const id = item.getAttribute("id-detail");
+    
       const key = item.querySelector(".key-detail input").value;
       const value = item.querySelector(".value-detail input").value;
-      return { key, value };
+      return {id, key, value };
     });
   }
   return null;
@@ -66,21 +73,22 @@ function getDetails() {
 function handleSubmitForm(e) {
   e.preventDefault();
   tinymce.triggerSave();
-  
+  console.log(IDoption)
   const formObject = getFormObject(e.target);
   formObject.options = getOptions();
   formObject.size_specifications = getDimensionsOptions();
   formObject.product_information = getDetails();
-  
+  formObject.list_delete_images = IDoption;
+  const pathParts = window.location.pathname.split('/');
+  const id = pathParts[pathParts.length - 1];
   console.log(formObject);
-  fetch('/admin/products/create', {
-    method: 'POST',
+  fetch('/admin/products/edit/'+id, {
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(formObject),
   })
-   
 
  
 }

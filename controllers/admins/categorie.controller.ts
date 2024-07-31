@@ -27,7 +27,8 @@ export const index = async function (req: Request, res: Response) {
         status,
         keyword,
         page: queryPage,
-      }
+      },
+
     );
     //Render ra view
     res.render(prefix_client + "/pages/categories/index", {

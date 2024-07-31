@@ -6,8 +6,16 @@ const router: Router = Router();
 
 router.get("/create", controller.getCreate);
 router.get("/management-product", controller.index);
+router.get("/delete/:id", controller.deleteProduct);
+router.get("/edit/:id",controller.getEdit);
+
 
 // [POST]
 router.post("/create",validate.createProduct,uploadToCustom.upload_single_base64_products, controller.postCreate);
+
+//[PATCH]
+router.patch("/change-status/:status/:id",validate.changeStatus, controller.changeStatus);
+router.patch("/change-multi",controller.changeMulti)
+router.patch("/edit/:id",validate.editProduct,uploadToCustom.upload_single_base64_products_edit,controller.patchEdit)
 
 export const productRoutes: Router = router;

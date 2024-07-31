@@ -7,7 +7,7 @@ export const image = async function (
 ): Promise<void> {
   try {
     const nameHost = req.headers.host;
-   
+    // next();
     if (req?.headers?.referer?.includes(nameHost)) {
       next();
       return;

@@ -5,7 +5,7 @@ function toggleProductDetails() {
 }
 
 function addColDetail() {
-    console.log("addColDetail");
+
     const item_product_details = document.querySelector(".item-product-details");
     const customDiv = `
         <div class="basis-1/2 relative key-detail border-b border-[#d7d8d9]">
@@ -31,9 +31,14 @@ function addColDetail() {
     div.querySelector(".delete-product-details").addEventListener("click", function () {
         div.remove();
     });
-    window.scrollTo(0, document.body.scrollHeight);
+
 }
 
 
 document.querySelector(".product-details .switch input")?.addEventListener("change", toggleProductDetails);
 document.querySelector(".product-details .add-col-details")?.addEventListener("click", addColDetail);
+document.querySelectorAll(".delete-product-details")?.forEach(element =>{
+    const div = element.closest(".item-product-detail");
+    element.addEventListener("click", () => div.remove());
+  });
+    

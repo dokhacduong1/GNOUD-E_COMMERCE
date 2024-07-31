@@ -15,7 +15,7 @@ const app = express();
 
 app.use(express.static(`${__dirname}/public`));
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.json({ limit: "100mb" }));
 //Cấu hình để hiển thị thông báo (Flash)
 app.use(cookieParser('FJFDSIOSDFIPDSF'));
 app.use(session({ cookie: { maxAge: 60000 }}));

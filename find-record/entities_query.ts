@@ -38,7 +38,7 @@ export async function findEntitiesQuery(
   name_table: string,
   name_table_count: string,
   options: FindOptions,
-  selectQuery:string = "ID"
+  selectQuery:string = "*"
 ) {
   // Lấy các thuộc tính từ options
   let { status, keyword } = options;
@@ -56,7 +56,7 @@ export async function findEntitiesQuery(
       type: QueryTypes.SELECT,
     }
   );
-  countEntities = countEntities[0]["count"];
+
     
   // Tính toán thông tin phân trang
   const objectPagination = filterQueryPagination(countEntities, page, limit);

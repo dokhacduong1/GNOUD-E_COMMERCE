@@ -66,6 +66,33 @@ CREATE TABLE ProductImages (
     Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+CREATE TABLE ProductPreview (
+    ID INT AUTO_INCREMENT,
+    Product_ID INT NOT NULL,
+    Title VARCHAR(255) NOT NULL,
+    Price DECIMAL(10, 2) NOT NULL,
+    DiscountPercent INT DEFAULT 0,
+    Category_ID INT,
+    Featured BOOLEAN DEFAULT FALSE,
+    Slug VARCHAR(255) NOT NULL,
+    Options TEXT,
+    Status ENUM('active', 'inactive') DEFAULT 'active',
+    Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (ID, Product_ID)
+)
+PARTITION BY RANGE (Product_ID) (
+    PARTITION p0 VALUES LESS THAN (100000),
+    PARTITION p1 VALUES LESS THAN (200000),
+    PARTITION p2 VALUES LESS THAN (300000),
+    PARTITION p3 VALUES LESS THAN MAXVALUE
+);
+-- New product
+CREATE INDEX idx_status_created_at ON ProductPreview (Status, Created_At);
+
+CREATE INDEX idx_productpreview_product_id ON ProductPreview(Product_ID);
+
 CREATE INDEX idx_productinformation_product_id ON ProductInformation(Product_ID);
 CREATE INDEX idx_sizespecifications_product_id ON SizeSpecifications(Product_ID);
 
@@ -75,6 +102,9 @@ CREATE INDEX idx_productoptions_product_id_title_color_lo_stock ON ProductOption
 
 CREATE INDEX idx_productimages_option_id ON ProductImages(Option_ID);
 CREATE INDEX idx_productimages_option_id_image_url ON ProductImages(Option_ID,ImageURL);
+
+
+CREATE INDEX key_active ON user_data(key_active);
 -- Tạo bảng Users
 CREATE TABLE Users (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
