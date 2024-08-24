@@ -73,7 +73,7 @@ function getDetails() {
 function handleSubmitForm(e) {
   e.preventDefault();
   tinymce.triggerSave();
-  console.log(IDoption)
+  
   const formObject = getFormObject(e.target);
   formObject.options = getOptions();
   formObject.size_specifications = getDimensionsOptions();
@@ -81,7 +81,7 @@ function handleSubmitForm(e) {
   formObject.list_delete_images = IDoption;
   const pathParts = window.location.pathname.split('/');
   const id = pathParts[pathParts.length - 1];
-  console.log(formObject);
+
   fetch('/admin/products/edit/'+id, {
     method: 'PATCH',
     headers: {

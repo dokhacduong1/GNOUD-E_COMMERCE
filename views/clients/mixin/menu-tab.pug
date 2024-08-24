@@ -1,0 +1,5 @@
+mixin menu-tab(items)
+    ul(class="flex items-center  gap-10 w-full border-b border-[#d8d8d9]")
+        each item,index in items
+            li(class=`${index === 0 ? "active-tab" :""} flex-1 text-center cursor-pointer` id=`${item.id}`)
+                button(class="border border-solid border-transparent cursor-pointer p-[0_0.4rem_0.4rem] text-[1.2rem] sm:text-[1.6rem] font-bold")  #{item.content}

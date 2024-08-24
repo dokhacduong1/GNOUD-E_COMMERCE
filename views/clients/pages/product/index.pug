@@ -1,0 +1,199 @@
+extends ../../layout/default.pug
+include ../../mixin/breadcrumb.pug
+include ../../mixin/swiper-gallery.pug
+include ../../mixin/menu-tab.pug
+include ../../mixin/product-ratting.pug
+include ../../mixin/info-size.pug
+include ../../mixin/info-key.pug
+include ../../mixin/info-shipping.pug
+include ../../mixin/box-star.pug
+include ../../mixin/box-comment-review.pug
+include ../../mixin/items-product.pug
+include ../../mixin/shopping-guide.pug
+include ../../mixin/box-color.pug
+block style
+    link(rel="stylesheet", href="../css/swiper-custom.css")
+
+block main
+
+    -let check = 0;
+    -let stringC = ''
+    -let indexSize = 0
+    div(class="max-w-[calc(1352px)] mx-auto  ")
+       
+        div(class="sm:hidden lg:block mb-3")
+            +breadcrumb(breadcrumb)
+        div(class="")
+            
+            div(class="info-product  lg:grid lg:grid-cols-[9fr,5fr] lg:gap-x-[98px] w-full")
+                div(class="lg:col-start-2 lg:col-end-3 min-w-0")
+                    div(class="product-tag mb-[0.8rem] inline-block")
+                        div(class = "bg-[#7f0019] text-white text-[1.1rem] p-[0.4rem_0.8rem] font-semibold leading-[1rem] ") NEW
+                    
+                    div(class="product-content")
+                        h1(class="text-[2.6rem]") #{product.Title}
+                        div(class="flex justify-between items-center")            
+                            div(class="product-info-main")
+                                if(productOptions[0].List_Options && productOptions[0].List_Options.length > 0)
+                                    each item,index in productOptions[0]["List_Options"]
+                                        if(check < 1 && item.stock > 0)
+                                            p(class="product-category text-[1.4rem] text-[#76767b] mt-[0.8rem]") #{item.size}・#{productOptions[0].Title}
+                                            -stringC = item.size + "・" + productOptions[0].Title
+                                        if(item.stock > 0)
+                                            -check = 1
+                                    if(check < 1)
+                                        p(class="product-category text-[1.4rem] text-[#76767b] mt-[0.8rem]") 製品・在庫切れ
+                                p(class="product-number  lg:mt-[0.4rem] flex items-center")
+                                    span(class="text-[1.2rem] font-bold mr-[1.6rem]") 商品番号
+                                    span(class="text-[1.2rem] text-main  !font-Roboto") GDX#{product.ID}
+                            div(class="icon-heart  size-[4rem] bg-[#f4eede] border border-solid border-[#e0ceaa] rounded-full flex items-center justify-center hover:bg-[#e0ceaa] hover:text-white cursor-pointer")
+                                button(class="")
+                                    span(class="")
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#FFFFFF" stroke="#E0CEAA"><path d="M14.63 2.047c-3.47-.433-4.498 2.226-4.68 2.846 0 .035-.057.035-.068 0-.194-.621-1.21-3.28-4.681-2.846-4.407.551-5.251 6.185-2.98 8.844 1.541 1.792 5.913 6.325 7.295 7.766a.534.534 0 0 0 .776 0l7.306-7.766c2.226-2.507 1.427-8.293-2.968-8.832v-.012z"></path></svg>
+                        -check = 0
+                        +product-ratting()
+                div(class="lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-span-3 mb-0")
+                    +swiper-gallery(productOptions,product.Product_Sample_Information)
+                div(class="lg:col-start-2 lg:col-end-3 min-w-0")
+                    div(class="product-options mt-[1.4rem]")
+                        div(class="product-option-color")
+                            div(class="color-title flex items-center")
+                                span(class="text-[1.6rem] font-bold") カラー：
+                                span(class="text-[1.6rem]") ネイビーボーダー
+                            div(class="color-list mt-[1.5rem]")
+                                +box-color(productOptions)
+                        div(class="product-option-size mt-[2rem]")
+                            div(class="size-title flex justify-between items-center")
+                                span(class="text-[1.6rem] font-bold") サイズ：
+                                a(class="text-[1.4rem] font-bold cursor-pointer !underline") サイズ表はこちら
+                            div(class="size-list mt-[0.8rem]")
+                                div(class="flex items-center gap-3 lists-size flex-wrap")
+                                    if(productOptions[0].List_Options && productOptions[0].List_Options.length > 0)
+                                        each item,index in productOptions[0]["List_Options"]
+                                            div(id-size=item.size class=`basis-2/12 ${(check < 1 && item.stock>0) ? "size-select" : ""} ${item.stock===0 ? "no-stock" :""} item-size w-full text-[1.2rem] items-center bg-white border border-[#c4c4c6] rounded-[0.4rem] cursor-pointer flex justify-center min-h-[4.5rem] p-[0.8rem] text-center`) #{item.size}
+                                            if(check < 1 && item.stock > 0)
+                                                -indexSize = index
+                                            if(item.stock > 0)
+                                                -check = 1
+                            -check = 0
+                    div(class="product-price mt-[4.8rem]")
+                        div(class="flex items-center justify-center gap-3")
+                            span(class="text-[1.2rem] text-main") 消費税込みで
+                            div(class="flex items-center gap-1")
+                                span(class="text-[2.4rem] text-main font-bold font-Roboto") #{ parseInt(product.Price).toLocaleString()}
+                                span(class="text-[1.2rem] ") 円
+                    div(class="product-count mt-[1.2rem] select-none")
+                        div(class="flex items-center justify-center gap-3")
+                            button(class="font-Roboto cursor-pointer button-no-active-count text-[2rem] font-bold rounded-[0.4rem] h-[4.5rem] w-[4.5rem] flex items-center justify-center")
+                                img(src="../images/tru.svg" alt="minus")
+                            input(class="text-[1.9rem] input-count-product text-center w-[4.8rem] h-[4.8rem] border border-[#c4c4c6] rounded-[0.4rem] p-[0.8rem] font-bold" value=1 max=99 min=0)
+                            button(class="font-Roboto button-active-count text-[2rem] font-bold rounded-[0.4rem] h-[4.5rem] w-[4.5rem] flex items-center justify-center")
+                                img(src="../images/cong.svg" alt="plus")
+                    div(class="product-button mt-[2rem] text-[1.8rem] font-bold")
+                    div(class="add-to-cart  ")
+                        button(class="bg-main w-full flex justify-center text-white items-center gap-2 p-[1.3rem_2rem] lg:p-[2rem_3.2rem] rounded-[0.4rem]")
+                            img(src="../images/add-cart.svg" alt="cart")
+                            span(class="text-[1.8rem] font-bold") カートに入れる
+                    div(class="add-to-detail mt-[1.2rem]  ")
+                        button(class="bg-[#f5f5f5] w-full flex justify-center text-main items-center gap-2 p-[1.3rem_2rem] lg:p-[2rem_3.2rem] rounded-[0.4rem]")
+                            span(class="text-[1.8rem] font-bold") 店舗在庫を確認する 
+
+        
+        div(class="menu-tab -mt-[0.8rem] pt-[7.2rem] ")
+            +menu-tab([{id:"desc",content:"商品説明"},{id:"info-size",content:"仕様・サイズ"},{id:"shipping",content:"配送・送料"}])
+        div(class="menu-content-tab mb-[4rem]  pt-[2.4rem] !text-main " )
+            div(class="description !text-[1.6rem] !text-main  tab-child " id-tab ="desc")
+                | !{product.Description}
+            div(class="info-size-option hidden tab-child" id-tab ="info-size")
+                if(size_product && size_product["TextOption"])
+                    +info-size(size_product)
+                if(productInfomation && productInfomation.length > 0)
+                    +info-key(productInfomation)
+            div(class="shipping tab-child hidden" id-tab ="shipping")
+                +info-shipping()
+        div(class="ratting-comment mt-[4.8rem]" id="productReviews")
+            div(class="box-ratting border-b lg:border-none")
+                hr
+                div(class="flex justify-between items-center")
+                    div(class="my-[2rem] lg:my-[4rem] ")
+                        div(class="my-[0.4rem] flex flex-col")
+                            h3(class="text-[1.8rem] font-bold") レビュー (142件)
+                        div(class="mt-[0.4rem]")
+                            div(class="star-ratting flex items-center gap-3")
+                                div(class="box-start")
+                                    +box-star(5)
+                                div(class="box-start-preview font-Roboto")
+                                    span(class="text-[2rem] font-bold") 5
+                                    span(class="text-[1.2rem] mx-[0.4rem] font-bold") /
+                                    span(class="text-[1.2rem]  font-bol") 5
+                    div(class="icon-button block lg:hidden cursor-pointer")
+                        img(class="cong" src="../images/cong.svg" alt="cong")
+                        img(class="tru hidden" src="../images/tru.svg" alt="tru")
+            div(class="comment-mobile description-comment2 h-0 lg:!h-full")
+                a(class="  items-center group hidden lg:flex" href="#")
+                    span(class="group-hover:bg-[#ebebec] flex items-center gap-2 bg-[#f5f5f5] text-main p-[0.8rem] lg:p-[1.6rem_2rem]  text-[1.2rem] lg:text-[1.6rem] font-bold rounded-xl cursor-pointer")
+                        span(class="")
+                            img(src="../images/write.svg" alt="write")
+                        span(class="") レビューを投稿する
+                div(class="box-comment my-[0.3rem] lg:my-[4rem] ")
+                    +comment-review()
+        if(reladtedProducts && reladtedProducts.length > 0)
+            div(class="related-product mt-[1rem] lg:mt-[7.6rem]")
+                h3(class="title-related-product text-[2rem] lg:text-[3.2rem] font-bold") 一緒に購入されている商品
+                +items-product(reladtedProducts)
+        if(popularProducts && popularProducts.length > 0)
+            div(class="related-product mt-[1rem] lg:mt-[7.6rem]")
+                h3(class="title-related-product  text-[2rem] lg:text-[3.2rem] font-bold") 人気ランキング
+                +items-product-top(popularProducts)
+    
+        div(class="m-[5.2rem_0] lg:m-[9.6rem_0_6.4rem]")
+            +shopping-guide("配送料について","","配送料区分と配送料について",src="//www.muji.net/mt/contact/detail_list/014397.html")
+            +shopping-guide("お支払い方法","「代金引換」「クレジットカード一括払い」「GNOUD GIFT CARD」「GNOUDショッピングポイント」「d払い」「つど後払い」「atone翌月払い」","詳しくはこちら","//www.muji.net/mt/contact/detail_list/014393.html")
+            +shopping-guide("お届けについて","ご注文受付後、4～8日でお届けします。予約商品の場合は発売後、4～8日でお届けします。","詳しくはこちら","//www.muji.net/mt/contact/detail_list/014417.html")
+            +shopping-guide("店舗受け取りについて","","詳しくはこちら","//www.muji.net/mt/contact/detail_list/014353.html")
+        div(class="")
+            +breadcrumb(breadcrumb)
+        
+        div(class="StickyCart hidden mt-10 fixed bottom-0 left-0 right-0 z-[99999] ")
+            div(class="StickyCartContainer sticky bottom-0 p-[0_1.5rem_1.6rem_1.5rem]")
+                div(class="relative z-[1]")
+                    div(class="StickyCartIn")
+                        button(class="StickyCartButton rounded-[0.4rem] flex items-center gap-3 justify-between bg-white border border-main p-[1.2rem_1.2rem_1.2rem_1.5rem] w-full")
+                            div(class="flex items-center gap-3")
+                                div(class="StickyCartButtonColor")
+                                    span(class="item-color-mobile size-[1.4rem] block rounded-full border border-main-50" style=`background-image: url("${productOptions[0].Color}");background-size: cover;`)
+                                span(class="title-color text-main block overflow-hidden ml-[0.4rem] truncate")
+                                    span(class="text-[1.4rem] product-category-mobile") #{stringC}
+
+                            span(class="color-add ml-[0.4rem]")
+                                img(class="cong" src="../images/cong.svg" alt="cong")
+                                img(class="tru hidden" src="../images/tru.svg" alt="tru")
+                    div(class="StickyCartFloat mt-[0.8rem] ")
+                        div(class="bg-main flex items-center justify-between rounded-[0.4rem] p-[0.8rem_0.3rem_0.8rem_1.5rem] relative")
+                            div(class="product-count  select-none")
+                                div(class="flex items-center justify-center gap-3")
+                                    button(class="font-Roboto cursor-pointer button-no-active-count text-[2rem] font-bold rounded-[0.4rem] size-[2.3rem] flex items-center justify-center")
+                                        img(src="../images/tru.svg" alt="minus")
+                                    input(readonly class="outline-none text-[1.4rem] text-center w-[3.6rem] h-[3rem] border border-[#c4c4c6] rounded-[0.4rem] p-[0.8rem] font-bold" value=1 max=99 min=0)
+                                    button(class="font-Roboto button-active-count text-[2rem] font-bold rounded-[0.4rem] size-[2.3rem] flex items-center justify-center")
+                                        img(src="../images/cong.svg" alt="plus")
+                            div(class="product-title")
+                                span(class="text-[1.2rem] text-white block") 消費税込みで
+                                span(class="text-[1.4rem] text-white font-bold block") #{ parseInt(product.Price).toLocaleString()} 円
+                            div(class="product-button")
+                                button(class="w-full bg-main text-white text-[1.4rem] p-[0.8rem] font-bold") カートに入れる
+                div(class="bg-white h-[100vh] -ml-[1.5rem] fixed top-0 w-[100vh] hidden modal-show-otion-mobile")
+                    +box-color-mobile(productOptions,indexSize)
+block script
+    script(id="list" type="application/json") !{JSON.stringify(listImages)}
+    script(src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js") 
+    script(src="../js/client/swiper-custom.js")
+    script(src="../js/client/loading-image.js")
+
+    script(src="../js/client/detail-product-options.js") 
+    script(src="../js/client/detail-product.js") 
+    script(src="../js/client/detail-product-menutab.js")
+    script(src="../js/client/comment-review.js")
+    script(src="../js/client/items-product.js") 
+    script(src="../js/client/shopping-guide.js")
+    //- h-[32.8rem]

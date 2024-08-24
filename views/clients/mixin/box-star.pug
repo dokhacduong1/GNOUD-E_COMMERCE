@@ -1,0 +1,52 @@
+mixin svg-star(fillColor, width = 20,height=20)
+    svg(xmlns="http://www.w3.org/2000/svg" width=width height=height fill="none")
+        mask(id="ce23c1ae-814f-4b36-946a-89c053cf1187" height="16" x="0" y="0" mask-type="alpha" maskUnits="userSpaceOnUse")
+            g(clip-path="url(#fd8985d5-7e59-4f67-9424-937bae6fc29d)")
+                path(fill="#7f0019" d="M14.552 6.472a.6.6 0 0 0-.576-.416H9.848l-1.28-3.928A.59.59 0 0 0 8 1.703a.59.59 0 0 0-.568.425l-1.28 3.928H2.024a.6.6 0 0 0-.576.416.59.59 0 0 0 .224.672l3.336 2.4-1.272 3.96a.6.6 0 0 0 .216.664.576.576 0 0 0 .704 0L8 11.768l3.344 2.4a.57.57 0 0 0 .352.12.589.589 0 0 0 .352-.12.6.6 0 0 0 .216-.664L10.992 9.6l3.336-2.4a.59.59 0 0 0 .224-.728z")
+        g(clip-path="url(#20px_star_BEIGE_svg__a)")
+            path(fill=fillColor d="M18.19 8.09a.75.75 0 0 0-.72-.52h-5.16l-1.6-4.91a.74.74 0 0 0-.71-.531.74.74 0 0 0-.71.531l-1.6 4.91H2.53a.75.75 0 0 0-.72.52.74.74 0 0 0 .28.84l4.17 3-1.59 4.95a.75.75 0 0 0 .27.83.72.72 0 0 0 .88 0l4.18-3 4.18 3a.71.71 0 0 0 .44.15.73.73 0 0 0 .44-.15.75.75 0 0 0 .27-.83L13.74 12l4.17-3a.74.74 0 0 0 .28-.91z")
+        defs
+            clipPath(id="20px_star_BEIGE_svg__a")
+                path(fill="#fff" d="M0 0h20v20H0z")
+
+mixin svg-star-comment(fillColor,width=16,height=16)
+    svg(xmlns="http://www.w3.org/2000/svg" width=width height=height fill="none")
+        mask(id="455981e6-b047-47aa-ac50-8f20c2ce82f8" width=width height=height x="0" y="0" mask-type="alpha" maskUnits="userSpaceOnUse")
+            g(clip-path="url(#eebde292-6fe8-402d-8df7-01a925145174)")
+                path(fill="#7f0019" d="M14.552 6.472a.6.6 0 0 0-.576-.416H9.848l-1.28-3.928A.59.59 0 0 0 8 1.703a.59.59 0 0 0-.568.425l-1.28 3.928H2.024a.6.6 0 0 0-.576.416.59.59 0 0 0 .224.672l3.336 2.4-1.272 3.96a.6.6 0 0 0 .216.664.576.576 0 0 0 .704 0L8 11.768l3.344 2.4a.57.57 0 0 0 .352.12.589.589 0 0 0 .352-.12.6.6 0 0 0 .216-.664L10.992 9.6l3.336-2.4a.59.59 0 0 0 .224-.728z")
+        g(mask="url(#455981e6-b047-47aa-ac50-8f20c2ce82f8)")
+            path(fill=fillColor d="M0 0h20v20H0z")
+        defs    
+            clipPath( id="eebde292-6fe8-402d-8df7-01a925145174")
+                path(fill="#fff" d="M0 0h20v20H0z")
+mixin box-star(star = 5,width=20,height=20)
+    - const fullStars = Math.floor(star);
+    - const partialStar = star - fullStars;
+    - const stars = Array(fullStars).fill(0);
+    div(class="flex items-center  relative")
+        each i in Array(5)
+            +svg-star("#EBEBEC",width,height)
+        each i,index in stars
+            - const count = index*width
+            span(class=`absolute ` style=`left:${count}px;`)
+                +svg-star("#E0CEAA", width,height)
+        if partialStar > 0
+            - const count = stars.length*width
+            span(class=`absolute ` style=`left:${count}px;`)
+                +svg-star("#E0CEAA", partialStar * width,height)
+
+mixin box-star-comment(star = 5,width=16,height=16)
+    - const fullStars = Math.floor(star);
+    - const partialStar = star - fullStars;
+    - const stars = Array(fullStars).fill(0);
+    div(class="flex items-center  relative")
+        each i in Array(5)
+            +svg-star-comment("#EBEBEC",width,height)
+        each i,index in stars
+            - const count = index*width
+            span(class=`absolute ` style=`left:${count}px;`)
+                +svg-star-comment("#E0CEAA", width,height)
+        if partialStar > 0
+            - const count = stars.length*width
+            span(class=`absolute ` style=`left:${count}px;`)
+                +svg-star-comment("#E0CEAA", partialStar * width,height)

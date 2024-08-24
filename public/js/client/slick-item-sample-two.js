@@ -7,7 +7,8 @@ if(slickItemListColor.length > 0){
     slickItemListColor.forEach((item) => {
         // Thêm sự kiện click cho từng phần tử
         item.addEventListener("click", function(){
-           
+            const loaderActive = this.closest(".slick-box").querySelector(".slick-item__img-index .loader");
+            loaderActive.style.display = "block";
             // Khi một phần tử được click, xóa class "active-outline" khỏi tất cả các phần tử trong danh sách slickItemListColor
             this.closest(".items-color").querySelectorAll(".item-color img").forEach((img) => {
                 img.classList.remove("active-outline");

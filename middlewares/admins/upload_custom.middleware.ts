@@ -138,7 +138,7 @@ export const upload_single_base64_products_edit = async function (
           );
 
           const results = await Promise.allSettled(listItem);
-          console.log(results);
+
           item.listImages = results.map((result) =>
             result.status === "fulfilled" ? result.value : ""
           );

@@ -3,42 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"> -->
   <title>Document</title>
 </head>
 <body>
-  <div class="row">
-    <div class="col-6">
-        <p style="margin: 0px">Mọi chi tiết, quý khách xin liên hệ chúng tôi theo thông tin dưới đây</p>
-        <p style="margin: 3px 0px 0px 0px;"><strong>HOA TIỀN</strong></p>
-        <ul>
-          <li>Hotline: <strong style="color: #86942a;">0123456789</strong></li>
-          <li>Zalo: <span style="color: #86942a;">0123456789</span></li>
-          <li>Email: <span style="color: #86942a;">admin123@gmail.com</span></li>
-        </ul>
+    <style>
+        .main{
+          display: flex;
+          flex-direction: column;
+        }
+        .main div:nth-child(1){
+          order: 2;
+        }
+        .main div:nth-child(2){
+          order: 1;
+        }
+    </style>
+    <div class="main">
+      <div>PT1</div>
+      <div>PT2</div>
     </div>
-    <div class="col-6">
-      <form action="index.php" method="post">
-        <div class="mb-1">
-          <label for="exampleInputname" class="form-label">Họ và Tên</label>
-          <input style="outline: none; width: 100%; border-radius: 10px;" type="name" class="form-control" id="exampleInputname"  name="name">
-        </div>
-        <div class="mb-1">
-          <label for="exampleInputphone" class="form-label">Số điện thoại</label>
-          <input type="phone" class="form-control" id="exampleInputphone" name="phone">
-        </div>
-        <div class="mb-1">
-          <label for="exampleInputEmail1" class="form-label">Email</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email">
-        </div>
-        <div class="mb-1">
-          <label for="exampleInputcontent" class="form-label">Nội dung</label>
-          <textarea class="form-control" id="exampleInputcontent" rows="3" name="content"></textarea>
-        </div>
-        <button style="color: white;" type="submit" class="btn btn-primary">Gửi</button>
-          
-    </div>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
 </body>
 </html>

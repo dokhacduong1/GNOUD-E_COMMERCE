@@ -2,27 +2,28 @@ mixin slick-item-sample-one(slickItemsSampleOne)
     div(class="slick-item text-[1.4rem] leading-[1.6] text-main mb-[2.4rem]" href="#")
         each item in slickItemsSampleOne
             a(class="slick-box hover:text-main mr-[1rem] w-[20rem]  sm:w-[24rem] md:w-[20rem] md:mr-[1rem]  lg:w-[18.9rem] lg:mr-[1.5rem] xl:mr-[2.5rem] xl:w-[25.3rem]" href="#")
-                div(class="slick-item__img mb-[1.5rem] relative transition-all duration-500 ease-in-out")
-                    img(class=" h-auto " src=item.img alt="sample-1")
+                div(class="image-container slick-item__img mb-[1.5rem] relative transition-all duration-500 ease-in-out")
+                    img(class="loading-image h-auto " src=item.img alt="sample-1")
+                    div(class="loader")
                 div(class="slick-item_content")
                     span(class="") #{item.content}
 
 mixin slick-item-new-product(data)
-    div(class="slick-item text-[1.4rem] leading-[1.6] text-main mb-[2.4rem]" href="#")
-        each item in data
-            div(class="slick-box hover:text-main mr-[1rem] w-[20rem]  sm:w-[24rem] md:w-[20rem] md:mr-[1rem]  lg:w-[18.9rem] lg:mr-[1.5rem] xl:mr-[2.5rem] xl:w-[25.3rem]" href="#")
-                a(class="slick-item__img-index mb-[1.5rem] relative transition-all duration-500 ease-in-out cursor-pointer" href="#")
-                    img(class=" h-auto " src=item.listImages[0].img alt="sample-1")
+    div(class="slick-item text-[1.4rem] leading-[1.6] text-main mb-[2.4rem]")
+        each item in data 
+            div(class=" slick-box hover:text-main mr-[1rem] w-[20rem]  sm:w-[24rem] md:w-[20rem] md:mr-[1rem]  lg:w-[18.9rem] lg:mr-[1.5rem] xl:mr-[2.5rem] xl:w-[25.3rem]" href="#")
+                a(class="image-container  slick-item__img-index mb-[1.5rem] relative transition-all duration-500 ease-in-out cursor-pointer" href=`/product/${item.slug}`)
+                    img(class=" loading-image w-[25.3rem] h-auto" src=item.listImages[0].img  alt="sample-1" loading="lazy")
+                    div(class="loader")
                 div(class="slick-item_listColor mt-5")
-                    div(class="items-color flex p-[0_1.5rem_0.8rem] gap-1")
+                    div(class="items-color gap-y-2 flex-wrap flex p-[0_1.5rem_0.8rem] gap-1")
                         each itemColor, $indexColor in item.listImages
                             div(class="item-color min-w-[1.4rem] min-h-[1.4rem] w-[1.4rem] h-[1.4rem] mr-[0.5rem] cursor-pointer" link-img=itemColor.img)
-                                - var className = $indexColor === 0 ? "rounded-full active-outline" : "rounded-full"
+                                - var className = $indexColor === 0 ? "rounded-full active-outline " : "rounded-full"
                                 - className = itemColor.color ? className + "" : className + "hidden-opacity"
-                                img(class=className src=itemColor.color)
-
+                                img(class=className src=itemColor.color loading="lazy")
                 div(class="slick-item_content p-[0_1.5rem]")
-                    a(class="hover:text-main" href="#") #{item.title}
+                    a(class="hover:text-main" href=`/product/${item.slug}`) #{item.title}
                 div(class="slick-item_price p-[0_1.5rem] mt-[2rem] text-[1.4rem] font-[500] text-main-200")
                     div(class="flex justify-between items-center")
                         span(class="text-main") <span class="font-bold ">#{item.price}</span>円

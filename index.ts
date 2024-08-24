@@ -7,26 +7,36 @@ import routes_client from "./routes/clients/index.routes";
 import routes_admin from "./routes/admins/index.routes";
 import methodOverride from "method-override";
 import flash from "express-flash";
-import session from "express-session"
+import session from "express-session";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import routes_images from "./routes/images/index.routes";
+import { updateCategoriesData } from "./helpers/categories.helpers";
+
 const app = express();
 
-app.use(express.static(`${__dirname}/public`));
+
+app.use(
+  express.static(`${__dirname}/public`, {
+    maxAge: 86400000,
+    etag: false,
+  })
+);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ limit: "100mb" }));
 //Cấu hình để hiển thị thông báo (Flash)
-app.use(cookieParser('FJFDSIOSDFIPDSF'));
-app.use(session({ cookie: { maxAge: 60000 }}));
+app.use(cookieParser("FJFDSIOSDFIPDSF"));
+app.use(session({ cookie: { maxAge: 60000 } }));
 app.use(flash());
 //Cấu hình phương thức gửi đi của form
-app.use(methodOverride('_method'));
+app.use(methodOverride("_method"));
 
-app.use(cors({
-  origin: '*',
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: "*",
+    credentials: true,
+  })
+);
 
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
@@ -43,7 +53,8 @@ https
     },
     app
   )
-  .listen(3000, function () {
+  .listen(3000, async function () {
+    app.locals.dataCategories = await updateCategoriesData();
     console.log(
       "Example app listening on port 3000! Go to https://localhost:3000/"
     );

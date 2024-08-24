@@ -12,6 +12,7 @@ router.get("/management", controller.index);
 router.get("/create", controller.getCreate);
 router.get("/delete-categorie/:id", controller.deleteCategory);
 router.get("/edit/:id",controller.getEdit);
+router.get("/reload-count",controller.reloadCount)
 
 //[POST]
 router.post(

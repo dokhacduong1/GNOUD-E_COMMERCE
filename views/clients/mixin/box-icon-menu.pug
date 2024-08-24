@@ -1,0 +1,24 @@
+include ./dropMenu-header.pug
+mixin box-icon-menu()
+    div(class="nav__icon items-center  flex-[0_0_auto] flex-nowrap m-[0_0_0_auto] min-h-[7.1rem] p-0 absolute  top-0  flex mr-[3.333vw] md:mr-0 xl:my-0 right-0 md:right-[5.6rem] xl:mr-0 xl:ml-auto xl:static xl:h-full")
+        div(href="/login" class="relative item-main cursor-pointer h-full flex flex-col items-center justify-center w-full   hover:text-main  transition-all min-w-[4.3rem] hover:bg-transparent lg:hover:bg-[#e8e8e8]   md:min-w-[6.3rem]")
+            div(class="flex flex-col items-center justify-center ")
+                img(src="../images/icon1.svg " class="mb-[0.5rem] mt-0 mx-auto")
+                span(class="text-[1.1rem] text-main hidden md:block") ログイン
+            div(class="hidden md:block")
+                +drop-menu-header(['新規会員登録', 'ログイン'],'30rem')
+                
+        a(href="/like" class=" h-full flex flex-col items-center justify-center w-full   hover:text-main  transition-all min-w-[4.3rem] hover:bg-transparent lg:hover:bg-[#e8e8e8]   md:min-w-[6.3rem]" )
+            div(class="flex flex-col items-center justify-center ")
+                img(src="../images/icon2.svg " class="mb-[0.5rem] mt-0 mx-auto")
+                span(class="text-[1.1rem] text-main hidden md:block") お気に入り
+        a(href="/cart" class="h-full flex flex-col items-center justify-center w-full   hover:text-main  transition-all min-w-[4.3rem] hover:bg-transparent lg:hover:bg-[#e8e8e8]   md:min-w-[6.3rem]")
+            div(class="relative flex flex-col items-center justify-center ")
+                img(src="../images/icon3.svg " class="mb-[0.5rem] mt-0 mx-auto")
+                span(class="text-[1.1rem] text-main hidden md:block") カート
+                span(class="absolute -top-2 font-bold text-[1.3rem]") 0
+        div(href="/donate" class="item-main cursor-pointer h-full  flex-col items-center justify-center w-full   hover:text-main  transition-all min-w-[4.3rem] hover:bg-transparent hidden md:flex md:min-w-[6.3rem] lg:hover:bg-[#e8e8e8]   ")
+            div(class="relative flex flex-col items-center justify-center ")
+                img(src="../images/icon4.svg " class="mb-[0.5rem] mt-0 mx-auto")
+                span(class="text-[1.1rem] text-main ") サポート
+            +drop-menu-header(['お問い合わせ', 'ご利用ガイド','重要なお知らせ','サイトからのお知らせ'],'20rem')

@@ -38,7 +38,7 @@ export const createProduct = async function (
       if (!price) return sendError("Price is required");
       if (!description) return sendError("Description is required");
       if (!options) return sendError("Options is required");
-      
+
       // Kiểm tra các trường dữ liệu trong mảng options
       if (options.some(item => !item.title)) return sendError("Title option is required");
       if (options.some(item => item.color.length < 1)) return sendError("Color is required");

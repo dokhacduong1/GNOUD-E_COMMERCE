@@ -324,3 +324,195 @@ input:checked + .slider:before {
       background-position: 40px 0
   }
 }
+
+.image-container {
+  position: relative;
+  
+}
+
+.loading-image {
+ 
+  display: none; /* Ẩn ảnh cho đến khi nó được tải xong */
+}
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  border: 8px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 8px solid #686868;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+}
+
+/* Hiệu ứng xoay */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+.swiper-gallery {
+ 
+}
+
+
+
+.gallery-thumbs {
+ 
+  box-sizing: border-box;
+ 
+}
+
+.gallery-thumbs .swiper-slide {
+  height: auto;
+  opacity: 0.4;
+}
+
+.gallery-thumbs .swiper-slide-thumb-active {
+  opacity: 1;
+}
+
+
+.swiper-pagination-bullet {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 0 5px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.gallery-top .swiper-slide {
+  background-size: cover;
+  background-position: center;
+}
+
+
+//swiper-js
+
+.swiper-button-disabled.swiper-button-next,
+.swiper-button-disabled.swiper-button-prev {
+  pointer-events: none; /* Ngăn không cho người dùng click */
+}
+.swiper-button-disabled {
+  opacity: 0.3 !important; /* Độ mờ của nút */
+  cursor:auto;
+}
+
+.no-stock{
+  background-image: linear-gradient(to left top, transparent calc(50% - 1px), #c4c4c6 49.5%, #c4c4c6 50%, transparent 50.5%);
+  color: #3c3c43;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.no-stock-mobile{
+  
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.size-select{
+  border: 2px solid #3c3c43;
+  padding:0.8rem;
+}
+
+.description span, .description p, .description div{
+  font-size: 1.6rem;
+  line-height: 1.5;
+  color: #3C3C43 !important;
+}
+/* Custom scrollbar styles */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #3c3c43 #f5f5f5;
+}
+
+/* For WebKit browsers */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px; /* Width of the scrollbar */
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f5f5f5; /* Background of the scrollbar track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #3c3c43; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Roundness of the scrollbar thumb */
+  border: 3px solid #f5f5f5; /* Padding around the scrollbar thumb */
+}
+
+.bordewr-table-custom{
+  border-left: 1px solid #d8d8d9;
+  border-right: 3px solid #d8d8d9;
+}
+.convert-table{
+  all: unset;
+  display: revert;
+  border-collapse: separate;
+}
+
+.description-comment {
+  height: 7.2rem; /* Chiều cao ban đầu */
+  overflow: hidden; /* Ẩn nội dung vượt quá chiều cao */
+  transition: height 0.4s ease; /* Thay đổi chiều cao mượt mà với thời gian 0.5 giây */
+}
+
+html {
+  scroll-behavior: smooth;
+}
+::selection {
+  background-color: black; /* Màu nền khi chọn */
+  color: white; /* Màu chữ khi chọn */
+}
+
+/* Đảm bảo rằng trên các trình duyệt Webkit (Chrome, Safari) cũng hoạt động */
+::-moz-selection {
+  background-color: black;
+  color: white;
+}
+.color-no-stock{
+  color:#e3e3e3 !important;
+}
+.description-comment2 {
+ 
+  overflow: auto;
+  transition: height 0.4s ease;
+}
+  /* Swiper container */
+
+  .StickyCartIn_modal{
+    overscroll-behavior-y: contain;
+    position: fixed;
+    width: 100%;
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #3c3c43 #f5f5f5;
+}
+.StickyCartIn_modal:after{
+  background: linear-gradient(180deg, transparent, #fff);
+    bottom: 146px;
+    content: "";
+    display: block;
+    height: 60px;
+    pointer-events: none;
+    position: fixed;
+    width: 100%;
+}
+.ColorButton_Disable{
+  background-color: #8C8C93;
+  display: block;
+  height: 1px;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  
+  width: 100%;
+}
+.rotate-left{
+  transform: translate(-50%) rotate(135deg);
+}

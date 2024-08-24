@@ -1,0 +1,28 @@
+mixin drop-menu-categories(categories,classActive="drop__01")
+    div(class=`dropMenuCategory__01 basis-[80%] hidden ${classActive} dropMenuCategory__all` )
+        ul(class="dropMenuCategory__columnlist flex flex-row")
+            each val in categories
+                li(class="dropMenuCategory__columnlist__item basis-[25%] pr-[2rem]")
+                    each val2 in val                                     
+                        dl(class="dropMenuCategory__menu__title text-main text-[1.5rem] font-bold leading-6 p-[0.5rem] mt-3") #{val2.title}
+                        dd(class="dropMenuCategory__menu_link mt-[1rem]")
+                            ul(class="dropMenuCategory__menu_linkList")
+                                each val3 in val2.items
+                                    li(class="dropMenuCategory__menu_linkList__item")
+                                        a(href="/category/1" class="text-[1.3rem] font-[400] leading-6 px-[0.5rem] py-[0.8rem] block hover:bg-[#f5f5f5] hover:text-main") #{val3.Title}
+
+
+mixin drop-menu-categories-mobile(categories,title='')
+    p(class="text-[1.6rem] font-[700] leading-6 h-auto mb-0 mt-0 p-[1.5rem_2rem] text-main border-t border-[#e8e8e8] bg-white") #{title}
+    ul(class="co-dropMenuCategory__columnlist flex flex-col")
+        if(categories)
+            each val in categories
+                li(class="co-dropMenuCategory__columnlist__item basis-[25%] pr-0")
+                    each val2 in val
+                        dl(class="co-dropMenuCategory__menu__title-nav text-main text-[1.5rem] font-bold leading-6 mt-3")
+                            dt(class="co-dropMenuCategory__menu__title__item  p-[2.2rem_2rem] border-t border-[#e2e2e2] text-main cursor-pointer font-[400] relative select-none") #{val2.title}
+                            dd(class="co-dropMenuCategory__menu_link mt-[1rem] p-[3rem_2rem] bg-[#f5f5f5] overflow-hidden hidden animate-modalSlideIn")
+                                ul(class="co-dropMenuCategory__menu_linkList")
+                                    each val3 in val2.items
+                                        li(class="co-dropMenuCategory__menu_linkList__item mb-[2.6rem]")
+                                            a(href="/category/1" class="text-[1.3rem] font-[400] leading-6 px-[0.5rem] py-[0.8rem] block hover:bg-[#f5f5f5] hover:text-main select-none") #{val3.Title}

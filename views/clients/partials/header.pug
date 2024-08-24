@@ -1,5 +1,9 @@
 include ../mixin/button-close.pug
-include ../mixin/dropMenu-header.pug
+
+include ../mixin/drop-menu-categories.pug
+include ../mixin/search-menu.pug
+include ../mixin/box-icon-menu.pug
+//- đây cho mobile
 div(class="search-modal-container hidden  bg-white transition-all")
     div(class="remodal-overlay fixed  w-full h-full bg-[#0000004d] animate-modalSlideIn z-[2000]  transition-all")
         div(class="remodal-wrapper fixed w-[90%] h-full z-[2001] bg-white")
@@ -14,21 +18,12 @@ div(class="search-modal-container hidden  bg-white transition-all")
                             div(class="dropMenu_category max-w-full min-w-full  p-0 bg-white h-auto m-[0_auto]")
                                 div(class="co-dropMenuCategory__container flex flex-col ")
                                     div(class="co-dropMenuCategory__01")
-                                        p(class="text-[1.6rem] font-[700] leading-6 h-auto mb-0 mt-0 p-[1.5rem_2rem] text-main border-t border-[#e8e8e8] bg-white") 衣料品
-                                        ul(class="co-dropMenuCategory__columnlist flex flex-col")
-                                            each val in data
-                                                li(class="co-dropMenuCategory__columnlist__item basis-[25%] pr-0")
-                                                    each val2 in val
-                                                        dl(class="co-dropMenuCategory__menu__title-nav text-main text-[1.5rem] font-bold leading-6 mt-3")
-                                                            dt(class="co-dropMenuCategory__menu__title__item  p-[2.2rem_2rem] border-t border-[#e2e2e2] text-main cursor-pointer font-[400] relative select-none") #{val2.title}
-                                                            dd(class="co-dropMenuCategory__menu_link mt-[1rem] p-[3rem_2rem] bg-[#f5f5f5] overflow-hidden hidden animate-modalSlideIn")
-                                                                ul(class="co-dropMenuCategory__menu_linkList")
-                                                                    each val3 in val2.items
-                                                                        li(class="co-dropMenuCategory__menu_linkList__item mb-[2.6rem]")
-                                                                            a(href="/category/1" class="text-[1.3rem] font-[400] leading-6 px-[0.5rem] py-[0.8rem] block hover:bg-[#f5f5f5] hover:text-main select-none") #{val3.name}
-                                                           
-                                                         
-
+                                        +drop-menu-categories-mobile(dataCategories.dataCategorieClothes,"衣料品")
+                                        +drop-menu-categories-mobile(dataCategories.dataCategorieHouseholdGoods,"生活雑貨")
+                                        +drop-menu-categories-mobile(dataCategories.dataCategorieFood,"食品")
+                                        p(class="text-[1.6rem] font-[700] leading-6 h-auto mb-0 mt-0 p-[1.5rem_2rem] text-main border-t border-[#e8e8e8] bg-white") 生活雑貨
+                                        
+//- đây cho desktop
 header(class="border-b border-[#d9d9d9]")
     div(class="")
         div(class="nav header flex flex-wrap items-center mx-auto  my-0    max-h-full  relative px-0 md:px-[56px] xl:flex-nowrap  xl:h-[7rem]  xl:flex-row xl:px-[10rem] xl:max-w-[184rem] xl:bg-white  xl:max-h-[120px]")
@@ -37,7 +32,7 @@ header(class="border-b border-[#d9d9d9]")
                     button(class="button-category")
                         <svg width="18" height="15" viewBox="0 0 18 15"><path d="M22.536,20.54H6.464a.884.884,0,1,1,0-1.762H22.536a.884.884,0,1,1,0,1.762Zm0-6.119H6.464a.884.884,0,1,1,0-1.762H22.536a.884.884,0,1,1,0,1.762Zm0-6.119H6.464A.925.925,0,0,1,5.5,7.421a.925.925,0,0,1,.964-.881H22.536a.925.925,0,0,1,.964.881A.925.925,0,0,1,22.536,8.3Z" transform="translate(-5.5 -6.54)" fill="currentColor"></path></svg>
                 a(href="/" class="block xl:flex items-center h-full w-auto justify-center" )
-                    img(src="/images/logo.png" alt="logo" class=" h-auto w-[12.8rem]")
+                    img(src="/images/logo.png" alt="logo" class=" h-auto w-[12.8rem]" loading="lazy")
             div(class="nav__categories  items-center max-w-[24rem] min-h-[6.9rem] min-w-[24rem]  w-full  h-full hidden  md:flex xl:max-w-[30rem]")
                 ul(class="flex w-full  flex-row items-center h-full")
                     li(class="text-[1.6rem] leading-[2.4rem] font-bold text-main h-full max-w-[10rem] flex relative text-center w-full basis-1/3")
@@ -46,87 +41,8 @@ header(class="border-b border-[#d9d9d9]")
                         button(class="w-full" active="drop__02") 生活雑貨
                     li(class="text-[1.6rem] leading-[2.4rem] font-bold text-main h-full max-w-[10rem] flex relative text-center w-full basis-1/3")
                         button(class="w-full" active="drop__03") 食品 
-            div(class=" flex items-center z-[99] h-full box-full-blur relative w-auto my-0 mx-auto flex-1 m-0 min-h-0 md:min-h-[6.9rem] p-0 md:p-[0_0_0_1.5rem] xl:w-full xl:min-h-full xl:p-0")
-                div(class="fixed blur-full left-0 top-0 w-0 bg-[#00000080] block min-h-[100vh] z-[98]  transition-all ")
-                div(class="w-full p-0 relative z-[99] top-0  xl:p-[1rem]")
-                    span(class=" bg-white   text-main ant-input-wrapper ant-input-group flex flex-row items-center px-[1rem] pt-3 pb-3 md:pb-[1.9rem] md:py-[1.9rem] md:px-[2rem]")
-                        span(class="select-blur cursor-pointer flex-col  h-full border-t border-l border-b border-[#f2f2f2] rounded-tl-[0.4rem] rounded-bl-[0.4rem]  py-[0.4rem] basis-[30%]  lg:basis-[10%]")
-                            span(class="px-5 inline-flex items-center justify-between h-full w-full overflow-hidden")    
-                                span(class="text-[1.2rem] active-select ellipsis") すべて
-                                i(class="arrow-down text-[1rem] text-main-50")
-                                    <svg viewBox="0 0 1024 1024" class="" data-icon="caret-down" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"></path></svg>
-                                i(class="arrow-up hidden text-[1rem] text-main-50")
-                                    <svg viewBox="0 0 1024 1024" class="" data-icon="caret-up" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"></path></svg>
-                        span(class="  inline-block h-full border border-[#f2f2f2]  rounded-r-[0.4rem] rounded-t-[0.4rem] rounded-b-[0.4rem] rounded-l-[0px] py-[0.4rem] basis-[70%] lg:basis-[90%]")
-                            span(class="inline-flex items-center justify-between h-full w-full overflow-hidden")
-                                input(type="text" class="input-full-blur text-main-100 w-full outline-none px-3 placeholder:leading-4 placeholder:tracking-wide" placeholder="キーワードで探す")
-                    div(class="absolute z-[99] categories-full-blur  min-h-[15rem]  overflow-hidden w-full  hidden transition-all duration-1 ease-in-out pr-0 xl:pr-[2rem] ")
-                        div(class="bg-white")
-                            div(class="pr-[1.3rem] py-[0.8rem] ")
-                                div(class="flex flex-col xl:flex-row items-center justify-center rounded-[0.4rem] ")
-                                    div(class="active-blur item-categories  basis-[100%]  flex flex-row gap-3 items-center justify-start cursor-pointer hover:bg-[#f2f2f2] py-[0.8rem] pl-[1.5rem] pr-[1.3rem] font-bold text-main w-full xl:w-auto xl:basis-[25%]")
-                                        div(class=" hidden")
-                                            i(class="")
-                                                <svg viewBox="64 64 896 896" class="" data-icon="check" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"></path></svg>
-                                        div(class="") すべて
-                                    div(class="item-categories basis-[100%]  flex flex-row gap-3 items-center justify-start cursor-pointer hover:bg-[#f2f2f2] py-[0.8rem] pl-[1.5rem] pr-[1.3rem] font-bold text-main w-full xl:w-auto xl:basis-[25%]")
-                                        div(class="hidden")
-                                            i(class="")
-                                                <svg viewBox="64 64 896 896" class="" data-icon="check" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"></path></svg>
-                                        div(class="") 婦人・レディース
-                                    div(class="item-categories basis-[100%]  flex flex-row gap-3 items-center justify-start cursor-pointer hover:bg-[#f2f2f2] py-[0.8rem] pl-[1.5rem] pr-[1.3rem] font-bold text-main w-full xl:w-auto xl:basis-[25%]")    
-                                        div(class="hidden")
-                                            i(class="")
-                                                <svg viewBox="64 64 896 896" class="" data-icon="check" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"></path></svg>
-                                        div(class="") 紳士・メンズ
-                                    div(class="item-categories basis-[100%]  flex flex-row items-center justify-start cursor-pointer hover:bg-[#f2f2f2] py-[0.8rem] pl-[1.5rem] pr-[1.3rem] font-bold text-main w-full xl:w-auto xl:basis-[25%]")
-                                        div(class="hidden")
-                                            i(class="")
-                                                <svg viewBox="64 64 896 896" class="" data-icon="check" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"></path></svg>
-                                        div(class="") こども
-                                div(class="flex flex-col xl:flex-row items-center justify-center rounded-[0.4rem] ")
-                                    div(class="item-categories basis-[100%]  flex flex-row gap-3 items-center justify-start cursor-pointer hover:bg-[#f2f2f2] py-[0.8rem] pl-[1.5rem] pr-[1.3rem] font-bold text-main w-full xl:w-auto xl:basis-[25%]")
-                                        div(class="hidden")
-                                            i(class="")
-                                                <svg viewBox="64 64 896 896" class="" data-icon="check" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"></path></svg>
-                                        div(class="") バッグ・服飾雑貨
-                                    div(class="item-categories basis-[100%] flex flex-row gap-3 items-center justify-start cursor-pointer hover:bg-[#f2f2f2] py-[0.8rem] pl-[1.5rem] pr-[1.3rem] font-bold text-main w-full xl:w-auto xl:basis-[25%]")
-                                        div(class="hidden")
-                                            i(class="")
-                                                <svg viewBox="64 64 896 896" class="" data-icon="check" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"></path></svg>
-                                        div(class="") MUJI Labo
-                                    div(class="item-categories basis-[100%]  flex flex-row gap-3 items-center justify-start cursor-pointer hover:bg-[#f2f2f2] py-[0.8rem] pl-[1.5rem] pr-[1.3rem] font-bold text-main w-full xl:w-auto xl:basis-[25%]")    
-                                        div(class="hidden")
-                                            i(class="")
-                                                <svg viewBox="64 64 896 896" class="" data-icon="check" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"></path></svg>
-                                        div(class="") MUJI WALKER
-                                    div(class="item-categories basis-[100%]  flex flex-row items-center justify-start cursor-pointer hover:bg-[#f2f2f2] py-[0.8rem] pl-[1.5rem] pr-[1.3rem] font-bold text-main w-full xl:w-auto xl:basis-[25%]")
-                                        div(class="hidden")
-                                            i(class="")
-                                                <svg viewBox="64 64 896 896" class="" data-icon="check" width="1em" height="1em" fill="currentColor" aria-hidden="true" focusable="false"><path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"></path></svg>
-                                        div(class="") 伝統・知恵から生まれた服
-            div(class="nav__icon items-center  flex-[0_0_auto] flex-nowrap m-[0_0_0_auto] min-h-[7.1rem] p-0 absolute  top-0  flex mr-[3.333vw] md:mr-0 xl:my-0 right-0 md:right-[5.6rem] xl:mr-0 xl:ml-auto xl:static xl:h-full")
-                div(href="/login" class="relative item-main cursor-pointer h-full flex flex-col items-center justify-center w-full   hover:text-main  transition-all min-w-[4.3rem] hover:bg-transparent lg:hover:bg-[#e8e8e8]   md:min-w-[6.3rem]")
-                    div(class="flex flex-col items-center justify-center ")
-                        img(src="images/icon1.svg " class="mb-[0.5rem] mt-0 mx-auto")
-                        span(class="text-[1.1rem] text-main hidden md:block") ログイン
-                    div(class="hidden md:block")
-                        +drop-menu-header(['新規会員登録', 'ログイン'],'30rem')
-                        
-                a(href="/like" class=" h-full flex flex-col items-center justify-center w-full   hover:text-main  transition-all min-w-[4.3rem] hover:bg-transparent lg:hover:bg-[#e8e8e8]   md:min-w-[6.3rem]" )
-                    div(class="flex flex-col items-center justify-center ")
-                        img(src="images/icon2.svg " class="mb-[0.5rem] mt-0 mx-auto")
-                        span(class="text-[1.1rem] text-main hidden md:block") お気に入り
-                a(href="/cart" class="h-full flex flex-col items-center justify-center w-full   hover:text-main  transition-all min-w-[4.3rem] hover:bg-transparent lg:hover:bg-[#e8e8e8]   md:min-w-[6.3rem]")
-                    div(class="relative flex flex-col items-center justify-center ")
-                        img(src="images/icon3.svg " class="mb-[0.5rem] mt-0 mx-auto")
-                        span(class="text-[1.1rem] text-main hidden md:block") カート
-                        span(class="absolute -top-2 font-bold text-[1.3rem]") 0
-                div(href="/donate" class="item-main cursor-pointer h-full  flex-col items-center justify-center w-full   hover:text-main  transition-all min-w-[4.3rem] hover:bg-transparent hidden md:flex md:min-w-[6.3rem] lg:hover:bg-[#e8e8e8]   ")
-                    div(class="relative flex flex-col items-center justify-center ")
-                        img(src="images/icon4.svg " class="mb-[0.5rem] mt-0 mx-auto")
-                        span(class="text-[1.1rem] text-main ") サポート
-                    +drop-menu-header(['お問い合わせ', 'ご利用ガイド','重要なお知らせ','サイトからのお知らせ'],'20rem')
+            +search-menu()
+            +box-icon-menu()
 
 div(class="category-modal hidden")
     div(class="category-modal__content")
@@ -134,18 +50,9 @@ div(class="category-modal hidden")
             div(class="category-modal__dropdown max-w-[164rem] pl-[18.6rem] pr-[17.8rem] py-[5rem] my-0 mx-auto relative")
                 div(class="category_container")
                     div(class="dropMenuCategory flex flex-row")
-                        div(class="dropMenuCategory__01 basis-[80%] hidden drop__01 dropMenuCategory__all" )
-                            ul(class="dropMenuCategory__columnlist flex flex-row")
-                                each val in data
-                                    li(class="dropMenuCategory__columnlist__item basis-[25%] pr-[2rem]")
-                                        each val2 in val                                     
-                                            dl(class="dropMenuCategory__menu__title text-main text-[1.5rem] font-bold leading-6 p-[0.5rem] mt-3") #{val2.title}
-                                            dd(class="dropMenuCategory__menu_link mt-[1rem]")
-                                                ul(class="dropMenuCategory__menu_linkList")
-                                                    each val3 in val2.items
-                                                        li(class="dropMenuCategory__menu_linkList__item")
-                                                            a(href="/category/1" class="text-[1.3rem] font-[400] leading-6 px-[0.5rem] py-[0.8rem] block hover:bg-[#f5f5f5] hover:text-main") #{val3.name}
-                                
+                        +drop-menu-categories(dataCategories.dataCategorieClothes,"drop__01")
+                        +drop-menu-categories(dataCategories.dataCategorieHouseholdGoods,"drop__02")
+                    
                             
                                 
     

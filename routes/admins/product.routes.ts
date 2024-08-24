@@ -6,9 +6,9 @@ const router: Router = Router();
 
 router.get("/create", controller.getCreate);
 router.get("/management-product", controller.index);
-router.get("/delete/:id", controller.deleteProduct);
+router.get("/delete/:id", controller.softDeleteProduct);
 router.get("/edit/:id",controller.getEdit);
-
+router.get("/reload-count",controller.reloadCount)
 
 // [POST]
 router.post("/create",validate.createProduct,uploadToCustom.upload_single_base64_products, controller.postCreate);

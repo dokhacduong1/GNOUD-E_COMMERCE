@@ -58,9 +58,8 @@ function addRowDimension() {
 
 
 document.querySelector(".product-dimensions .switch input")?.addEventListener("change", toggleProductDimensions);
-document.querySelector(".product-dimensions .button-add-option")?.addEventListener("click", function () {
-  createDivProductDimension(this);
-});
+
+
 document.querySelector(".product-dimensions .add-row-dimension")?.addEventListener("click", addRowDimension);
 
 
@@ -75,4 +74,8 @@ document.querySelectorAll(".delete-option")?.forEach(element =>{
 });
   
 
-
+document.querySelectorAll(".button-add-option")?.forEach(element =>{
+  element.addEventListener("click", function () {
+    createDivProductDimension(this);
+  });
+});

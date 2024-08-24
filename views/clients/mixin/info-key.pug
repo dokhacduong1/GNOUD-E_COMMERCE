@@ -1,0 +1,13 @@
+mixin info-key(productInfomation)
+    div(class="info-key mt-5")
+        div(class="flex flex-col gap-[1.2rem]")
+            span(class="text-[1.6rem] font-bold") 商品仕様
+            div(class="info-key-table mt-[1.2rem]")
+                table(class="w-full")
+                    tbody(class="")
+                        each item,index in productInfomation
+                            tr(class="grid grid-cols-6 ")
+                                th(class=`text-left col-span-2 border-l border-t ${index === productInfomation.length-1 ? "border-b" :""}  border-[#d8d8d9] p-[1rem_1.2rem] bg-[#f5f5f5] text-[1.2rem]`)
+                                    span(class="") #{item.Info_Key}
+                                td(class=`text-left col-span-4 border-l border-t border-r ${index === productInfomation.length-1 ? "border-b" :""} border-[#d8d8d9] p-[1rem_1.2rem] bg-white text-[1.2rem]`)
+                                    span(class="") #{item.Info_Value}
