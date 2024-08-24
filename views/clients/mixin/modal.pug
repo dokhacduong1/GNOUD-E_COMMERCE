@@ -1,0 +1,16 @@
+mixin modal(title="",src="")
+  div(id=id class="fixed z-10 inset-0 overflow-y-auto  animate-modalShow modal-custom hidden" data-src = src)
+    div(class="flex items-end justify-center w pt-4 px-4 pb-20 text-center sm:block sm:p-0")
+      div(class="fixed inset-0 transition-opacity")
+        div(class="absolute inset-0 bg-main opacity-30")
+      div(class="relative inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:min-h-[50rem] sm:max-w-[calc(100vw - 15px*2)] sm:max-h-[calc(100vh-48px*2)] sm:my-8 sm:align-middle sm:max-w-[60rem] sm:w-full ")
+        
+        div(class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4")
+          div(class="")
+            div(class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left")
+              div(class="flex justify-between items-center")
+                h3(class="text-[2.2rem] font-bold leading-6  text-gray-900") #{title}
+                button(type="button" class="modal-close ")
+                  img(src="../images/close.svg" alt="close")
+              div(class="mt-5")
+                iframe(  class="w-full h-[50rem]" frameborder="0")

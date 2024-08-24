@@ -9,6 +9,7 @@ import slugify from "slugify";
 //  Description TEXT,
 //   Deleted BOOLEAN DEFAULT FALSE,
 //   Thumbnail VARCHAR(255),
+//   Slug_Title VARCHAR(255),
 //   Status ENUM('active', 'inactive') DEFAULT 'active',
 //   Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 //   Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
@@ -31,6 +32,10 @@ const Categorie = sequelize.define(
       allowNull: false,
       unique: true,
     },
+    Slug_Title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
     ParentID: {
       type: DataTypes.INTEGER,
       defaultValue: null,
@@ -42,24 +47,24 @@ const Categorie = sequelize.define(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
-    Description:{
-      type: DataTypes.STRING
-    },
-    Status:{
+    Description: {
       type: DataTypes.STRING,
-      defaultValue: "active"
-    }
+    },
+    Status: {
+      type: DataTypes.STRING,
+      defaultValue: "active",
+    },
   },
   {
     tableName: "Categories",
     timestamps: true,
     createdAt: "Created_At",
-    updatedAt: "Updated_At", 
+    updatedAt: "Updated_At",
     hooks: {
-    
       beforeValidate: async (categorie, options) => {
-        if (typeof categorie["Title"] === 'string') {
-          let slug = slugify(categorie["Title"], { lower: true });
+  
+        if (typeof categorie["Slug_Title"] === "string") {
+          let slug = slugify(categorie["Slug_Title"], { lower: true });
           const similarSlugsCount = await Categorie.count({
             where: { Slug: { [Op.like]: `${slug}%` } },
           });
@@ -68,17 +73,30 @@ const Categorie = sequelize.define(
           }
           categorie["Slug"] = slug;
         } else {
-          console.error('Title is not a string:', categorie["Title"]);
+          console.error("Title is not a string:", categorie["Title"]);
         }
       },
-     
+      beforeUpdate: async (categorie, options) => {
+        if (typeof categorie["Slug_Title"] === "string") {
+          let slug = slugify(categorie["Slug_Title"], { lower: true });
+          const similarSlugsCount = await Categorie.count({
+            where: { Slug: { [Op.like]: `${slug}%` } },
+          });
+          if (similarSlugsCount > 0) {
+            slug = `${slug}-${similarSlugsCount + 1}`;
+          }
+          categorie["Slug"] = slug;
+        } else {
+          console.error("Title is not a string:", categorie["Title"]);
+        }
+      },
     },
     indexes: [
       {
         unique: true,
-        fields: ['Slug']
-      }
-    ]
+        fields: ["Slug"],
+      },
+    ],
   }
 );
 

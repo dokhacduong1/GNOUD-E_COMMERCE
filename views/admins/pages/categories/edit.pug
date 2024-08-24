@@ -8,10 +8,13 @@ block main
             h1(class="text-4xl font-bold pb-3") Welcome back, Admin
             h2(class="text-xl font-bold pb-5 text-main-50") This page edit a category
         div(class="")  
-            form(method='POST', action=`/admin/categories/edit/${idOrigin}?_method=PATCH`, enctype='multipart/form-data')
+            form(method='POST', action=`/admin/categories/edit/${idMain}?_method=PATCH`, enctype='multipart/form-data')
                 div(class='form-group pb-5')
                     label(for='title' class="block text-2xl font-semibold mb-2 text-main-300") Title
                     input(id="name" value=category.Title class="form-control w-full py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5" name='title', type='text', placeholder='Enter name')
+                div(class='form-group pb-5')
+                    label(for='slug_title' class="block text-2xl font-semibold mb-2 text-main-300") Slug Title
+                    input(id="name" value=category.Slug_Title class="form-control w-full py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5" name='slug_title', type='text', placeholder='Enter slug title')
                 div(class='form-group pb-5 ')
                     label(for='title' class="block text-2xl font-semibold mb-2 text-main-300") Parent Categories
                     select(id="parent_id" class="form-control custom-select  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 " name='parent_id')

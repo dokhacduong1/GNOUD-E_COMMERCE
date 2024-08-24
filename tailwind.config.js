@@ -17,8 +17,12 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        Hiragino: ['Hiragino Kaku Gothic Pro']
+        Hiragino: ['Hiragino Kaku Gothic Pro'],
+        Roboto: ['Roboto']
       },
+      backgroundImage: theme => ({
+        'arrow-button-sw': "url('/images/arrow-sw.svg')",
+      }),
       colors: {
         "main": {
           DEFAULT: '#3C3C43',
@@ -56,9 +60,12 @@ module.exports = {
       }
     },
     screens: {
+      'xxs': '320px', // Extra extra small devices (phones, less than 320px)
+      'xs-1':'390px',
       'xs': '480px', // Extra small devices (portrait phones, less than 576px)
       'sm': '576px', // Small devices (landscape phones, 576px and up)
       'md': '768px', // Medium devices (tablets, 768px and up)
+      'md-1': '800px',
       'lg': '992px', // Large devices (desktops, 992px and up)
       'xl': '1200px', // Extra large devices (large desktops, 1200px and up)
       '2xl': '1536px', // 2 Extra large devices (larger desktops, 1536px and up)

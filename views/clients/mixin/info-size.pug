@@ -1,0 +1,26 @@
+mixin info-size(size_product)
+    div(class="info-size")
+        div(class="sm:flex sm:flex-col lg:grid lg:grid-cols-6 gap-6 w-full")
+            div(class="content-size col-span-1")
+                div(class="flex sm:flex-row sm:justify-between lg:flex-col gap-[1.2rem] justify-start mb-[1.2rem] font-bold")
+                    span(class="text-[1.6rem]") 商品サイズ（仕上がり寸法）
+                    a(class="!underline text-[1.4rem]" href="#") サイズガイド・ヌード寸法はこちら
+                div(class="text-[1.2rem] mb-[0.8rem]")
+                    div(class="mb-[0.2rem]") 仕上がり寸法：実際に商品を測った時のサイズ
+                    div(class="") ヌード寸法：衣類未着用時の身体のサイズ
+                ul(class="text-[1.2rem]")
+                    li(class="before:content-['※']")  商品タグに記載しているのはヌード寸法です
+            div(class="table-size col-span-5")
+                div(class="pb-5 overflow-auto custom-scrollbar")
+                    table(class="w-full  ")
+                        thead(class="") 
+                            tr(class="text-left text-[1.2rem]")
+                                each item,index in size_product["TextOption"]["listTitle"]
+                                    th(class=` border-[#d8d8d9] border ${index===0 ? "sticky left-0 bordewr-table-custom" : ""} p-[0.8rem_1.2rem] bg-[#f5f5f5]`)
+                                        span(class="") #{item}
+                        tbody(class="")
+                            each items in size_product["TextOption"]["listOptions"]
+                                tr(class="text-left text-[1.2rem]")
+                                    each itemChilrd,index in items
+                                        td(class=` border-[#d8d8d9] border  p-[0.8rem_1.2rem] ${index===0 ? "bg-white sticky left-0 bordewr-table-custom" : ""} `)
+                                            span(class="") #{itemChilrd}

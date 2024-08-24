@@ -1,0 +1,88 @@
+include ./crow.pug
+mixin items-product(items)
+    div(class=" mt-[1.8rem] lg:mt-[4.8rem] relative")
+        div(class="hidden lg:block swiper-products select-none ")
+            div(class="swiper-wrapper pb-20")
+                each item in items
+                    div(class="swiper-slide cursor-pointer")
+                        a(class="text-left" href=`/product/${item.Slug}`)
+                            div(class="")
+                                div(class="slider-list-image")
+                                    img(class="loading-image h-full" src=item.Image alt=`image-${item.Title}` lazy="loading")
+                                    div(class="loader")
+                                div(class="slider-caption mt-[1.2rem] text-[1.4rem]")
+                                    p(class="") #{item.Title}
+                                div(class="slider-price mt-[2.2rem] text-main")
+                                    span(class="font-bold text-[1.6rem]") #{ parseInt(item.Price).toLocaleString()}
+                                    span(class='text-[1.2rem] ml-[0.2rem]') 円
+            div(class="swiper-button-prev-custom ")
+                img(src="../images/arrow-left.svg" alt="arrow-left")
+            div(class="swiper-button-next-custom")
+                img(src="../images/arrow-right.svg" alt="arrow-right")
+            div(class="swiper-scrollbar")
+        div(class="block lg:hidden swiper-product-mobile select-none")
+            div(class="swiper-wrapper flex flex-row gap-[2.4rem_1.5rem] flex-wrap overflow-hidden")
+                each item in items.slice(0, 6)
+                    div(class=" cursor-pointer basis-[calc((100%-30px)/3)]")
+                        a(class="text-left" href=`/product/${item.Slug}`)
+                            div(class="")
+                                div(class="slider-list-image")
+                                    img(class="loading-image h-full" src=item.Image alt=`image-${item.Title}` lazy="loading")
+                                    div(class="loader")
+                                div(class="slider-caption mt-[1.2rem] text-[1.4rem]")
+                                    p(class="truncate max-w-[8.3rem] sm:max-w-[13rem] md:max-w-[20rem] lg:max-w-[100%]" title=item.Title) #{item.Title}
+                                div(class="slider-price mt-[2.2rem] text-main")
+                                    span(class="font-bold text-[1.2rem] lg:text-[1.6rem]") #{ parseInt(item.Price).toLocaleString()}
+                                    span(class='text-[1.2rem] ml-[0.2rem]') 円
+            a(class="button-show-more cursor-pointer mt-6 flex justify-center items-center text-[1.4rem] font-bold"  href="#")
+                div(class="flex justify-center items-center bg-[#f5f5f5] p-[0.8rem] rounded-md gap-2")
+                    img(src="../images/cong.svg" alt="cong1")
+                    div(class="text-center ") さらに表示する
+
+
+mixin items-product-top(items)
+    - var colors = ["#cbc37c", "#9d9da0", "#916961", "#3C3C43"]
+    div(class="mt-[1.8rem] lg:mt-[4.8rem]  relative")
+        div(class=" swiper-products select-none ")
+            div(class="swiper-wrapper pb-[3rem] lg:pb-20")
+                each item,index in items
+                    div(class="swiper-slide cursor-pointer basis-[calc((100%+40px+8px-30px)/2.5)] lg:basis-[calc((100%-120px)/6)] ")
+                        a(class="text-left" href=`/product/${item.Slug}`)     
+                            div(class="crow flex items-center justify-center")
+                                +crow(index+1, color=colors[index] || colors[colors.length - 1])
+                            div(class="slider-list-image")
+                                img(class="loading-image h-full" src=item.Image alt=`image-${item.Title}`  lazy="loading")
+                                div(class="loader")
+                            div(class="slider-caption mt-[1.2rem] text-[1.4rem]")
+                                p #{item.Title}
+                            div(class="slider-price mt-[2.2rem] text-main")
+                                span(class="font-bold text-[1.6rem]") #{ parseInt(item.Price).toLocaleString()}
+                                span(class='text-[1.2rem] ml-[0.2rem]') 円
+            div(class="swiper-button-prev-custom !hidden lg:!flex")
+                img(src="../images/arrow-left.svg" alt="arrow-left")
+            div(class="swiper-button-next-custom !hidden lg:!flex")
+                img(src="../images/arrow-right.svg" alt="arrow-right")
+            div(class="swiper-scrollbar bottom-[2.5rem] lg:bottom-0")
+
+
+mixin items-product-backup(items)
+    div(class="mt-[4.8rem] relative")
+        div(class="swiper-products select-none ")
+            div(class="swiper-wrapper pb-20")
+                each item in items
+                    div(class="swiper-slide cursor-pointer")
+                        a(class="text-left" href=`/product/${item.Slug}`)
+                            div(class="")
+                                div(class="slider-list-image")
+                                    img(class="loading-image h-full" src=item.Image alt=`image-${item.Title}` lazy="loading")
+                                    div(class="loader")
+                                div(class="slider-caption mt-[1.2rem] text-[1.4rem]")
+                                    p(class="") #{item.Title}
+                                div(class="slider-price mt-[2.2rem] text-main")
+                                    span(class="font-bold text-[1.6rem]") #{ parseInt(item.Price).toLocaleString()}
+                                    span(class='text-[1.2rem] ml-[0.2rem]') 円
+            div(class="swiper-button-prev-custom ")
+                img(src="../images/arrow-left.svg" alt="arrow-left")
+            div(class="swiper-button-next-custom")
+                img(src="../images/arrow-right.svg" alt="arrow-right")
+            div(class="swiper-scrollbar")

@@ -6,6 +6,7 @@ import { findEntitiesQuery } from "../../find-record/entities_query";
 import { deleteQuery } from "../../find-record/delete_query";
 import Trash from "../../models/trash.model";
 import { handleDeleteAll } from "../../helpers/categories.helpers";
+import CategorieCount from "../../models/categorie_count.model";
 const prefix_client = "admins";
 const backup_redirect = "/admin/categories/management";
 
@@ -27,8 +28,7 @@ export const index = async function (req: Request, res: Response) {
         status,
         keyword,
         page: queryPage,
-      },
-
+      }
     );
     //Render ra view
     res.render(prefix_client + "/pages/categories/index", {
@@ -80,9 +80,10 @@ export const postCreate = async function (
       parent_id: number;
       description: string;
       image: string;
+      slug_title: string;
     }
     //Lấy dữ liệu từ req.body
-    const { title, parent_id, description, image }: RequestBodyCategory =
+    const { title, parent_id, description, image,slug_title }: RequestBodyCategory =
       req.body;
 
     //Kiểm tra dữ liệu
@@ -90,6 +91,7 @@ export const postCreate = async function (
       Title: title,
       Description: description,
       Thumbnail: image,
+      Slug_Title: slug_title,
     };
     //Nếu parent_id tồn tại thì gán cho category.ParentID
     if (parent_id) {
@@ -99,36 +101,46 @@ export const postCreate = async function (
     await Categorie.create(category as any);
     req.flash("success", "Create category success");
 
-    res.redirect("/admin/categories/create");
+    res.redirect("/admin/categories/reload-count");
   } catch (error) {
     res.redirect(backup_redirect);
   }
 };
-
+export const softDeleteCategory = async function (req: Request, res: Response) {
+  try {
+    //Lấy id từ req.params
+    const id: number = parseInt(req.params.id);
+    await Categorie.update(
+      {
+        Deleted: true,
+      },
+      {
+        where: {
+          ID: id,
+        },
+      }
+    );
+    //Thông báo xóa thành công
+    req.flash("success", "Delete category success");
+    //Chuyển hướng người dùng về trang trước
+    res.redirect("/admin/categories/reload-count");
+  } catch (error) {
+    console.log(error);
+    res.redirect(backup_redirect);
+  }
+};
 // [GET] /admin/categories/delete-category/:id
 export const deleteCategory = async function (req: Request, res: Response) {
   try {
     //Lấy id từ req.params
     const id: number = parseInt(req.params.id);
-    //Xóa category xóa mềm (update trường Deleted = true) có thể phục hồi
-    const record = await Categorie.findByPk(id, {
-      raw: true,
-    });
-    if (!record) {
-      req.flash("error", "Category not found");
-      res.redirect("back");
-      return;
-    }
-    await Trash.create({
-      TableName: "categories",
-      DataTable: JSON.stringify(record),
-    });
-    if ((await deleteQuery("categories", id)).success == false) {
-      req.flash("error", "Delete category failed");
-      res.redirect("back");
-      return;
-    }
 
+    await Categorie.destroy({
+      where: {
+        ID: id,
+      },
+    });
+  
     //Thông báo xóa thành công
     req.flash("success", "Delete category success");
     //Chuyển hướng người dùng về trang trước
@@ -157,7 +169,11 @@ export const changeStatus = async function (req: Request, res: Response) {
       }
     );
     //Trả về thông báo cho client
-    res.json({ code: 200, message: "Change status success" });
+    res.json({
+      code: 200,
+      message: "Change status success",
+      url: "/admin/categories/reload-count",
+    });
   } catch (error) {
     res.redirect(backup_redirect);
   }
@@ -208,7 +224,8 @@ export const changeMulti = async function (req: Request, res: Response) {
     }
 
     // Chuyển hướng người dùng về trang trước đó
-    res.redirect("back");
+
+    res.redirect("/admin/categories/reload-count");
   } catch (error) {
     // Nếu có lỗi xảy ra, chuyển hướng người dùng về trang backup
     res.redirect(backup_redirect);
@@ -228,11 +245,14 @@ export const getEdit = async function (req: Request, res: Response) {
       },
       raw: true,
     });
+  
     //Tạo cây categories
     const categoriesTree = tree.createTree(categories as any);
+    
     res.render(prefix_client + "/pages/categories/edit", {
       title: "Edit Categorie",
       categories: categoriesTree,
+      idMain: id,
       idOrigin: category["ParentID"] || id,
       category: category,
     });
@@ -246,25 +266,29 @@ export const patchEdit = async function (
 ): Promise<void> {
   try {
     const id: string = req.params.id;
+   
     //Tạo một interface RequestBodyCategory để kiểm tra kiểu dữ liệu của req.body
     interface RequestBodyCategory {
       title: string;
       parent_id: number;
       description: string;
       image: string;
+      slug_title: string;
     }
     //Lấy dữ liệu từ req.body
-    const { title, parent_id, description, image }: RequestBodyCategory =
+    const { title, parent_id, description, image,slug_title }: RequestBodyCategory =
       req.body;
 
+      
     //Kiểm tra dữ liệu
     const category: CategoryInterface = {
       Title: title,
       Description: description,
       Thumbnail: image,
+      Slug_Title: slug_title,
     };
     //Nếu parent_id tồn tại thì gán cho category.ParentID
-    if (parent_id) {
+    if (parent_id && parent_id !== parseInt(id)) {
       category.ParentID = parent_id;
     }
     //Tạo category
@@ -275,8 +299,48 @@ export const patchEdit = async function (
     });
 
     req.flash("success", "Update category success");
-    res.redirect(backup_redirect);
+    res.redirect("/admin/categories/reload-count");
   } catch (error) {
     res.redirect(backup_redirect);
+  }
+};
+
+export const reloadCount = async function (
+  req: Request,
+  res: Response
+): Promise<void> {
+  try {
+   
+    const countActive = await Categorie.count({
+      where: {
+        Status: "active",
+      },
+    });
+    const countInactive = await Categorie.count({
+      where: {
+        Status: "inactive",
+      },
+    });
+    const countDeleted = await Categorie.count({
+      where: {
+        Deleted: true,
+      },
+    });
+    await CategorieCount.update(
+      {
+        count: countActive,
+        count_status_inactive: countInactive,
+        count_deleted: countDeleted,
+      },
+      {
+        where: {
+          ID: 1,
+        },
+      }
+    );
+    res.redirect("back");
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Internal server error" });
   }
 };

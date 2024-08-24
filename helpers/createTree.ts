@@ -8,7 +8,7 @@ interface TreeNode {
 export const createTree = (arr: TreeNode[]): TreeNode[] => {
     const treeMap: { [key: number]: TreeNode } = {}; // Sử dụng một bản đồ để theo dõi các nút bằng id
     const tree: TreeNode[] = []; // Mảng chứa cây kết quả
-  
+   
     // Tạo một mục nhập trong bản đồ cho mỗi nút và sắp xếp lại arr theo id
     arr.forEach((item) => {
       treeMap[item.ID] = item;

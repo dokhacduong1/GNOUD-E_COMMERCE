@@ -40,7 +40,10 @@ block main
                                     span(class="") Filter
 
                 div(class="mt-6")
-                    +select-action("/admin/products/change-multi?_method=PATCH")
+                    div(class="flex justify-between items-center")
+                        +select-action("/admin/products/change-multi?_method=PATCH")
+                        div(class="reload-count ")
+                            a(href="/admin/products/reload-count" class="bg-main px-3 py-3 text-white rounded-lg inline-block w-full font-bold hover:bg-main-50 hover:text-white transition-all") Reload Count Product
                     table(class="w-full border border-transparent block" checkbox-multi)
                         thead(class="border-b border-t border-gray-200 bg-gray-50 block w-full")
                             tr(class="flex flex-row items-center gap-[5rem]")

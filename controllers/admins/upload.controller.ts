@@ -7,7 +7,7 @@ export const multiImage = async function (
   res: Response
 ): Promise<void> {
   try {
-    console.log(req);
+
     res.json("Upload success");
   } catch (error) {
     console.log(error);

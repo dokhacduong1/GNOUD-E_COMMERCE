@@ -1,0 +1,43 @@
+mixin info-shipping()
+    div(class="flex flex-col lg:flex-row  gap-[2.4rem]")
+        div(class="basis-1/2")
+            div(class="box-shipping")
+                ul(class="flex flex-row gap-[2.4rem] text-[1.2rem] sm:text-[1.6rem]")
+                    li(class="sm:bg-[#f5f5f5] py-[1.5rem] sm:p-[2rem] flex items-center flex-1 flex-col text-center")
+                        span(class="")
+                            img(src="../images/cart.svg" alt="cart")
+                        span(class=" mt-[0.8rem]") 送料無料
+                        div(class=" font-bold mt-[0.8rem]") いくつ買っても 500円
+                    li(class="sm:bg-[#f5f5f5] py-[1.5rem] sm:p-[2rem] flex items-center flex-1 flex-col text-center")
+                        span(class="")
+                            img(src="../images/box.svg" alt="box")
+                        span(class=" mt-[0.8rem]") 配送区分
+                        div(class=" font-bold mt-[0.8rem]") 宅配品
+                    li(class="sm:bg-[#f5f5f5] py-[1.5rem] sm:p-[2rem] flex items-center flex-1 flex-col text-center")
+                        span(class="")
+                            img(src="../images/calendar.svg" alt="calendar")
+                        span(class=" mt-[0.8rem]") 最短お届け日
+                        div(class=" font-bold mt-[0.8rem]") 時間的に安定している
+
+        div(class="basis-1/2")
+            div(class="box-content-shipping")
+                div(class="flex flex-col gap-[2.4rem]")
+                    p(class="flex items-center justify-start w-full")
+                        span(class="")
+                            img(src="../images/warning.svg" alt="warning")
+                        span(class="text-[#7f0019] text-[1.4rem] flex-grow-[1] pl-[0.8rem]") この商品は【ネットストア限定、消費税込5,000円以上で配送料無料、対象商品】です
+                    p(class="")
+                        a(class="flex justify-center items-center gap-3 p-[0.8rem] text-center bg-[#f4eede]" href="#")
+                            span(class="")
+                                img(src="../images/logo-ce.svg" alt="logo-ce")
+                            span(class="text-[1.4rem] font-bold") 無印良品の店舗で受け取って
+                                b(class="text-[#7f0019] ml-3") 配送料無料
+                    ul 
+                        li(class="flex gap-2 text-[1.4rem]")
+                            span(class="") ※
+                            span(class="") 店舗でのご注文と配送料が異なる場合がございます。
+                    div(class="")
+                        button(class="flex items-center gap-3")
+                            span(class="text-[1.4rem] font-bold") 配送料区分と配送料について
+                            span(class="")
+                                img(src="../images/copy1.svg" alt="copy")

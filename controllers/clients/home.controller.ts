@@ -11,6 +11,7 @@ export const index = async function (
     const productsNew = await ProductPreview.findAll({
       where: {
         Status: "active",
+        Deleted: false,
       },
       order: [["Created_At", "DESC"]],
       limit: 6,
@@ -28,85 +29,16 @@ export const index = async function (
             img: `/images/item/${option.image}.avif?w=253&h=253`,
           };
         }),
-
+        slug: item.Slug,
         price: item.Price,
       };
     });
-    const data = [
-      [
-        {
-          title: "婦人・レディース1",
-          items: [
-            { id: 1, name: "Tシャツ" },
-            { id: 2, name: "ワンピース・チュニック" },
-            { id: 3, name: "シャツ・ブラウス" },
-            { id: 4, name: "カーディガン・ニット" },
-            { id: 5, name: "スウェット" },
-          ],
-        },
-        {
-          title: "婦人・レディース1.1",
-          items: [
-            { id: 1, name: "Tシャツ" },
-            { id: 2, name: "ワンピース・チュニック" },
-            { id: 3, name: "シャツ・ブラウス" },
-            { id: 4, name: "カーディガン・ニット" },
-            { id: 5, name: "スウェット" },
-          ],
-        },
-      ],
-      [
-        {
-          title: "婦人・レディース2",
-          items: [
-            { id: 1, name: "Tシャツ" },
-            { id: 2, name: "ワンピース・チュニック" },
-            { id: 3, name: "シャツ・ブラウス" },
-            { id: 4, name: "カーディガン・ニット" },
-            { id: 5, name: "スウェット" },
-          ],
-        },
-      ],
-      [
-        {
-          title: "婦人・レディース3",
-          items: [
-            { id: 1, name: "Tシャツ" },
-            { id: 2, name: "ワンピース・チュニック" },
-            { id: 3, name: "シャツ・ブラウス" },
-            { id: 4, name: "カーディガン・ニット" },
-            { id: 5, name: "スウェット" },
-          ],
-        },
-        {
-          title: "婦人・レディース3.1",
-          items: [
-            { id: 1, name: "Tシャツ" },
-            { id: 2, name: "ワンピース・チュニック" },
-            { id: 3, name: "シャツ・ブラウス" },
-            { id: 4, name: "カーディガン・ニット" },
-            { id: 5, name: "スウェット" },
-          ],
-        },
-      ],
-      [
-        {
-          title: "婦人・レディース4",
-          items: [
-            { id: 1, name: "Tシャツ" },
-            { id: 2, name: "ワンピース・チュニック" },
-            { id: 3, name: "シャツ・ブラウス" },
-            { id: 4, name: "カーディガン・ニット" },
-            { id: 5, name: "スウェット" },
-          ],
-        },
-      ],
-    ];
+   
 
     const banner = [
-      "https://www.muji.com/public/media/jp/img/top_banner/1640_mujitogo_240726.jpg",
-      "https://www.muji.com/public/media/jp/img/top_banner/1640_clear-care_240726.jpg",
-      "https://www.muji.com/public/media/jp/img/top_banner/1640_towel_240726.jpg",
+      "https://www.muji.com/public/media/jp/img/top_banner/1640_fan-goods_240816.jpg",
+      "https://www.muji.com/public/media/jp/img/top_banner/1640_naturalmaterials-skincare_240816.jpg",
+      "https://www.muji.com/public/media/jp/img/top_banner/1640_autumn_240816.png",
     ];
 
     const slickItemsSampleOne = [
@@ -157,7 +89,7 @@ export const index = async function (
 
     res.render(prefix_client + "/pages/home/index", {
       title: "Home",
-      data: data,
+     
       banner: banner,
       slickItemsSampleOne: slickItemsSampleOne,
       slickItemsNewProducts: slickItemsNewProducts,

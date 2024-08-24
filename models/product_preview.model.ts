@@ -3,12 +3,14 @@
 //     Product_ID INT NOT NULL,
 //     Title VARCHAR(255) NOT NULL,
 //     Price DECIMAL(10, 2) NOT NULL,
+//    NumberOfPurchases INT DEFAULT 0,
 //     DiscountPercent INT DEFAULT 0,
 //     Category_ID INT,
 //     Featured BOOLEAN DEFAULT FALSE,
 //     Slug VARCHAR(255) NOT NULL,
 //     Status ENUM('active', 'inactive') DEFAULT 'active',
 //     Options TEXT,
+//     Deleted BOOLEAN DEFAULT FALSE,
 //     Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 //     Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 //     FOREIGN KEY (Product_ID) REFERENCES Products(ID)
@@ -35,6 +37,10 @@ const ProductPreview = sequelize.define(
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
     },
+    NumberOfPurchases: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
     DiscountPercent: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
@@ -53,6 +59,10 @@ const ProductPreview = sequelize.define(
     Slug: {
       type: DataTypes.STRING(255),
       allowNull: false,
+    },
+    Deleted: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
     Options: {
       type: DataTypes.TEXT,

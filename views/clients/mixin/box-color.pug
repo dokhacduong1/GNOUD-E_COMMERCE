@@ -1,0 +1,24 @@
+mixin box-color(productOptions)
+    ul(class="flex gap-6 flex-wrap")
+        each item,index in productOptions
+            li(id-product=item.ID title=item.Title class=`color-item  size-[3.7rem] rounded-full cursor-pointer ${index===0 ? "active-outline-detail" :""}` style=`background:url(${item.Color}) no-repeat center center; background-size:cover;`)
+
+mixin box-color-mobile(productOptions,indexSizeCheck)
+    div(class='StickyCartIn_modal h-[80%] ')
+        ul(class="pb-[3rem]")
+            if(productOptions && productOptions.length > 0)
+                each itemOption,indexOption in productOptions
+                    li
+                        ul
+                            if(itemOption.List_Options && itemOption.List_Options.length > 0)
+                                each itemSize,indexSize in itemOption.List_Options
+                                    li(id-product=itemOption.ID id-size=itemSize.size class=`options-moible  ${itemSize.stock === 0 ? "no-stock-mobile":""}` title=itemOption.Title)
+                                        div(class=`flex items-center cursor-pointer p-[0.6rem_1.5rem] gap-4 w-full  ${(indexOption===0 && indexSize ===indexSizeCheck) ? "active-outline-detail-mobile" :""}`)
+                                            div(class=`rounded-full overflow-hidden color-button border border-[#00000033] relative`)
+                                                div(class=`size-[1.4rem]` style=`background:url(${itemOption.Color}) no-repeat center center; background-size:cover;`)
+                                                if(itemSize.stock === 0)
+                                                    div(class="ColorButton_Disable rotate-left")
+                                            div(class="title-color")
+                                                p(class=`product-category text-[1.4rem] text-main-50 ${itemSize.stock === 0 ? "color-no-stock" :""}`) #{itemSize.size}・#{itemOption.Title}
+                        div(class="m-[0.8rem_1.5rem]")
+                            hr(class="bg-[#ebebec] h-[1px]")

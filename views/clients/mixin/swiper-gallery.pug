@@ -1,0 +1,20 @@
+mixin swiper-gallery(items,productSampleInformation)
+    div(class="")
+        div(class="swiper-gallery relative flex gap-[1rem] flex-col sm:flex-row")
+            div(class="swiper-container  sm:static gallery-thumbs  overflow-hidden max-h-[34.8rem] h-full md:basis-[8%]  lg:basis-[8%] order-2 sm:order-1" )
+                div(class="swiper-wrapper    max-h-[34.8rem] h-full flex  flex-row sm:block")
+                    
+                    each img in items[0].ListImages
+                        div(class="swiper-slide cursor-pointer !size-[4.8rem] rounded-lg bg-no-repeat bg-cover" style=`background-image: url(${img.ImageURL} );` data-image= img.ImageURLMain loading="lazy")
+                div(class="flex flex-row sm:flex-col items-center justify-between gap-5 mt-8  sm:mt-6  sm:absolute z-999 w-full sm:w-auto sm:top-auto sm:left-[1.2rem] ")
+                    div(class="swiper-button-prev swiper-button-white bg-arrow-button-sw size-[2rem] transform rotate-90 sm:rotate-180")
+                    div(class="swiper-pagination1 sm:hidden")
+                    div(class="swiper-button-next swiper-button-white bg-arrow-button-sw size-[2rem] -rotate-90 sm:rotate-0")
+            div(class="swiper-container gallery-top   image-container  flex-1 md:basis-[92%] lg:basis-[92%] order-1 sm:order-2")
+                div(class="swiper-wrapper  ")
+                    img(src=items[0].ListImages[0].ImageURLMain alt="image-main" class="loading-image  size-full rounded-lg basis-11/12 max-w-[73.4rem] max-h-[73.4rem]" lazy="loading")
+                    div(class="loader")
+                div(class="detail-info-product mt-[1.2rem] sm:hidden lg:block")
+                    p(class="text-[1.2rem] text-[#76767b]") #{productSampleInformation}
+
+

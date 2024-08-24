@@ -18,7 +18,9 @@ if (prefix_link && buttonChangeStatus.length > 0) {
             }).then(response => response.json())
                 .then(data => {
                     if (data.code === 200) {
-                        window.location.reload();
+                        // console.log(data.message);
+                        // window.location.reload();
+                        window.location.href = data.url;
                     }
                 })
 

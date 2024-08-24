@@ -1,15 +1,11 @@
 
-interface ObjectPagination{
-    currentPage? : number,
-    limitItem? : number
-    skip? : number,
-    totalPage? : number
-}
-
 
 //Chúng ta phải truyền 3 tham số
 //countRecord: Số lượng sản phẩm của bảng
 //checkPage: Page hiện tại của sản phẩm
+
+import { ObjectPagination } from "../interfaces/admins/find_entities.interface";
+
 //limitPage: Số lượng sản phẩm cần hiển thị
 export const filterQueryPagination = (countRecord : number, currentPage : number , limitItem :number ) : ObjectPagination => {
     //Khai báo biến phân trang

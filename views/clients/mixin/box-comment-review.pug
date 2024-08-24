@@ -1,0 +1,37 @@
+mixin comment-review(review)
+    div(class="comments")
+        div(class="flex  flex-wrap gap-[2.4rem]")
+            each i in Array(3)
+                div(class="item-comment basis-full lg:basis-[calc((100%-48px)/3)]")
+                    div(class="flex flex-col")
+                        div(class="info-comment flex items-center gap-3 ")
+                            div(class="avatar")
+                                img(src="../images/avatar.svg" alt="avatar")
+                            div(class="info-user flex flex-col text-main-300")
+                                span(class="text-[1.4rem] font-Roboto") Junko
+                                span(class="text-[1.3rem] font-bold font-Roboto") 2024/08/07
+                        div(class="rattings flex items-center gap-3 mt-3")
+                            div(class="box-start")
+                                +box-star-comment(5)
+                        div(class="summary-text mt-[0.8rem]")
+                            p(class="text-[1.2rem] text-main-50 break-words whitespace-pre-wrap ") とても素敵です
+                        div(class=" description-comment mt-[0.8rem] text-[1.5rem] relative   text-main-200 break-words whitespace-pre-wrap leading-10 overflow-hidden ")
+                            div(class="child-desc accordion-description-gradient ")
+                                p(class="") ガーゼの長袖ワンピースを探していたので買ってみましたがとても良いです！
+                                | 布が薄くて柔らかくふわっとしたシルエットなので着用のストレスが一切ないです。
+                                | 本当に気持ちがいい…。着たくなる服！夏物で長袖は中々ないので嬉しいです。
+                                | 今アトピーで皮膚が剥けるため、黒い服が着れません。ベージュがあって助かりました。価格もお手頃でいいです。これからも綿ガーゼの商品をだしてほしいです。
+                        button(class="button-show-comment mt-[1.6rem] text-[1.6rem] font-bold flex items-center gap-2 select-none")
+                            div(class="icon-desc")
+                                img(class="cong" src="../images/cong.svg" alt="cong")
+                                img(class="tru hidden" src="../images/tru.svg" alt="tru")
+                            span(class="") 続きを読む
+                        div(class="comment-like mt-[1.6rem]")
+                            button(class="flex items-center gap-2 text-[1.6rem] font-bold leading-[160%]")
+                                span(class="icon")
+                                    img(src="../images/like.svg" alt="like")
+                                span() 参考になった (0人)
+        div(class="button-comment-show-full-list")
+            div(class="flex items-center justify-center mt-[6.5rem]")
+                a(class="group " href="#")
+                    span(class=" transition-all group-hover:bg-[#ebebec] p-[1rem] text-[1.4rem] font-bold text-main bg-[#f5f5f5] rounded-md") すべてのレビューを見る

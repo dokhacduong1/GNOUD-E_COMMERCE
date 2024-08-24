@@ -14,6 +14,7 @@ import slugify from "slugify";
 //   ImageLink VARCHAR(255) DEFAULT "",
 //   Price DECIMAL(10, 2) NOT NULL,
 //    Deleted BOOLEAN DEFAULT FALSE,
+//   Product_Sample_Information VARCHAR(255),
 //   Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 //   Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 // );
@@ -69,6 +70,10 @@ const Product = sequelize.define(
       type: DataTypes.BOOLEAN,
       defaultValue: false,
     },
+    Product_Sample_Information: {
+      type: DataTypes.STRING(255),
+      defaultValue: "",
+    },
   },
   {
     tableName: "Products",
@@ -77,11 +82,11 @@ const Product = sequelize.define(
     updatedAt: "Updated_At",
     hooks: {
       beforeValidate: async (product, options) => {
+        console.log("Before Validate Hook");
         if (typeof product["Title"] === "string") {
-          let slug = slugify(product["Title"], { lower: true });
-          if(!slug) {
-            slug = autoCalcSlug(product["Title"])
-          }
+          let slug = autoCalcSlug(product["Title"]);
+     
+          console.log("Slug:", slug);
           const similarSlugsCount = await Product.count({
             where: { Slug: { [Op.like]: `${slug}%` } },
           });

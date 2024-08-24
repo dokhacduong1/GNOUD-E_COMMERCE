@@ -22,6 +22,7 @@ CREATE TABLE Products (
     Description TEXT,
     ImageLink VARCHAR(255) DEFAULT "",
     Price DECIMAL(10, 2) NOT NULL,
+    Product_Sample_Information VARCHAR(255),
     Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -76,6 +77,7 @@ CREATE TABLE ProductPreview (
     Category_ID INT,
     Featured BOOLEAN DEFAULT FALSE,
     Slug VARCHAR(255) NOT NULL,
+    NumberOfPurchases INT DEFAULT 0,
     Options TEXT,
     Status ENUM('active', 'inactive') DEFAULT 'active',
     Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -90,9 +92,10 @@ PARTITION BY RANGE (Product_ID) (
 );
 -- New product
 CREATE INDEX idx_status_created_at ON ProductPreview (Status, Created_At);
+CREATE INDEX idx_status_category ON ProductPreview (Status,Deleted, Category_ID);
+CREATE INDEX idx_status_number_of_purchases ON ProductPreview (Status,Deleted, NumberOfPurchases);
 
-CREATE INDEX idx_productpreview_product_id ON ProductPreview(Product_ID);
-
+CREATE INDEX idx_categories_parentid ON categories(ParentID);
 CREATE INDEX idx_productinformation_product_id ON ProductInformation(Product_ID);
 CREATE INDEX idx_sizespecifications_product_id ON SizeSpecifications(Product_ID);
 
@@ -103,8 +106,9 @@ CREATE INDEX idx_productoptions_product_id_title_color_lo_stock ON ProductOption
 CREATE INDEX idx_productimages_option_id ON ProductImages(Option_ID);
 CREATE INDEX idx_productimages_option_id_image_url ON ProductImages(Option_ID,ImageURL);
 
+CREATE INDEX idx_products_slug ON Products(Slug);
 
-CREATE INDEX key_active ON user_data(key_active);
+
 -- Tạo bảng Users
 CREATE TABLE Users (
     UserID INT AUTO_INCREMENT PRIMARY KEY,
@@ -198,61 +202,11 @@ CREATE TABLE categories_count (
     id INT PRIMARY KEY,
     count INT DEFAULT 0,
     count_status_inactive INT DEFAULT 0,
+     count_deleted int DEFAULT 0,
     
 );
 INSERT INTO category_count (id, count) VALUES (1, 0);
---Tạo trigger sau khi thêm danh mục
-DELIMITER //
 
-CREATE TRIGGER after_category_insert
-AFTER INSERT ON categories
-FOR EACH ROW
-BEGIN
-    UPDATE categories_count SET count = count + 1 WHERE id = 1;
-END //
-
-CREATE TRIGGER after_category_update
-AFTER UPDATE ON categories
-FOR EACH ROW
-BEGIN
-    IF NEW.Status = 'inactive' THEN
-        UPDATE categories_count SET count_status_inactive = count_status_inactive + 1,count = count-1 WHERE id = 1;
-    END IF;
-    IF NEW.Status = 'active' THEN
-        UPDATE categories_count SET count_status_inactive = count_status_inactive - 1,count = count+1 WHERE id = 1;
-    END IF;
-END //
-
-DELIMITER ;
-
-DELIMITER //
-
-CREATE TRIGGER after_category_delete
-AFTER DELETE ON categories
-FOR EACH ROW
-BEGIN
-    DECLARE status_check VARCHAR(50);
-    
-    -- Set status_check to 'active' or 'inactive' based on OLD.Status
-    SET status_check = CASE 
-        WHEN OLD.Status = 'inactive' THEN 'inactive'
-        ELSE 'active'
-    END;
-    
-    -- Update categories_count based on status_check
-    UPDATE categories_count
-    SET count_status_inactive = count_status_inactive + CASE status_check
-            WHEN 'inactive' THEN -1
-            ELSE 0
-        END,
-        count = count + CASE status_check
-            WHEN 'active' THEN -1
-            ELSE 0
-        END
-    WHERE id = 1;
-END //
-
-DELIMITER ;
 
 
 
@@ -262,60 +216,9 @@ CREATE TABLE products_count (
     id INT PRIMARY KEY,
     count INT DEFAULT 0,
     count_status_inactive INT DEFAULT 0
+    count_deleted int DEFAULT 0,
 );
 INSERT INTO products_count (id, count) VALUES (1, 0);
---Tạo trigger sau khi thêm danh mục
-DELIMITER //
-
-CREATE TRIGGER after_product_insert
-AFTER INSERT ON products
-FOR EACH ROW
-BEGIN
-    UPDATE products_count SET count = count + 1 WHERE id = 1;
-END //
-
-CREATE TRIGGER after_product_update
-AFTER UPDATE ON products
-FOR EACH ROW
-BEGIN
-    IF NEW.Status = 'inactive' THEN
-        UPDATE products_count SET count_status_inactive = count_status_inactive + 1,count = count-1 WHERE id = 1;
-    END IF;
-    IF NEW.Status = 'active' THEN
-        UPDATE products_count SET count_status_inactive = count_status_inactive - 1,count = count+1 WHERE id = 1;
-    END IF;
-END //
-
-DELIMITER ;
-
-DELIMITER //
-
-CREATE TRIGGER after_product_delete
-AFTER DELETE ON products
-FOR EACH ROW
-BEGIN
-    DECLARE status_check VARCHAR(50);
-    
-    -- Set status_check to 'active' or 'inactive' based on OLD.Status
-    SET status_check = CASE 
-        WHEN OLD.Status = 'inactive' THEN 'inactive'
-        ELSE 'active'
-    END;
-    
-    -- Update products_count based on status_check
-    UPDATE products_count
-    SET count_status_inactive = count_status_inactive + CASE status_check
-            WHEN 'inactive' THEN -1
-            ELSE 0
-        END,
-        count = count + CASE status_check
-            WHEN 'active' THEN -1
-            ELSE 0
-        END
-    WHERE id = 1;
-END //
-
-DELIMITER ;
 
 
 

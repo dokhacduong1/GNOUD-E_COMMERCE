@@ -1,70 +1,99 @@
-html{
-    font-size: 62.5%;
+html {
+  font-size: 62.5%;
 }
-@font-face{
-    font-family: 'Hiragino Kaku Gothic Pro';
-    src: url('/fonts/HiraginoKakuGothicProN-W3.otf');
-    font-weight: normal;
-    font-style: normal;
+@font-face {
+  font-family: "Hiragino Kaku Gothic Pro";
+  src: url("/fonts/HiraginoKakuGothicProN-W3.otf");
+  font-weight: normal;
+  font-style: normal;
 }
 
+@font-face {
+  font-family: "Roboto";
+  font-weight: 400;
+  font-style: normal;
+}
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-a{
-    @apply hover:text-main
+a {
+  @apply hover:text-main;
 }
 
-.select-categories{
-    @apply before:bg-main before:bottom-0 before:h-[0.3rem] before:left-0 before:absolute before:w-full before:content-[''];
+.select-categories {
+  @apply before:bg-main before:bottom-0 before:h-[0.3rem] before:left-0 before:absolute before:w-full before:content-[''];
 }
-.active-outline{
-    @apply outline-1 outline-offset-1 outline
+.active-outline {
+  @apply outline-1 outline-offset-1 outline;
 }
-
+.active-outline-detail {
+  @apply outline-2 outline-offset-2 outline;
+}
+.active-outline-detail-mobile{
+  @apply bg-[#f5f5f5] cursor-auto ;
+}
+.active-outline-detail-mobile p{
+  @apply  text-main ;
+}
 /* slider */
-.active-menu-sider > a{
-    @apply bg-main text-white rounded-2xl hover:!text-white
+.active-menu-sider > a {
+  @apply bg-main text-white rounded-2xl hover:!text-white;
 }
-.active-menu-sider{
-    @apply hover:!bg-transparent
+.active-menu-sider {
+  @apply hover:!bg-transparent;
 }
-.children-menu-sider{
-    @apply pl-[2rem] bg-[#f5f5f5] mt-1 py-4 !text-main-50 text-[1.4rem]
+.children-menu-sider {
+  @apply pl-[2rem] bg-[#f5f5f5] mt-1 py-4 !text-main-50 text-[1.4rem];
 }
-.children-menu-sider a{
-    @apply flex items-center py-6 px-4   transition-all duration-300 ease-in-out
+.children-menu-sider a {
+  @apply flex items-center py-6 px-4   transition-all duration-300 ease-in-out;
 }
-.active-menu-sider .children-menu-sider a.active{
-    @apply text-main font-bold
+.active-menu-sider .children-menu-sider a.active {
+  @apply text-main font-bold;
 }
-.active-size-slider{
-    @apply w-[10rem]
+.active-size-slider {
+  @apply w-[10rem];
 }
-.active-size-slider .text-c{
-    @apply hidden
+.active-size-slider .text-c {
+  @apply hidden;
 }
-.active-size-slider .icon-c{
-    @apply text-[1.7rem]
+.active-size-slider .icon-c {
+  @apply text-[1.7rem];
 }
-.active-size-slider .button-menu-sider-icon{
-    @apply hidden;
+.active-size-slider .button-menu-sider-icon {
+  @apply hidden;
 }
-.active-size-slider .children-menu-sider{
-    @apply absolute top-0 left-[9.3rem] z-50
+.active-size-slider .children-menu-sider {
+  @apply absolute top-0 left-[9.3rem] z-50;
 }
-.active-size-slider .nav-slider .menu-bar{
-    @apply !justify-center
+.active-size-slider .nav-slider .menu-bar {
+  @apply !justify-center;
 }
 /* end slider */
 
 /* 
 Select-row */
 
-.active-select-row{
-    @apply bg-main text-white overflow-hidden
+.active-select-row {
+  @apply bg-main text-white overflow-hidden;
 }
-.button-add-option-select{
-    @apply text-center transition-all bg-red-300 text-white inline-block p-3 rounded-md cursor-pointer hover:text-ellipsis w-full hover:bg-red-500
+.button-add-option-select {
+  @apply text-center transition-all bg-red-300 text-white inline-block p-3 rounded-md cursor-pointer hover:text-ellipsis w-full hover:bg-red-500;
+}
+.button-active-count {
+  @apply bg-[#d8d8d9] cursor-pointer;
+}
+.button-no-active-count {
+  @apply bg-[#f5f5f5] cursor-auto;
+}
+.active-tab {
+  @apply border-b-2 border-main;
+}
+.accordion-description-gradient::after {
+  @apply absolute bottom-0 w-full left-0;
+  background: linear-gradient(0deg, #fff 0%, transparent);
+  content: "";
+  height: 40%;
+  mix-blend-mode: screen;
 }
