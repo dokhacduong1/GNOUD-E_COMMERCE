@@ -17,7 +17,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        Hiragino: ['Hiragino Kaku Gothic Pro'],
+        Hiragino:  ['"Hiragino Kaku Gothic Pro"', 'sans-serif','Arial'],
         Roboto: ['Roboto']
       },
       backgroundImage: theme => ({

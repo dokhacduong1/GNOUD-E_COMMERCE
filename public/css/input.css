@@ -3,7 +3,7 @@ html {
 }
 @font-face {
   font-family: "Hiragino Kaku Gothic Pro";
-  src: url("/fonts/HiraginoKakuGothicProN-W3.otf");
+  src: url("/fonts/HiraginoKakuGothicProN-W3.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
 }

@@ -19,7 +19,7 @@ block main
     -let check = 0;
     -let stringC = ''
     -let indexSize = 0
-    div(class="max-w-[calc(1352px)] mx-auto  ")
+    div(class="max-w-[calc(1352px)] mx-auto ")
        
         div(class="sm:hidden lg:block mb-3")
             +breadcrumb(breadcrumb)
@@ -31,13 +31,13 @@ block main
                         div(class = "bg-[#7f0019] text-white text-[1.1rem] p-[0.4rem_0.8rem] font-semibold leading-[1rem] ") NEW
                     
                     div(class="product-content")
-                        h1(class="text-[2.6rem]") #{product.Title}
+                        h1(class="text-[2.6rem] font-[500]") #{product.Title}
                         div(class="flex justify-between items-center")            
                             div(class="product-info-main")
                                 if(productOptions[0].List_Options && productOptions[0].List_Options.length > 0)
                                     each item,index in productOptions[0]["List_Options"]
                                         if(check < 1 && item.stock > 0)
-                                            p(class="product-category text-[1.4rem] text-[#76767b] mt-[0.8rem]") #{item.size}・#{productOptions[0].Title}
+                                            p(class=" product-category text-[1.4rem] text-[#76767b] mt-[0.8rem]") #{item.size}・#{productOptions[0].Title}
                                             -stringC = item.size + "・" + productOptions[0].Title
                                         if(item.stock > 0)
                                             -check = 1
@@ -70,7 +70,7 @@ block main
                                 div(class="flex items-center gap-3 lists-size flex-wrap")
                                     if(productOptions[0].List_Options && productOptions[0].List_Options.length > 0)
                                         each item,index in productOptions[0]["List_Options"]
-                                            div(id-size=item.size class=`basis-2/12 ${(check < 1 && item.stock>0) ? "size-select" : ""} ${item.stock===0 ? "no-stock" :""} item-size w-full text-[1.2rem] items-center bg-white border border-[#c4c4c6] rounded-[0.4rem] cursor-pointer flex justify-center min-h-[4.5rem] p-[0.8rem] text-center`) #{item.size}
+                                            div(id-size=item.size class=`font-[500] basis-2/12 ${(check < 1 && item.stock>0) ? "size-select" : ""} ${item.stock===0 ? "no-stock" :""} item-size w-full text-[1.2rem] items-center bg-white border border-[#c4c4c6] rounded-[0.4rem] cursor-pointer flex justify-center min-h-[4.5rem] p-[0.8rem] text-center`) #{item.size}
                                             if(check < 1 && item.stock > 0)
                                                 -indexSize = index
                                             if(item.stock > 0)
@@ -135,7 +135,7 @@ block main
                         span(class="")
                             img(src="../images/write.svg" alt="write")
                         span(class="") レビューを投稿する
-                div(class="box-comment my-[0.3rem] lg:my-[4rem] ")
+                div(class="box-comment my-[0.3rem] lg:my-[4rem] font-[500]")
                     +comment-review()
         if(reladtedProducts && reladtedProducts.length > 0)
             div(class="related-product mt-[1rem] lg:mt-[7.6rem]")
