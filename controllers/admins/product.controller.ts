@@ -221,6 +221,7 @@ export const postCreate = async function (
       // Duyệt qua từng tùy chọn của sản phẩm và tạo bản ghi tương ứng trong bảng ProductOption
       for (const option of options) {
         recordPreview.options.push({
+          title: option.title, // Tiêu đề của tùy chọn
           color: option.color, // Màu của tùy chọn
           image: option.listImages[0], // Hình ảnh đầu tiên trong danh sách hình ảnh của tùy chọn
         });
@@ -779,6 +780,7 @@ export const patchEdit = async (req: Request, res: Response): Promise<void> => {
           raw: true,
         });
         return {
+          title: option["Title"], // Tiêu đề của tùy chọn
           color: option["Color"], // Màu của tùy chọn
           image: imageProduct["ImageURL"], // URL hình ảnh của tùy chọn
         };

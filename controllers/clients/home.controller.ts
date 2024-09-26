@@ -85,7 +85,7 @@ export const index = async function (
     ];
  
 
-    
+
 
     res.render(prefix_client + "/pages/home/index", {
       title: "Home",

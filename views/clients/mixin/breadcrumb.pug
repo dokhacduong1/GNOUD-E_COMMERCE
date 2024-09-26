@@ -7,7 +7,7 @@ mixin breadcrumb(breadcrumb)
                     path(d="m6 13 5-5-5-5")
             each item,index in breadcrumb          
                 li(class="flex items-center justify-center gap-3")
-                    a(href=`/category/${item.Slug}`) #{item.Title}
+                    a(href=`/category/GD${item.ID}`) #{item.Title}
                     if(index < breadcrumb.length - 1)
                         svg(xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="#D8D8D9" class="BreadCrumbs_list__icon__vqjGm")
                             path(d="m6 13 5-5-5-5")

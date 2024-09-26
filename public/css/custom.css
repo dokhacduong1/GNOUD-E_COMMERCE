@@ -495,6 +495,10 @@ html {
   overflow: auto;
   transition: height 0.4s ease;
 }
+.description-comment3 {
+
+  transition: height 0.2s ease;
+}
 /* Swiper container */
 
 .StickyCartIn_modal {
@@ -527,4 +531,96 @@ html {
 }
 .rotate-left {
   transform: translate(-50%) rotate(135deg);
+}
+
+.SortButton_sortButton {
+  border-radius: 4px 4px 0 0;
+}
+.modal-content {
+  flex-grow: 1;
+    flex-shrink: 1;
+    margin: 0 8px;
+    padding: 0 12px;
+    position: relative;
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #3c3c43 #f5f5f5;
+}
+.checkbox__input[type="checkbox"] {
+  background: #fff;
+  border-radius: 4px;
+  flex-shrink: 0;
+  height: 20px;
+  position: relative;
+  width: 20px;
+  border: 1px solid #c4c4c6;
+
+  cursor: pointer;
+}
+
+.checkbox__input[type="checkbox"]:checked {
+  background: #3c3c43;
+  border: 1px solid #3c3c43;
+}
+.checkbox__input[type="checkbox"]:checked::before {
+  border-radius: 1px 0 0 1px;
+  left: 4px;
+  top: 11px;
+  transform: rotate(45deg);
+  width: 6px;
+}
+.checkbox__input[type="checkbox"]:checked::after {
+  border-radius: 0 1px 1px 0;
+  right: 2px;
+  top: 9px;
+  transform: rotate(-45deg);
+  width: 12px;
+}
+.checkbox__input[type="checkbox"]:checked::after , .checkbox__input[type="checkbox"]:checked::before {
+  background-color: #fff;
+  content: "";
+  display: block;
+  height: 2px;
+  position: absolute;
+}
+
+.color-check:has(.checkbox__input_color[type="checkbox"]:checked) {
+  border: 1px solid #3c3c43;
+}
+
+
+.list-products .ProductLine:after {
+  height: 100%;
+  top: 0;
+}
+.ProductLine:after {
+    background-color: #f5f5f5;
+    content: "";
+    height: calc(100% + 10px);
+    position: absolute;
+    right: -7px;
+    top: -10px;
+    width: 4px;
+    z-index: 1;
+}
+
+.scroll-main::-webkit-scrollbar {
+  width: 2px;
+}
+
+.scroll-main::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  width: 2px;
+}
+
+.scroll-main::-webkit-scrollbar-thumb {
+  background: #fdfdfd; /* Màu của thanh cuộn */
+  width: 2px;
+}
+
+.scroll-main::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.shadow-custom{
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }

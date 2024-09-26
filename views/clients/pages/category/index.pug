@@ -1,0 +1,75 @@
+extends ../../layout/default.pug
+include ../../mixin/breadcrumb.pug
+include ../../mixin/filter-advanced.pug
+include ../../mixin/products-list.pug
+include ../../mixin/remodal-overlay.pug
+block style
+block customdiv
+    +remodal-overlay-category(title,categoryShoted)
+block main
+    
+    div(class="flex flex-row gap-6 py-3 ")
+        div(class="menu-bar hidden lg:block lg:basis-[20%] filter-advanced")
+            div(class="bg-white scroll-main w-full px-[1rem]  py-[2rem] sticky top-0 z-[20] transition-all rounded-lg h-full max-h-[98rem] overflow-y-scroll")
+                div(class="filter-menu-bar ")
+                    div(class=" pl-[1.5rem] box-alert text-left text-red-500 h-0 transition-[height] duration-200 overflow-hidden")
+                        p(class="mb-3 text-[1.6rem]") 
+                    div(class="menu-bar-title")
+                        p(class="text-[2rem] font-bold pl-[1.5rem]") フィルター
+                    div(class="menu-bar-content")
+                        div(class="filter-price ")
+                            div(class="  justify-between pb-6 border-b")
+                                div(class=" flex p-[2rem_1.5rem] justify-between items-center")
+                                    span(class="text-[1.4rem] font-bold") 価格帯
+                                div(class='m-[0_1.5rem] flex flex-wrap items-center gap-2')
+                                    div(class="relative w-full pb-2")
+                                        div(class="basis-full flex flex-row gap-6 h-[3.5rem] overflow-hidden items-center w-full")
+                                            span(class="text-[1.1rem] text-main bg-white absolute -top-[0.8rem] left-[0.8rem]") 最低価格
+                                            input( type="number" min=0 max=100000000 value=priceMin class="input-price-min cursor-pointer select-none px-4 text-[1.3rem] border outline-none rounded-lg w-full h-full input-min-price " )
+
+                                    div(class="relative w-full")
+                                        div(class="basis-full flex flex-row gap-6 h-[3.5rem] overflow-hidden items-center w-full")
+                                            span(class="text-[1.1rem] text-main bg-white absolute -top-[0.8rem] left-[0.8rem]") 最高価格
+                                            input( type="number" min=0 max=100000000 value=priceMax class="input-price-max cursor-pointer select-none px-4 text-[1.3rem] border outline-none rounded-lg w-full h-full input-max-price " )
+                        +drop-menu-advanced("サイズ",true)
+                            +list-checkbox(sizes,listSizeTexts,"サイズ:","sizeTexts")
+                        +drop-menu-advanced("カラー",true)
+                            +list-color(colors,listColorTexts,"colorTexts")
+                        +drop-menu-advanced("価格タイプ",true)
+                            +list-checkbox(["SALE","いっしょ割","期間限定価格","アウトレット","よりどり","まとめ買い"],[],"","priceTypes")
+                    div(class="modal-button-submit flex items-center justify-center gap-[2.4rem] mt-[2.4rem]")
+                        
+                        button(class="button-submit-form p-[1.5rem_1.9rem] bg-black text-white  text-[1.6rem] font-[700] rounded-md flex justify-center items-center w-[24rem]")
+                            span() 絞り込む  
+        div(class="max-w-[calc(1352px)] mx-auto relative basis-full lg:basis-[80%] bg-white px-[1rem] rounded-lg")
+            div(class="sm:hidden lg:block mb-3")
+                +breadcrumb(breadcrumb)
+            div(class="header-main pt-[1.8rem]")
+                h1(class="text-[2.8rem] lg:text-[3.8rem] font-bold") #{title}
+            div(class="box-filter-client pt-[1.3rem] lg:pb-[5rem]")
+                div(class="flex gap-[2.4rem] flex-col lg:flex-row justify-end items-end")
+                    button(class="button-shorted-category w-full lg:w-auto basis-full lg:basis-8/12 filter-button flex flex-grow-[1] p-[0.8rem_1.6rem] items-center bg-[#f4eede] rounded-[0.4rem] gap-[2.4remm] justify-between")
+                        span(class="text-[1.4rem] font-bold") カテゴリから商品を絞り込む
+                        span(class="icon-filter")
+                            img(src="../images/cong.svg" alt="icon-filter")
+                    div(class="w-full lg:w-auto basis-full lg:basis-4/12 filter-advanced ")
+                        div(class="flex flex-row")
+                            div(class="filter-button-advanced flex gap-[1rem] w-full lg:w-auto")
+                                +sort-filter(sortQuery)
+                                +filter-advanced(sizes,colors,listSizeTexts,listColorTexts,priceMin,priceMax)
+                            
+                        div(class="")
+            div(class="box-list-products mt-[2.4rem]")
+                +product-list(itemsProducts,objectPagination)
+            
+
+           
+block script
+    script(src="../js/client/sort-filter-advanced.js")
+    script(src="../js/client/modal-custom.js")
+    script(src="../js/client/slick-item-sample-two.js")
+    script(src="../js/client/loading-image.js")
+    script(src="../js/client/product-list.js") 
+    script(src="../js/client/detail-product.js")
+    script(src="../js/client/add-to-cart.js")
+    script(src="../js/client/pagination.js")

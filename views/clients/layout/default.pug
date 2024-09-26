@@ -4,13 +4,16 @@ html
     title= title
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    link(rel="stylesheet" href="../css/styles.css")
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 
-    //- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     block style
-    link(rel="stylesheet" href="../css/styles.css")
+    
     
     
     link(rel="stylesheet" href="../css/custom.css")
@@ -18,10 +21,15 @@ html
   body
     div(class="root box-border")
         div(class="font-Hiragino ")
+            
             include ../partials/header.pug
-            div(class="max-w-[184rem] px-[4rem] md:px-[5.6rem] lg:px-[6.4rem] xl:px-[10rem] m-[2rem_auto] lg:m-[2rem_auto_2rem] w-full ")
+            div(class="add-div")
+              block customdiv
+            div(class=`max-w-[184rem]  md:px-[5.6rem] lg:px-[6.4rem] xl:px-[10rem] p-[2rem_auto] lg:p-[2rem_auto_2rem] w-full ` style=`background-color:${bgClient ? bgClient : 'white'}`)
               block main
+            
             include ../partials/footer.pug
             script(src="../js/client/header.js")
+            script(src="../js/client/search.js")
             block script 
     

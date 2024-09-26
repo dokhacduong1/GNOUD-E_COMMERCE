@@ -1,0 +1,11 @@
+mixin list-color(arr,listColorTexts=[],query="")
+    div(class="pb-[2rem] w-full")
+        ul(class="flex flex-wrap gap-[1.6rem_1.5rem]")
+            each item,index in arr
+                li(class="basis-[10%]" title=item.title)
+                    label(class="flex items-start flex-col cursor-pointer ")
+                        div(class="color-check color-img rounded-[50%] cursor-pointer size-[4.5rem] relative ")
+                            input(type="checkbox" class="checkbox__input_color checkbox_input_form convert-table" item-query=item.title query=query checked=listColorTexts.includes(item.title))
+                            span(class="color-black border rounded-full  size-[3.7rem] inset-0 m-auto absolute bg-no-repeat bg-cover inline-block " style=`background-image: url("${item.color}`  loading="lazy")
+                        div(class="color-name text-[1rem] mt-[0.2rem] text-center w-full")
+                            span(class="truncate inline-block max-w-[4rem]") #{item.title}

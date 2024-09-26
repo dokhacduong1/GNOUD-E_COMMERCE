@@ -4,11 +4,11 @@ include ../mixin/drop-menu-categories.pug
 include ../mixin/search-menu.pug
 include ../mixin/box-icon-menu.pug
 //- đây cho mobile
-div(class="search-modal-container hidden  bg-white transition-all")
-    div(class="remodal-overlay fixed  w-full h-full bg-[#0000004d] animate-modalSlideIn z-[2000]  transition-all")
+div(class="search-modal-container hidden  bg-white transition-all  modal-custom")
+    div(class="remodal-overlay fixed  bg-overview-close  w-full h-full bg-[#0000004d] animate-modalSlideIn z-[2000]  transition-all")
         div(class="remodal-wrapper fixed w-[90%] h-full z-[2001] bg-white")
             div(class="co-remodal bg-white relative text-left w-full ")
-                div(class="close-modal flex items-center justify-between p-[2.7rem_6.333vw] ")
+                div(class="modal_close flex items-center justify-between p-[2.7rem_6.333vw] ")
                     button(class="close-modal-button ")
                         i(class="")
                             <svg role="img" width="15" height="15"><g transform="translate(1 1)"><path d="M17152.219,17330.283l-5.469-5.471-5.471,5.471a.753.753,0,0,1-.529.217.75.75,0,0,1-.531-1.283l5.467-5.467-5.467-5.467a.752.752,0,0,1,1.061-1.066l5.471,5.469,5.469-5.469a.752.752,0,0,1,1.061,1.066l-5.467,5.467,5.467,5.467a.752.752,0,0,1-1.061,1.066Z" transform="translate(-17140.25 -17317.25)" fill="currentColor"></path></g><rect width="15" height="15" fill="none"></rect></svg>
@@ -24,7 +24,7 @@ div(class="search-modal-container hidden  bg-white transition-all")
                                         p(class="text-[1.6rem] font-[700] leading-6 h-auto mb-0 mt-0 p-[1.5rem_2rem] text-main border-t border-[#e8e8e8] bg-white") 生活雑貨
                                         
 //- đây cho desktop
-header(class="border-b border-[#d9d9d9]")
+header(class="border-b border-[#d9d9d9] relative z-[27]")
     div(class="")
         div(class="nav header flex flex-wrap items-center mx-auto  my-0    max-h-full  relative px-0 md:px-[56px] xl:flex-nowrap  xl:h-[7rem]  xl:flex-row xl:px-[10rem] xl:max-w-[184rem] xl:bg-white  xl:max-h-[120px]")
             div(class="nav__logo h-full flex gap-5  md:block  items-center mr-0 min-h-[5.1rem] p-[0_0_0] w-full xl:w-auto xl:mr-[5rem] xl:flex")
@@ -41,7 +41,7 @@ header(class="border-b border-[#d9d9d9]")
                         button(class="w-full" active="drop__02") 生活雑貨
                     li(class="text-[1.6rem] leading-[2.4rem] font-bold text-main h-full max-w-[10rem] flex relative text-center w-full basis-1/3")
                         button(class="w-full" active="drop__03") 食品 
-            +search-menu()
+            +search-menu(dataCategories.categoryAll)
             +box-icon-menu()
 
 div(class="category-modal hidden")

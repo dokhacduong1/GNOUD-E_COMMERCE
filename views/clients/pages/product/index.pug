@@ -70,7 +70,8 @@ block main
                                 div(class="flex items-center gap-3 lists-size flex-wrap")
                                     if(productOptions[0].List_Options && productOptions[0].List_Options.length > 0)
                                         each item,index in productOptions[0]["List_Options"]
-                                            div(id-size=item.size class=`font-[500] basis-2/12 ${(check < 1 && item.stock>0) ? "size-select" : ""} ${item.stock===0 ? "no-stock" :""} item-size w-full text-[1.2rem] items-center bg-white border border-[#c4c4c6] rounded-[0.4rem] cursor-pointer flex justify-center min-h-[4.5rem] p-[0.8rem] text-center`) #{item.size}
+                                            div(id-size=item.size class=`font-[500] basis-2/12 ${(check < 1 && item.stock>0) ? "size-select" : ""} ${item.stock===0 ? "no-stock" :""} item-size w-full text-[1.2rem] items-center bg-white border border-[#c4c4c6] rounded-[0.4rem] cursor-pointer flex justify-center min-h-[4.5rem] p-[0.8rem]  text-center `) 
+                                                span(class="truncate max-w-[7rem]") #{item.size}
                                             if(check < 1 && item.stock > 0)
                                                 -indexSize = index
                                             if(item.stock > 0)

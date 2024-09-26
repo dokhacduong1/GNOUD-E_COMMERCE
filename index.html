@@ -1,26 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
     <style>
-        .main{
-          display: flex;
-          flex-direction: column;
-        }
-        .main div:nth-child(1){
-          order: 2;
-        }
-        .main div:nth-child(2){
-          order: 1;
-        }
+      .card {
+    
+        display: grid;
+        grid-template-rows: subgrid;
+        grid-row: span 4;
+        gap:0;
+      }
+      .card-list {
+        display: flex;
+        gap: 30px;
+        margin: 20px auto;
+      }
+      .card-image {
+        height: 300px;
+      }
+      .card-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .card-title {
+        font-weight: 600;
+        font-size: 2rem;
+        margin-bottom: 10px;
+      }
+      .card-desc {
+        font-size: 14px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+      a {
+        display: block;
+        text-decoration: none;
+        width: 100%;
+        background: #000;
+        color: white;
+        text-align: center;
+        padding: 10px;
+        border-radius: 10px;
+      }
     </style>
-    <div class="main">
-      <div>PT1</div>
-      <div>PT2</div>
+    <div class="card-list">
+      <div class="card ">
+        <div class="card-image">
+          <img
+            src="https://menteelogy.ybox.vn/_next/image?url=http%3A%2F%2Fstatic.ybox.vn%2F2024%2F4%2F19%2F1713530084136%2FIntro%20do%20xuan%20loc.jpg&w=640&q=75"
+            alt=""
+          />
+        </div>
+        <h3 class="card-title">Hello Title</h3>
+        <p class="card-desc">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad,
+          consequatur sapiente deleniti placeat hic eos et minus rem, dolor
+          tempore eaque magni temporibus aut facilis nisi optio quod amet qui?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab fuga
+          suscipit, quas esse consequatur quaerat et voluptates temporibus
+          placeat tempore, ratione iure autem illo reprehenderit. Ducimus
+          repellat nulla nisi exercitationem?
+        </p>
+        <a href="lear-more">More</a>
+      </div>
+      <div class="card">
+        <div class="card-image">
+          <img
+            src="https://menteelogy.ybox.vn/_next/image?url=http%3A%2F%2Fstatic.ybox.vn%2F2024%2F4%2F19%2F1713530084136%2FIntro%20do%20xuan%20loc.jpg&w=640&q=75"
+            alt=""
+          />
+        </div>
+        <h3 class="card-title">Hello Title</h3>
+        <p class="card-desc">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad,
+          consequatur sapiente deleniti placeat hic eos et minus rem, dolor
+          tempore eaque magni temporibus aut facilis nisi optio quod amet qui?
+
+         
+        </p>
+        <a href="lear-more">More</a>
+      </div>
+
+      <div class="card">
+        <div class="card-image">
+          <img
+            src="https://menteelogy.ybox.vn/_next/image?url=http%3A%2F%2Fstatic.ybox.vn%2F2024%2F4%2F19%2F1713530084136%2FIntro%20do%20xuan%20loc.jpg&w=640&q=75"
+            alt=""
+          />
+        </div>
+        <h3 class="card-title">
+          Hello Title
+        </h3>
+        <p class="card-desc">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad,
+          consequatur sapiente deleniti placeat hic eos et minus rem, dolor
+          tempore eaque magni temporibus aut facilis nisi optio quod amet qui?
+          Lorem ipsum
+        </p>
+        <a href="lear-more">More</a>
+      </div>
     </div>
-</body>
+  </body>
 </html>

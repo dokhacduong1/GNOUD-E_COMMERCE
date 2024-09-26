@@ -10,7 +10,8 @@ const elements = {
     arrowUp: document.querySelector('.arrow-up'), // Mũi tên lên
     arrowDown: document.querySelector('.arrow-down'), // Mũi tên xuống
     itemCategories: document.querySelectorAll('.item-categories'), // Các mục trong danh mục
-    activeSelect: document.querySelector('.active-select') // Mục đang được chọn
+    activeSelect: document.querySelector('.active-select'), // Mục đang được chọn
+    inputMain: document.querySelector('.search-menu .search-box')
 };
 
 // Hàm chuyển đổi trạng thái hiển thị của một phần tử
@@ -55,10 +56,14 @@ elements.selectBlur.addEventListener('click', () => {
 // Thêm event listener cho sự kiện click của mỗi mục trong danh mục
 elements.itemCategories.forEach(item => {
     item.addEventListener('click', () => {
+
         // Xóa class 'active-blur' khỏi tất cả các mục
         elements.itemCategories.forEach(i => i.classList.remove('active-blur'));
         // Thêm class 'active-blur' vào mục được nhấp
         item.classList.add('active-blur');
+   
+        elements.inputMain.setAttribute('id-main-category', item.getAttribute('id-category') ?? 0);
+
         // Đặt nội dung của mục đang được chọn thành nội dung của mục được nhấp
         elements.activeSelect.textContent = item.textContent;
         // Ẩn danh mục

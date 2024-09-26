@@ -1,0 +1,8 @@
+mixin list-checkbox(arr,listItemChecked,label="",query="")
+    div(class="pb-[2rem] w-full")
+        ul(class="grid gap-[1.6rem_1.5rem] grid-cols-2 mt-[0.4rem]")
+            each item in arr
+                li(class="select-none")
+                    label(class="flex items-start cursor-pointer" title=item)          
+                        input(type="checkbox" class="checkbox__input checkbox_input_form convert-table" item-query=item query=query checked = listItemChecked.includes(item))
+                        span(class="text-[1.2rem] ml-[0.8rem] leading-[1.6] cursor-pointer text-main font-Aria font-[400] truncate max-w-[10.9rem]" ) #{label} #{item}
