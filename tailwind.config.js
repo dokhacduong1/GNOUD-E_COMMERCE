@@ -17,8 +17,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        Hiragino:  ['"Hiragino Kaku Gothic Pro"', 'sans-serif','Arial'],
-        Roboto: ['Roboto']
+        Hiragino:  ['"Hiragino Kaku Gothic Pro"','Arial','sans-serif'],
+        Roboto: ['Roboto'],
+       Aria:['Arial','sans-serif'],
       },
       backgroundImage: theme => ({
         'arrow-button-sw': "url('/images/arrow-sw.svg')",
@@ -67,7 +68,7 @@ module.exports = {
       'md': '768px', // Medium devices (tablets, 768px and up)
       'md-1': '800px',
       'lg': '992px', // Large devices (desktops, 992px and up)
-      'xl': '1200px', // Extra large devices (large desktops, 1200px and up)
+      'xl': '1280px', // Extra large devices (large desktops, 1200px and up)
       '2xl': '1536px', // 2 Extra large devices (larger desktops, 1536px and up)
     },
   },

@@ -1,0 +1,22 @@
+mixin remodal-overlay-category(title="",data)
+    div(class="relative  left-0   bg-white transition-all ")
+        div(class="hidden remodal-overlay-category modal-custom")
+            div(class=" top-0 fixed bg-overview-close   w-full h-full bg-[#0000004d] animate-modalSlideIn z-[2000]  transition-all")
+                div(class="remodal-wrapper fixed xs:w-[48rem]  w-[90%] h-full z-[2001] bg-white")
+                    div(class="co-remodal bg-white relative text-left w-full ")
+                        div(class="close-modal flex items-center justify-between p-[1.7rem_2.4rem]  border-b")
+                            button(class="invisible")
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#3C3C43"><path d="m7 17 7-7-7-7"></path></svg></button>
+                            p(class="text-[1.8rem] font-bold") #{title}
+                            button(class="close-modal-button modal_close")
+                                i(class="")
+                                    <svg role="img" width="15" height="15"><g transform="translate(1 1)"><path d="M17152.219,17330.283l-5.469-5.471-5.471,5.471a.753.753,0,0,1-.529.217.75.75,0,0,1-.531-1.283l5.467-5.467-5.467-5.467a.752.752,0,0,1,1.061-1.066l5.471,5.469,5.469-5.469a.752.752,0,0,1,1.061,1.066l-5.467,5.467,5.467,5.467a.752.752,0,0,1-1.061,1.066Z" transform="translate(-17140.25 -17317.25)" fill="currentColor"></path></g><rect width="15" height="15" fill="none"></rect></svg>
+                        div(class="dropMenu_scroll max-h-[calc(100vh-7.1rem)] overflow-y-auto")
+                            div(class="dropMenu flex flex-col")
+                                div(class=" " )
+                                    div(class="dropMenu_category max-w-full min-w-full  p-0 bg-white h-auto m-[0_auto]")
+                                        div(class="co-dropMenuCategory__container flex flex-col ")
+                                            each item in data
+                                                a(href= `./GD${item.ID}` class="p-[2.4rem] cursor-pointer border-b flex justify-between text-[1.4rem] text-main")
+                                                    span #{item.Title}
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#3C3C43"><path d="m7 17 7-7-7-7"></path></svg>

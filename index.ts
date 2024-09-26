@@ -12,6 +12,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import routes_images from "./routes/images/index.routes";
 import { updateCategoriesData } from "./helpers/categories.helpers";
+import routesClientVersion1 from "./api/v1/routes_api/client/index_api.routes";
 
 const app = express();
 
@@ -45,6 +46,7 @@ dotenv.config();
 routes_client(app);
 routes_admin(app);
 routes_images(app);
+routesClientVersion1(app);
 https
   .createServer(
     {
@@ -55,6 +57,7 @@ https
   )
   .listen(3000, async function () {
     app.locals.dataCategories = await updateCategoriesData();
+    console.log(app.locals.dataCategories.categoryAll);
     console.log(
       "Example app listening on port 3000! Go to https://localhost:3000/"
     );

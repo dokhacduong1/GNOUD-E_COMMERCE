@@ -5,8 +5,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const loader = img.parentElement.querySelector(".loader");
         loader.style.display = "block"; // Hiển thị loader trước khi ảnh tải
 
-
-
         img.addEventListener("load", function () {
           
             loader.style.display = "none";

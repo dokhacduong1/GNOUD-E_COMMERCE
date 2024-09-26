@@ -1,6 +1,6 @@
 
 export interface CategoryInterface{
-    ID ?: number;
+    ID ?: (number | string);
     Title ?: string;
     Slug ?: string;
     Status ?: string;

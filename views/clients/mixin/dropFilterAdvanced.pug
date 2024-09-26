@@ -1,0 +1,14 @@
+mixin drop-menu-advanced(title="",checked=false)
+    div(class="accordion-filter flex flex-col border-b")
+        button(class="flex p-[2rem_1.5rem] justify-between items-center")
+            span(class="text-[1.4rem] font-bold") #{title}
+            span()
+                if(checked)
+                    img(class="hidden" src="../images/cong.svg" alt="cong")
+                    img( src="../images/tru.svg" alt="tru")
+                else
+                    img(src="../images/cong.svg" alt="cong")
+                    img(class="hidden" src="../images/tru.svg" alt="tru")
+                
+        div(class=`filter-content-select transition-height duration-200 ease-in overflow-hidden flex p-[0_1.5rem] relative ${checked ? 'h-auto action' : 'h-0'}`)
+            block

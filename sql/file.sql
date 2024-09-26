@@ -78,6 +78,7 @@ CREATE TABLE ProductPreview (
     Featured BOOLEAN DEFAULT FALSE,
     Slug VARCHAR(255) NOT NULL,
     NumberOfPurchases INT DEFAULT 0,
+    Deleted BOOLEAN DEFAULT FALSE,
     Options TEXT,
     Status ENUM('active', 'inactive') DEFAULT 'active',
     Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -92,8 +93,9 @@ PARTITION BY RANGE (Product_ID) (
 );
 -- New product
 CREATE INDEX idx_status_created_at ON ProductPreview (Status, Created_At);
-CREATE INDEX idx_status_category ON ProductPreview (Status,Deleted, Category_ID);
+CREATE INDEX idx_status_category ON ProductPreview (Status,Deleted, Category_ID,Product_ID,Price);
 CREATE INDEX idx_status_number_of_purchases ON ProductPreview (Status,Deleted, NumberOfPurchases);
+CREATE INDEX idx_title_slug ON ProductPreview (Title, Slug);
 
 CREATE INDEX idx_categories_parentid ON categories(ParentID);
 CREATE INDEX idx_productinformation_product_id ON ProductInformation(Product_ID);
@@ -108,6 +110,11 @@ CREATE INDEX idx_productimages_option_id_image_url ON ProductImages(Option_ID,Im
 
 CREATE INDEX idx_products_slug ON Products(Slug);
 
+explain analyze  SELECT ID,Product_ID,Category_ID, Title, Price, DiscountPercent, Category_ID
+FROM ProductPreview
+WHERE Status="active" and Deleted = false and Category_ID = 9 AND Product_ID > 67 and Product_ID <100000 and Price <300
+ORDER BY Product_ID ASC
+LIMIT 10;
 
 -- Tạo bảng Users
 CREATE TABLE Users (

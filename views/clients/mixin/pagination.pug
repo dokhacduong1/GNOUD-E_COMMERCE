@@ -1,0 +1,33 @@
+mixin pagination(objectPagination,inputNumber)
+    nav(class="justify-center flex")
+        //Nhảy đến trang đầu tiên
+        ul(class="inline-flex items-center  text-main text-[1.3rem] gap-5 bg-white shadow-custom p-3 rounded-lg")
+            //Nếu page hiện tại lớn hơn 1 thì mới hiện Trang Trước
+            if(objectPagination.currentPage >1)
+                li( button-pagination = objectPagination.currentPage-1 class="page-item flex  transition-all items-center justify-center p-[1rem_1rem] text-main-100  rounded-lg hover:bg-[#cdbd94] hover:text-white cursor-pointer")
+                    button(class=" rounded-lg overflow-hidden" )
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 8 12">
+                            <g fill="none" fill-rule="evenodd">
+                                <path fill="currentColor" d="M7.41 1.41L6 0 0 6l6 6 1.41-1.41L2.83 6z"></path>
+                            </g>
+                        </svg>
+            //For này đầu tiên nó sẽ kiểm tra xem trang hiện tại -1 có = 0 hay không nếu có sẽ cho i =1 nếu không thì cho trang hiện tại -1
+            //Tiếp theo ta cho điều kiện nếu i <= trang hiện tại trừ cho inputNumber và i<=tổng số trang  để kết thúc vong lặp ngăn vòng lặp chạy quá tổng số trang
+            - for (let i = (objectPagination.currentPage-1 == 0 ? 1 : objectPagination.currentPage-1);(i<=objectPagination.currentPage+inputNumber && i<=objectPagination.totalPage);i++)
+                li( button-pagination = i class=`cursor-pointer transition-all page-item rounded-lg p-[0.5rem_1rem] hover:bg-[#cdbd94] hover:text-white  ${objectPagination.currentPage === i && "pagination-active"}`)
+                    button(
+                    class="page-link"
+                   
+                    ) #{i}
+            //Nếu page hiện tại nhỏ hơn tổng các page thì hiện trang kế tiếp
+            if(objectPagination.currentPage < objectPagination.totalPage)
+                li(button-pagination = objectPagination.currentPage+1 class="page-item transition-all flex items-center justify-center  rounded-lg p-[1rem_1rem] text-main-100 hover:bg-[#cdbd94] hover:text-white cursor-pointer")
+                    button( class="page-link rotate-180 " )
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 8 12">
+                            <g fill="none" fill-rule="evenodd">
+                                <path fill="currentColor" d="M7.41 1.41L6 0 0 6l6 6 1.41-1.41L2.83 6z"></path>
+                            </g>
+                        </svg>
+                        
+
+

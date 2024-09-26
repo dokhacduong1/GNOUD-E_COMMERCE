@@ -1,0 +1,103 @@
+include ./modal.pug
+include ./pagination.pug
+mixin product-list(products=[],objectPagination={})
+
+    div(class="list-products")
+        div(class="")
+            if(products.length > 0)
+                div(class="slick-item  text-[1.4rem] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 leading-[1.6] text-main pb-[2rem]")
+                    each item,index in products
+                        div(class=`grid relative product-item ProductLine ` id-product=item.id)
+                            div(class="grid gap-0 grid-rows-subgrid row-span-6 relative slick-box hover:text-main bg-white rounded-md overflow-hidden pb-3" href="#")
+                                a(class="image-container  slick-item__img-index mb-[1.5rem] relative transition-all duration-500 ease-in-out cursor-pointer" href=`/product/${item.slug}`)
+                                    img(class=" loading-image w-full h-auto select-none max-h-[40rem] max-w-[40rem]" src=item.listImages[0].img  alt=`sample-${id}` )
+                                    div(class="loader")
+                                div(class="slick-item_listColor flex xl:flex-row flex-col  ")
+                                    div(class="items-color basis-full xl:basis-11/12  flex-wrap flex p-[0_1.5rem_1rem] gap-1 gap-y-[0.8rem]" )
+                                        each itemColor, $indexColor in item.listImages
+                                            div( title=itemColor.title class="item-color min-w-[1.8rem] min-h-[1.8rem] size-[1.8rem] mr-[0.5rem] cursor-pointer" link-img=itemColor.img)
+                                                - var className = $indexColor === 0 ? "rounded-full active-outline select-none" : "select-none rounded-full"
+                                                - className = itemColor.color ? className + "" : className + "hidden-opacity"
+                                                img(class=className src=itemColor.color loading="lazy")
+                                div(class="slick-item_content p-[0_1.5rem]  ")
+                                    a(class="hover:text-main title-product" title=item.title  href=`/product/${item.slug}`) #{item.title}
+                                div(class="p-[0_1.5rem] label-size h-[2rem]")
+                                    if(item.size && item.size.length > 0) 
+                                        label(for="size" class=" text-[#76767b] mt-[0.4rem] text-[1.2rem ") #{item.size[0].size} 〜 #{item.size[item.size.length - 1].size}
+                                div(class="slick-item_price p-[0_1.5rem] mt-[1.6rem] sm:mt-[1rem] text-[1.4rem] font-[500] text-main-200")
+                                    div(class="flex justify-between items-center")
+                                        span(class="text-main flex items-center gap-1") 
+                                            span(class="font-bold price-product font-Roboto text-[1.6rem]") #{parseInt(item.price).toLocaleString()}
+                                            span(class="text-[1rem]") 円
+                                        span(class="w-[3rem] select-none")
+                                            img(src="../images/heart.svg" alt="heart" loading="lazy")
+                                div(class="p-[0_1.5rem] add-to-cart group mt-4 select-none" )
+                                    div(class="flex items-center cursor-pointer gap-2")
+                                        div(class="icon-card rounded-full bg-[#f4eede] size-[2.4rem] text-white flex justify-center items-center")
+                                            img(src="../images/cong.svg" alt="cong" loading="lazy")
+                                        div(class="title-card font-bold text-[1.2rem] sm:text-[1.4rem]")
+                                            span(class="group-hover:underline") カートに入れる
+                                div(class="line absolute bottom-0 left-0 right-0 bg-[#f5f5f5] h-[4px]")
+                            
+                div(class="mb-3")
+                    +pagination(objectPagination,3)
+
+            else
+                div(class="empty-product text-center")
+                    div(class="content mb-[5rem] text-[1.6rem] text-main-300")
+                        p(class="") 該当する検索結果は見つかりませんでした。
+                        p(class="") 検索ワードまたは絞り込み条件を変更して再度お試しください。
+                    div(class="button-link ")
+                        a(href=`../category/GD${idCategory}` class="bg-[#e7e7e7] p-[2rem_3.2rem] rounded-md text-[1.8rem] font-bold inline-flex gap-3 items-center")
+                            img(src="../images/search.svg" alt="search" loading="lazy")
+                            span(class="") 他の製品を見る
+                            
+                        
+        div(class="modal-add-to-cart")
+            +modal-custom("カートに入れる")
+                div(class="box-content-cart")
+                    div(class="box-inner flex flex-col gap-[2.4rem]")
+                        div(class="title-product-cart")
+                            p(class="text-[1.8rem]") 自然のまんまの色　カシミヤ　タートルネックセーター
+                        div(class="color-product-cart flex flex-col gap-[0.8rem]")
+                            div(class="title-color-product-cart")
+                                p(class="text-[1.6rem] text-main")
+                                    span(class="font-bold") カラー：
+                                    span(class="") ブラック
+                            div(class="list-color-product-cart")
+                                ul(class="flex gap-[1.6rem] flex-wrap")
+                                    li(class="relative overflow-hidden")
+                                        button(class="size-select border !p-0 size-[8rem] rounded-md overflow-hidden relative")
+                                            img(class="object-cover w-full h-full absolute inset-0" src="" alt="color-black")
+                                        div(class="rounded-full absolute shadow-md size-[2rem] -top-[0.7rem] -right-[0.6rem] bg-no-repeat bg-cover " style="background:url(/images/item/tos-alisg-i-375lmtcpo0-sg/ef54bdd7b0344a21a7cac5a06dc4881f~tplv-375lmtcpo0-image.avif?w=37&h=37)")
+                                    li(class="")
+                                        button(class=" border !p-0 size-[8rem] rounded-md overflow-hidden relative")
+                                            img(class="object-cover w-full h-full absolute inset-0" src="" alt="color-black")
+                        div(class="size-product-cart flex flex-col gap-[0.8rem]")
+                            div(class="title-size-product-cart")
+                                p(class="text-[1.6rem] text-main")
+                                    span(class="font-bold") サイズ：
+                                    span(class="") M
+                            div(class="list-size-product-cart")
+                                ul(class="grid g gap-[1rem] grid-cols-[repeat(auto-fit,minmax(120px,1fr))]")
+                                    each i,index in Array(3)
+                                        li(class="")
+                                            button(class="w-full")
+                                                div(class="w-full size-button size-select text-[1.2rem] flex items-center justify-center border bg-white rounded-[0.4rem] cursor-pointer min-h-[4.5rem]")
+                                                    span(class="") 婦人#{index}
+                        div(class="quantity-product-cart flex flex-col gap-[0.8rem]")
+                            div(class="title-quantity-product-cart")
+                                p(class="text-[1.6rem] text-main")
+                                    span(class="font-bold") 数量：
+                            div(class="list-quantity-product-cart")
+                                div(class="product-count mt-[1.2rem] select-none")
+                                    div(class="flex items-center justify-center sm:justify-start  gap-3")
+                                        button(class="font-Roboto cursor-pointer button-no-active-count text-[2rem] font-bold rounded-[0.4rem] h-[4.5rem] w-[4.5rem] flex items-center justify-center")
+                                            img(src="../images/tru.svg" alt="minus")
+                                        input(class="text-[1.9rem] input-count-product text-center w-[4.8rem] h-[4.8rem] border border-[#c4c4c6] rounded-[0.4rem] p-[0.8rem] font-bold" value=1 max=99 min=0)
+                                        button(class="font-Roboto button-active-count text-[2rem] font-bold rounded-[0.4rem] h-[4.5rem] w-[4.5rem] flex items-center justify-center")
+                                            img(src="../images/cong.svg" alt="plus")
+                        div(class="modal-button-submit-cart flex items-center justify-center ")
+                            button( class="hover:text-white hover:bg-main-300 button-submit-form p-[1.5rem_1.9rem] bg-black text-white  text-[1.6rem] font-[700] rounded-md flex justify-center items-center w-full")
+                                span() カートに入れる
+

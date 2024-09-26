@@ -119,7 +119,7 @@ async function getProductDetails(slug: string): Promise<{
   const reladtedProductsTemp: IProduct[] = convertProducts(reladtedProducts);
 
   const popularProductsTemp: IProduct[] = convertProducts(popularProducts);
-  console.log(productOptions);
+
   // Trả về đối tượng chứa thông tin sản phẩm, thông tin kích thước, thông tin sản phẩm và tùy chọn sản phẩm
   return {
     product,

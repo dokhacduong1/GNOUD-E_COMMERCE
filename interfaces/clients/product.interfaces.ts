@@ -4,6 +4,12 @@ export interface IBaseProduct {
 }
 
 type TextOptionType = string | { listTitle: string[]; listOptions: string[][] };
+export interface IProductOptionCorlor{
+  id?: number,
+  title: string;
+  color: string;
+  image?: string;
+}
 
 export interface IProduct extends IBaseProduct {
   Title?: string;
@@ -18,7 +24,7 @@ export interface IProduct extends IBaseProduct {
   Deleted?: boolean;
   Product_Sample_Information?: string;
   popularProductsTemp?: number;
-  Options?:string;
+  Options?:string | IProductOptionCorlor[];
 }
 
 export interface ISizeSpecification extends IBaseProduct {
