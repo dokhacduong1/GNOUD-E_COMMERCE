@@ -4,8 +4,8 @@ include ./list-color.pug
 include ./dropFilterAdvanced.pug
 mixin sort-filter(keyDefault="")
     -arr = [{title:"人気順（1000件まで）",key:"ranking"},{title:"新着順",key:""},{title:"価格が安い順",key:"price-low"},{title:"価格が高い順",key:"price-high"}]
-    div(class="sort-button relative min-w-[16rem] basis-1/2")
-        button(class="flex gap-3 text-[1.4rem] font-bold justify-center items-center p-[0.8rem_1.2rem] w-full bg-[#ebebec] rounded-[0.4rem]")
+    div(class="sort-button relative  lg:min-w-[16rem] basis-1/2")
+        button(class="flex gap-3 text-[1rem] lg:text-[1.4rem] font-bold justify-center items-center p-[0.8rem_1.2rem] w-full bg-[#ebebec] rounded-[0.4rem]")
             img(src="../images/sort.svg" alt="sort")
             span(class=" ") 商品カテゴリ順
         div(class="hidden list-sort")
@@ -17,8 +17,8 @@ mixin sort-filter(keyDefault="")
                                 img(src="../images/success.svg" alt="success")
                             span(class="text-[1.2rem] text-left") #{item.title}
 mixin filter-advanced(sizes=[],colors=[],listSizeTexts=[],listColorTexts=[],priceMin=0,priceMax=0)
-    div(class="filter-button relative min-w-[16rem] basis-1/2")
-        button(class="button-filter flex gap-3 text-[1.4rem] font-bold justify-center items-center p-[0.8rem_1.2rem] w-full bg-[#ebebec] rounded-[0.4rem]")
+    div(class="filter-button relative lg:min-w-[16rem] basis-1/2")
+        button(class="button-filter flex gap-3  text-[1rem] lg:text-[1.4rem] font-bold justify-center items-center p-[0.8rem_1.2rem] w-full bg-[#ebebec] rounded-[0.4rem]")
             img(src="../images/filter.svg" alt="filter")
             span(class=" ") 条件で絞り込む
         +modal-custom("条件で絞り込む")

@@ -53,7 +53,7 @@ async function getProducts(
       { Title: { [Op.like]: `%${keyword}%` } },
     ];
   }
-  console.log(findRecord);
+
   try {
     // Tìm kiếm sản phẩm dựa trên findRecord và trả về các thuộc tính trong PRODUCT_ATTRIBUTES
     const products = (await ProductPreview.findAll({
@@ -100,9 +100,12 @@ export const index = async function (
   req: Request,
   res: Response
 ): Promise<void> {
+ 
     if(!req.query.keyword || !req.query.idCategory){
-        res.status(400).json({ code: 200, data: []});
+        res.status(200).json({ code: 200, data: []});
+        return;
     }
+
     // Lấy keyword và idCategory từ req.params
   const keyword: string = req.query.keyword.toString() || "";
   const idCategory: number = parseInt(req.query.idCategory.toString()) || 0;
@@ -113,7 +116,7 @@ export const index = async function (
     const listCategories = await getAllCategory(
         products.map((item) => item.Category_ID)
     );
-
+      
     res.status(200).json({
       code: 200,
       data: {

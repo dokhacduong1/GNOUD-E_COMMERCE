@@ -7,7 +7,7 @@ const sequelize = new Sequelize(
         host: 'localhost',
         dialect: 'mysql',
         logging: (query, elapsedTime) => {
-            console.log(`Query: ${query}`);
+            // console.log(`Query: ${query}`);
             // console.log(`Thời gian chạy: ${elapsedTime}ms`);
         },
         benchmark: true

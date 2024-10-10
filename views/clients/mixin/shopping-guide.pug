@@ -1,6 +1,6 @@
 include ./modal.pug
 mixin shopping-guide(title="配送料について",label="",dest="詳しくはこちら",src="")
-    div(class="shopping-guilde m-[0px_-4rem_0px] lg:m-0")
+    div(class="shopping-guilde  lg:m-0")
         div(class="flex flex-col border-t border-b border-[#d8d8d9] bg-[#f5f5f5]")
             button(class="shopping-guilde__button-show flex items-center flex-row justify-between pl-[3rem] lg:pl-[1.5rem] p-[2rem_1.5rem]")
                 div(class="")
@@ -8,7 +8,7 @@ mixin shopping-guide(title="配送料について",label="",dest="詳しくは�
                 div(class="")
                     img(class="button-cong" src="../images/cong.svg" alt="cong")
                     img(class="hidden button-tru" src="../images/tru.svg" alt="tru")
-            div(class="shopping-guilde__content px-[1.5rem] h-[0] overflow-hidden transition-[height] duration-200")
+            div(class="shopping-guilde__content px-[3rem] h-[0] overflow-hidden transition-[height] duration-200")
                 div(class="accordion-content pb-[2rem]")
                     if(label)
                         p(class="text-[1.4rem] mb-[0.8rem] text-main-400") #{label}

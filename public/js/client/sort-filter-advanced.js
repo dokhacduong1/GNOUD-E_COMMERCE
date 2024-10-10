@@ -16,6 +16,8 @@ function redirectToSorteLimitUrl(params) {
     const currentUrl = new URL(window.location.href);
     const page = new URL(window.location.href).searchParams.get('page');
     const sort = new URL(window.location.href).searchParams.get('sort');
+    const keyword = new URL(window.location.href).searchParams.get('keyword');
+    params['keyword'] = keyword || ''; // Nếu không có tham số keywords, mặc định là ''
     params['page'] = page || '1'; // Nếu không có tham số page, mặc định là '1'
     params['sort'] = sort || ''; // Nếu không có tham số sort, mặc định là 'id'
     // Lấy tất cả các tham số từ URL hiện tại
@@ -120,11 +122,11 @@ if (buttonSubmitFilters.length > 0) {
     buttonSubmitFilters.forEach(buttonSubmitFilter => {
 
         buttonSubmitFilter.addEventListener('click', function(){
-            console.log("ok")
-            const checkBoxFilter = this.closest(".filter-advanced").querySelectorAll('.checkbox_input_form[type="checkbox"]:checked');
-         
-            const priceMin = parseInt(document.querySelector('.filter-advanced .input-price-min')?.value);
-            const priceMax = parseInt(document.querySelector('.filter-advanced .input-price-max')?.value);
+            const filyerAdvanced = this.closest(".filter-advanced");
+            const checkBoxFilter = filyerAdvanced.querySelectorAll('.checkbox_input_form[type="checkbox"]:checked');
+
+            const priceMin = parseInt(filyerAdvanced.querySelector(".input-price-min").value);
+            const priceMax = parseInt(filyerAdvanced.querySelector(".input-price-max").value);
             if (priceMin > priceMax) {
                 alertModalCustom("エントリー価格が無効です。再入力してください!")
                 return;
@@ -132,6 +134,7 @@ if (buttonSubmitFilters.length > 0) {
             const params = {}
             params['priceMin'] = priceMin.toString();
             params['priceMax'] = priceMax.toString();
+         
             checkBoxFilter.forEach(checkBox => {
                 const key = checkBox.getAttribute('query');
                 const value = checkBox.getAttribute('item-query');

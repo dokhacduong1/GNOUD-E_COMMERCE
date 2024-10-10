@@ -811,10 +811,6 @@ video {
   margin: 0 auto;
 }
 
-.m-\[0px_-4rem_0px\] {
-  margin: 0px -4rem 0px;
-}
-
 .m-\[4\.8rem_1\.5rem\] {
   margin: 4.8rem 1.5rem;
 }
@@ -1303,6 +1299,10 @@ video {
   max-height: 73.4rem;
 }
 
+.max-h-\[87rem\] {
+  max-height: 87rem;
+}
+
 .max-h-\[98rem\] {
   max-height: 98rem;
 }
@@ -1317,18 +1317,6 @@ video {
 
 .max-h-full {
   max-height: 100%;
-}
-
-.max-h-\[9rem\] {
-  max-height: 9rem;
-}
-
-.max-h-\[90rem\] {
-  max-height: 90rem;
-}
-
-.max-h-\[87rem\] {
-  max-height: 87rem;
 }
 
 .min-h-0 {
@@ -1373,10 +1361,6 @@ video {
 
 .min-h-screen {
   min-height: 100vh;
-}
-
-.min-h-\[9rem\] {
-  min-height: 9rem;
 }
 
 .w-0 {
@@ -1431,6 +1415,10 @@ video {
   width: 3.6rem;
 }
 
+.w-\[30\%\] {
+  width: 30%;
+}
+
 .w-\[30rem\] {
   width: 30rem;
 }
@@ -1478,10 +1466,6 @@ video {
 
 .w-full {
   width: 100%;
-}
-
-.w-\[30\%\] {
-  width: 30%;
 }
 
 .min-w-0 {
@@ -1602,6 +1586,10 @@ video {
 
 .basis-1\/4 {
   flex-basis: 25%;
+}
+
+.basis-10\/12 {
+  flex-basis: 83.333333%;
 }
 
 .basis-11\/12 {
@@ -1898,10 +1886,6 @@ video {
 
 .overflow-hidden {
   overflow: hidden;
-}
-
-.overflow-scroll {
-  overflow: scroll;
 }
 
 .overflow-y-auto {
@@ -2406,10 +2390,6 @@ video {
   padding: 2rem 3.2rem;
 }
 
-.p-\[2rem_auto\] {
-  padding: 2rem auto;
-}
-
 .p-\[3rem_2rem\] {
   padding: 3rem 2rem;
 }
@@ -2453,11 +2433,6 @@ video {
   padding-right: 0.5rem;
 }
 
-.px-\[1\.5rem\] {
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
-}
-
 .px-\[1rem\] {
   padding-left: 1rem;
   padding-right: 1rem;
@@ -2466,6 +2441,11 @@ video {
 .px-\[2rem\] {
   padding-left: 2rem;
   padding-right: 2rem;
+}
+
+.px-\[3rem\] {
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 .py-2 {
@@ -2821,6 +2801,10 @@ video {
 .\!text-main {
   --tw-text-opacity: 1 !important;
   color: rgb(60 60 67 / var(--tw-text-opacity)) !important;
+}
+
+.text-\[\#00000073\] {
+  color: #00000073;
 }
 
 .text-\[\#333\] {
@@ -3304,11 +3288,6 @@ Select-row */
   color: rgb(108 108 115 / var(--tw-text-opacity));
 }
 
-.hover\:text-main-400:hover {
-  --tw-text-opacity: 1;
-  color: rgb(76 76 83 / var(--tw-text-opacity));
-}
-
 .hover\:text-main-500:hover {
   --tw-text-opacity: 1;
   color: rgb(60 60 67 / var(--tw-text-opacity));
@@ -3717,6 +3696,10 @@ Select-row */
     width: auto;
   }
 
+  .lg\:min-w-\[16rem\] {
+    min-width: 16rem;
+  }
+
   .lg\:max-w-\[100\%\] {
     max-width: 100%;
   }
@@ -3837,6 +3820,10 @@ Select-row */
 
   .lg\:text-\[1\.2rem\] {
     font-size: 1.2rem;
+  }
+
+  .lg\:text-\[1\.4rem\] {
+    font-size: 1.4rem;
   }
 
   .lg\:text-\[1\.6rem\] {

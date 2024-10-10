@@ -11,7 +11,8 @@ const elements = {
     arrowDown: document.querySelector('.arrow-down'), // Mũi tên xuống
     itemCategories: document.querySelectorAll('.item-categories'), // Các mục trong danh mục
     activeSelect: document.querySelector('.active-select'), // Mục đang được chọn
-    inputMain: document.querySelector('.search-menu .search-box')
+    inputMain: document.querySelector('.search-menu .search-box'),
+    boxSearchOverlay: document.querySelector('.search-menu .box-search-overlay')
 };
 
 // Hàm chuyển đổi trạng thái hiển thị của một phần tử
@@ -26,6 +27,7 @@ function setDivBlurWidth(width) {
 
 // Thêm event listener cho sự kiện focus của inputBlur
 elements.inputBlur.addEventListener('focus', () => {
+
     setDivBlurWidth('100%');
     if (!elements.categoriesBlur.classList.contains('hidden')) {
         toggleVisibility(elements.categoriesBlur);
@@ -77,9 +79,13 @@ elements.itemCategories.forEach(item => {
 document.addEventListener('click', (e) => {
 
     if (e.target.contains(elements.divBlur)) { // Nếu nhấp vào bên ngoài divBlur
+        
         setDivBlurWidth('0%'); // Đặt chiều rộng của divBlur thành 0%
         if (!elements.categoriesBlur.classList.contains('hidden')) {
             toggleVisibility(elements.categoriesBlur); // Ẩn danh mục
+        }
+        if(!elements.boxSearchOverlay.classList.contains('hidden')){
+            toggleVisibility(elements.boxSearchOverlay);
         }
         if (elements.arrowDown.classList.contains('hidden')) {
             toggleVisibility(elements.arrowDown); // Hiển thị mũi tên xuống
