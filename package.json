@@ -7,7 +7,7 @@
     "debug": "nodemon --exec \"node --inspect --require ts-node/register index.ts\"",
     "start": "nodemon index.ts",
     "build:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/styles.css --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -48,5 +48,10 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
     "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5"
   }
 }
