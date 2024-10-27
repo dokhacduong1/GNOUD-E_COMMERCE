@@ -3,3 +3,5 @@ node_modules
 testcookie.com+2-key.pem
 testcookie.com+2.pem
 sql
+
+.idea
