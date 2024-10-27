@@ -134,16 +134,12 @@ async function getProductDetails(
   idCategory: number,
   products: IProduct[]
 ): Promise<{
-  nameCategory: { Title: string };
+
   breadcrumb: CategoryInterface[];
   product_options: IProductOption[];
 }> {
-  const [nameCategory, breadcrumb, product_options] = await Promise.all([
-    Categorie.findOne({
-      where: { ID: idCategory },
-      attributes: ["Title"],
-      raw: true,
-    }) as unknown as { Title: string }, // Lấy tên category
+  const [ breadcrumb, product_options] = await Promise.all([
+
     getBreadcrumbUsingCTE(idCategory) as unknown as CategoryInterface[], // Lấy breadcrumb
     ProductOption.findAll({
       where: { Product_ID: products.map((item) => item.Product_ID) },
@@ -152,7 +148,7 @@ async function getProductDetails(
     }) as unknown as IProductOption[], // Lấy danh sách các options của sản phẩm
   ]);
 
-  return { nameCategory, breadcrumb, product_options }; // Trả về các giá trị cần thiết
+  return {  breadcrumb, product_options }; // Trả về các giá trị cần thiết
 }
 
 // Hàm chuẩn bị dữ liệu sản phẩm để render ra giao diện
@@ -201,7 +197,7 @@ export const index = async function (
     req
   ); // Lấy danh sách sản phẩm
 
-  const { nameCategory, breadcrumb, product_options } = await getProductDetails(
+  const {  breadcrumb, product_options } = await getProductDetails(
     idCategory,
     products
   ); // Lấy chi tiết sản phẩm và category

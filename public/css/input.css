@@ -104,3 +104,62 @@ Select-row */
 .pagination-active{
   @apply bg-[#cdbd94] text-white
 }
+.process_bar span{
+  @apply text-main font-normal
+}
+.process_bar.active span{
+  @apply text-main font-bold
+}
+.process_bar{
+    white-space: pre-wrap;
+    list-style-type: none;
+    height: 42px;
+    
+    
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    color: rgb(60, 60, 67);
+    transition: 300ms;
+    font-weight: 600;
+}
+.active.process_bar:before{
+  background-color: rgb(60, 60, 67);
+  width: 12px;
+  height: 12px;
+  top: -3px;
+  content: "";
+  line-height: 21px;
+  border: 3px double rgb(255, 255, 255);
+  display: block;
+  text-align: center;
+  margin: 0px auto 10px;
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+}
+.process_bar::before {
+  width: 8px;
+  height: 8px;
+  content: "";
+  line-height: 21px;
+  display: block;
+  text-align: center;
+  margin: 0px auto 10px;
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+  background-color: rgb(196, 196, 198);
+  top: -2px;
+}
+.process_bar:not(:first-child)::after {
+  width: 100%;
+  height: 1px;
+  content: "";
+  position: absolute;
+  background-color: rgb(196, 196, 198);
+  top: 2px;
+  left: -50%;
+  z-index: 0;
+}
+

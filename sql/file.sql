@@ -116,6 +116,37 @@ WHERE Status="active" and Deleted = false and Category_ID = 9 AND Product_ID > 6
 ORDER BY Product_ID ASC
 LIMIT 10;
 
+CREATE TABLE Cart (
+  ID INT AUTO_INCREMENT PRIMARY KEY,
+  Cart_ID VARCHAR(255) NOT NULL,
+  User_ID INT, -- Có thể NULL nếu không liên kết với người dùng đã đăng nhập
+  Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_cartid_productid ON CART(Cart_ID);
+
+CREATE TABLE CartItems (
+  ID INT AUTO_INCREMENT PRIMARY KEY,
+  Cart_ID VARCHAR(255) NOT NULL,
+  Product_ID INT NOT NULL,
+  Product_Option_ID INT NOT NULL, -- ID của ProductOptions
+  SizeProduct VARCHAR(255) NOT NULL, -- Size sản phẩm
+  Quantity INT NOT NULL, 
+  Price DECIMAL(10, 2) NOT NULL, -- Giá sản phẩm tại thời điểm thêm vào giỏ
+  FOREIGN KEY (Cart_ID) REFERENCES Cart(Cart_ID) ON DELETE CASCADE,
+  FOREIGN KEY (Product_ID) REFERENCES Products(ID),
+  FOREIGN KEY (Product_Option_ID) REFERENCES ProductOptions(ID)
+);
+
+CREATE TABLE WebOptions(
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    CartMaxItems INT DEFAULT 20,
+    Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+)
+INSERT INTO WebOptions (CartMaxItems) VALUES (20);
+CREATE INDEX idx_cartitems_all ON CartItems(Cart_ID, Product_ID, Product_Option_ID, SizeProduct);
 -- Tạo bảng Users
 CREATE TABLE Users (
     UserID INT AUTO_INCREMENT PRIMARY KEY,

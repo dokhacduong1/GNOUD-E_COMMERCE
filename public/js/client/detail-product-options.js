@@ -52,6 +52,7 @@ function updateContentCategory(nameSize, nameColor) {
 // Hàm loại bỏ một class từ phần tử hiện tại và thêm class vào phần tử mới
 function removeDomAndActive(className="", activeDom="", dom) {
     const activeItem = document.querySelector(className);
+
     if (activeItem) {
         activeItem.classList.remove(activeDom);
     }
@@ -71,6 +72,7 @@ function handleSizeMobileClick() {
 
     // Lấy phần tử kích thước sản phẩm trong giao diện chính tương ứng với kích thước đã chọn
     const sizeItem = document.querySelector(`.item-size[id-size="${idSize}"]`);
+
     removeDomAndActive('.item-size.size-select', 'size-select', sizeItem);
 
     // Lấy phần tử màu sắc sản phẩm tương ứng và kích hoạt sự kiện click
@@ -153,7 +155,7 @@ function checkNoStock(products) {
 
 // Hàm xử lý sự kiện khi người dùng chọn một màu sắc sản phẩm
 function handleColorItemClick() {
-    const idColor = this.getAttribute('id-product');
+    const idColor = this.getAttribute('id-color');
     const products = findById(data, idColor);
     let contentMain = '';
     if(!checkNoStock(products)){
@@ -189,9 +191,12 @@ function handleSizeItemClick() {
     const idSize = this.getAttribute("id-size");
     const checkStock = this.classList.contains('no-stock');
     if (checkStock) return;
-    const idProduct = document.querySelector('.product-options .color-list .color-item.active-outline-detail')?.getAttribute('id-product');
-    const sizeMobileActive = document.querySelector(`li.options-moible[id-size="${idSize}"][id-product="${idProduct}"]`);
+    const idProduct = document.querySelector('.product-options .color-list .color-item.active-outline-detail')?.getAttribute('id-color');
+   
+    const sizeMobileActive = document.querySelector(`li.options-moible[id-size="${idSize}"][id-color="${idProduct}"]`);
+    
     updateContentCategory(this.textContent, titleCategory.textContent.split('・')[1]);
+    
     removeDomAndActive('.active-outline-detail-mobile','active-outline-detail-mobile',sizeMobileActive);
     removeDomAndActive('.item-size.size-select','size-select',this);
 }

@@ -2,7 +2,7 @@ include ./modal.pug
 include ./pagination.pug
 mixin product-list(products=[],objectPagination={})
 
-    div(class="list-products")
+    div(class="list-products"  maxCountCart=webOptions.CartMaxItems) 
         div(class="")
             if(products.length > 0)
                 div(class="slick-item  text-[1.4rem] grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-4 leading-[1.6] text-main pb-[2rem]")
@@ -56,7 +56,7 @@ mixin product-list(products=[],objectPagination={})
         div(class="modal-add-to-cart")
             +modal-custom("カートに入れる")
                 div(class="box-content-cart")
-                    div(class="box-inner flex flex-col gap-[2.4rem]")
+                    div(class="box-inner flex flex-col gap-[2.4rem] info-product")
                         div(class="title-product-cart")
                             p(class="text-[1.8rem]") 自然のまんまの色　カシミヤ　タートルネックセーター
                         div(class="color-product-cart flex flex-col gap-[0.8rem]")
@@ -94,10 +94,10 @@ mixin product-list(products=[],objectPagination={})
                                     div(class="flex items-center justify-center sm:justify-start  gap-3")
                                         button(class="font-Roboto cursor-pointer button-no-active-count text-[2rem] font-bold rounded-[0.4rem] h-[4.5rem] w-[4.5rem] flex items-center justify-center")
                                             img(src="../images/tru.svg" alt="minus")
-                                        input(class="text-[1.9rem] input-count-product text-center w-[4.8rem] h-[4.8rem] border border-[#c4c4c6] rounded-[0.4rem] p-[0.8rem] font-bold" value=1 max=99 min=0)
+                                        input(class="text-[1.9rem] input-count-product text-center w-[4.8rem] h-[4.8rem] border border-[#c4c4c6] rounded-[0.4rem] p-[0.8rem] font-bold" value=1 max=20 min=0)
                                         button(class="font-Roboto button-active-count text-[2rem] font-bold rounded-[0.4rem] h-[4.5rem] w-[4.5rem] flex items-center justify-center")
                                             img(src="../images/cong.svg" alt="plus")
                         div(class="modal-button-submit-cart flex items-center justify-center ")
-                            button( class="hover:text-white hover:bg-main-300 button-submit-form p-[1.5rem_1.9rem] bg-black text-white  text-[1.6rem] font-[700] rounded-md flex justify-center items-center w-full")
+                            button( class="hover:text-white btn-add-to-cart hover:bg-main-300 button-submit-form p-[1.5rem_1.9rem] bg-black text-white  text-[1.6rem] font-[700] rounded-md flex justify-center items-center w-full")
                                 span() カートに入れる
 
