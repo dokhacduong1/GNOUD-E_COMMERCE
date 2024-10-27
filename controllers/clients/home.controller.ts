@@ -8,6 +8,7 @@ export const index = async function (
   res: Response
 ): Promise<void> {
   try {
+
     const productsNew = await ProductPreview.findAll({
       where: {
         Status: "active",
