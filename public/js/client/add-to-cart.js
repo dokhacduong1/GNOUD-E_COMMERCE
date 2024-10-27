@@ -1,6 +1,7 @@
 const buttonAddToCart = document.querySelectorAll('.add-to-cart');
 const modalAddToCart = document.querySelector('.modal-add-to-cart .modal-custom');
 const modalContent = document.querySelector('.modal-add-to-cart .modal-content');
+const infoProductId = document.querySelector('.modal-add-to-cart .info-product');
 const quantityCart = modalContent.querySelector('.quantity-product-cart');
 
 function removeActiveAll(list) {
@@ -9,8 +10,8 @@ function removeActiveAll(list) {
 
 function generateColorProductHTML(data) {
     return data.map((item, index) => `
-        <li title=${item.Title} id-product-img=${item.ID} class="item-color-product relative overflow-hidden">
-            <button class="${index === 0 ? "size-select" : ""} border !p-0 size-[8rem] rounded-md overflow-hidden relative">
+        <li title=${item.Title} id-product-img=${item.ID}  class="item-color-product relative overflow-hidden">
+            <button id-color=${item.ID} class="${index === 0 ? "size-select" : ""} color-item border !p-0 size-[8rem] rounded-md overflow-hidden relative">
                 <img class="object-cover w-full h-full absolute inset-0" src="${item.ImageURL}" alt="color-black" />
             </button>
             <div class="rounded-full absolute size-[2rem] -top-[0.7rem] -right-[0.6rem] shadow-md " style="background:url(${item.Color});background-repeat: no-repeat;background-size: cover;"></div>
@@ -22,7 +23,7 @@ function generateSizeProductHTML(listOption, sizeActive = "") {
     return listOption.map((item) => `
         <li>
             <button class="w-full">
-                <div stock="${item.stock}" title="${item.size}" class="${item.size === sizeActive ? "size-select" : ""} w-full size-button item-size-cart ${item.stock === 0 ? "no-stock" : ""} text-[1.2rem] flex items-center justify-center border bg-white rounded-[0.4rem] cursor-pointer min-h-[4.5rem]">
+                <div id-size="${item.size}" stock="${item.stock}" title="${item.size}" class="${item.size === sizeActive ? "size-select" : ""} item-size w-full size-button item-size-cart ${item.stock === 0 ? "no-stock" : ""} text-[1.2rem] flex items-center justify-center border bg-white rounded-[0.4rem] cursor-pointer min-h-[4.5rem]">
                     <span>${item.size}</span>
                 </div>
             </button>
@@ -39,7 +40,7 @@ function generateProductHTML(dom, data, listOption, stock) {
         <div class="title-product-cart">
             <p class="text-[1.8rem]">${titleProduct}</p>
         </div>
-        <div class="color-product-cart flex flex-col gap-[0.8rem]">
+        <div class="color-product-cart product-option-color flex flex-col gap-[0.8rem]">
             <div class="title-color-product-cart">
                 <p class="text-[1.6rem] text-main"><span class="font-bold">カラー：</span><span class="title_img">${data[0].Title}</span></p>
             </div>
@@ -51,7 +52,7 @@ function generateProductHTML(dom, data, listOption, stock) {
             <div class="title-size-product-cart">
                 <p class="text-[1.6rem] text-main"><span class="font-bold">サイズ：</span><span class="title_size">${listOption[0].length > 0 ? listOption[0][0].size : stock}</span></p>
             </div>
-            <div class="list-size-product-cart">
+            <div class="list-size-product-cart product-option-size">
                 <ul class="grid gap-[1rem] grid-cols-[repeat(auto-fit,minmax(120px,1fr))]">${sizeProductHTML}</ul>
             </div>
         </div>
@@ -63,9 +64,9 @@ async function getProductData(idProduct) {
 
     if (storedData) {
         return JSON.parse(storedData);
-    } else {
-        const response = await fetch(`/api/v1/client/category/get_size/${idProduct}`);
+    } else { const response = await fetch(`/api/v1/client/category/get_size/${idProduct}`);
         const data = await response.json();
+       
         sessionStorage.setItem(`productData-${idProduct}`, JSON.stringify(data));
         return data;
     }
@@ -100,6 +101,8 @@ async function handleButtonClick(button) {
         const dataProduct = await getProductData(idProduct);
 
         if (dataProduct.code === 200) {
+            infoProductId.setAttribute('id-product', idProduct);
+        
             const listOption = dataProduct.data.map(item => JSON.parse(item.List_Options ?? "[]"));
             const stock = dataProduct.data.map(item => item.Stock);
             const content = generateProductHTML(productParent, dataProduct.data, listOption, stock);
@@ -118,7 +121,7 @@ async function handleButtonClick(button) {
             });
 
             listSizeProduct.addEventListener('click', event => {
-                console.log(event.target);
+                
                 if (event.target.closest('button')) {
                     handleSizeProductClick(event.target.closest('button'), listSizeProduct.querySelectorAll('.item-size-cart'), sizeTitle);
                 }
@@ -132,6 +135,7 @@ async function handleButtonClick(button) {
 function handleColorProductClick(button, dataProduct, listColorButtons, colorTitle, sizeTitle) {
     const idProductImg = button.closest('.item-color-product').getAttribute('id-product-img');
     const dataFilter = dataProduct.data.find(item => item.ID === parseInt(idProductImg));
+    
     if (dataFilter) {
         colorTitle.textContent = dataFilter.Title;
         const listOption = JSON.parse(dataFilter.List_Options ?? "[]");
@@ -150,9 +154,10 @@ function handleColorProductClick(button, dataProduct, listColorButtons, colorTit
 }
 
 function handleSizeProductClick(button, listSizeButtons, sizeTitle) {
+   
     const divButton = button.querySelector('div');
     const stock = button.getAttribute('stock');
-    
+   
     if (stock !== "0") {
         sizeTitle.textContent = divButton.getAttribute('title');
 
@@ -160,6 +165,8 @@ function handleSizeProductClick(button, listSizeButtons, sizeTitle) {
         divButton.classList.add('size-select');
     }
 }
+
+
 
 if (buttonAddToCart.length > 0) {
     buttonAddToCart.forEach(button => {

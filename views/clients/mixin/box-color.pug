@@ -1,7 +1,7 @@
 mixin box-color(productOptions)
     ul(class="flex gap-6 flex-wrap")
         each item,index in productOptions
-            li(id-product=item.ID title=item.Title class=`color-item  size-[3.7rem] rounded-full cursor-pointer ${index===0 ? "active-outline-detail" :""}` style=`background:url(${item.Color}) no-repeat center center; background-size:cover;`)
+            li(id-color=item.ID title=item.Title class=`color-item  size-[3.7rem] rounded-full cursor-pointer ${index===0 ? "active-outline-detail" :""}` style=`background:url(${item.Color}) no-repeat center center; background-size:cover;`)
 
 mixin box-color-mobile(productOptions,indexSizeCheck)
     div(class='StickyCartIn_modal h-[80%] ')
@@ -12,7 +12,7 @@ mixin box-color-mobile(productOptions,indexSizeCheck)
                         ul
                             if(itemOption.List_Options && itemOption.List_Options.length > 0)
                                 each itemSize,indexSize in itemOption.List_Options
-                                    li(id-product=itemOption.ID id-size=itemSize.size class=`options-moible  ${itemSize.stock === 0 ? "no-stock-mobile":""}` title=itemOption.Title)
+                                    li(id-color=itemOption.ID id-size=itemSize.size class=`options-moible  ${itemSize.stock === 0 ? "no-stock-mobile":""}` title=itemOption.Title)
                                         div(class=`flex items-center cursor-pointer p-[0.6rem_1.5rem] gap-4 w-full  ${(indexOption===0 && indexSize ===indexSizeCheck) ? "active-outline-detail-mobile" :""}`)
                                             div(class=`rounded-full overflow-hidden color-button border border-[#00000033] relative`)
                                                 div(class=`size-[1.4rem]` style=`background:url(${itemOption.Color}) no-repeat center center; background-size:cover;`)

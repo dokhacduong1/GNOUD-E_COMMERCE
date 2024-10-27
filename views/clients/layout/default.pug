@@ -1,9 +1,12 @@
+include ../mixin/loading.pug
+include ../mixin/alert.pug
 doctype html
 html
   head
     title= title
     meta(charset="UTF-8")
     meta(name="viewport" content="width=device-width, initial-scale=1.0")
+
     link(rel="stylesheet" href="../css/styles.css")
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -23,6 +26,8 @@ html
         div(class="font-Hiragino ")
             
             include ../partials/header.pug
+            +loading(false)
+            +alert-all-web()
             div(class="add-div")
               block customdiv
             div(class=`max-w-[184rem]  md:px-[5.6rem] lg:px-[6.4rem] xl:px-[10rem] p-[1rem] lg:p-[2rem_auto_2rem] w-full ` style=`background-color:${bgClient ? bgClient : 'white'}`)
@@ -31,5 +36,7 @@ html
             include ../partials/footer.pug
             script(src="../js/client/header.js")
             script(src="../js/client/search.js")
+            script(src="../js/client/alert.js")
+            script(src="../js/client/loading-web.js") 
             block script 
     

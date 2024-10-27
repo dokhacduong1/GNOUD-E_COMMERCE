@@ -23,9 +23,8 @@ block main
        
         div(class="sm:hidden lg:block mb-3")
             +breadcrumb(breadcrumb)
-        div(class="")
-            
-            div(class="info-product  lg:grid lg:grid-cols-[9fr,5fr] lg:gap-x-[98px] w-full")
+        div(class="products-detail-full" maxCountCart=webOptions.CartMaxItems)
+            div(class="info-product  lg:grid lg:grid-cols-[9fr,5fr] lg:gap-x-[98px] w-full" id-product=product.ID)
                 div(class="lg:col-start-2 lg:col-end-3 min-w-0")
                     div(class="product-tag mb-[0.8rem] inline-block")
                         div(class = "bg-[#7f0019] text-white text-[1.1rem] p-[0.4rem_0.8rem] font-semibold leading-[1rem] ") NEW
@@ -87,11 +86,11 @@ block main
                         div(class="flex items-center justify-center gap-3")
                             button(class="font-Roboto cursor-pointer button-no-active-count text-[2rem] font-bold rounded-[0.4rem] h-[4.5rem] w-[4.5rem] flex items-center justify-center")
                                 img(src="../images/tru.svg" alt="minus")
-                            input(class="text-[1.9rem] input-count-product text-center w-[4.8rem] h-[4.8rem] border border-[#c4c4c6] rounded-[0.4rem] p-[0.8rem] font-bold" value=1 max=99 min=0)
+                            input(class="text-[1.9rem] input-count-product text-center w-[4.8rem] h-[4.8rem] border border-[#c4c4c6] rounded-[0.4rem] p-[0.8rem] font-bold" value=1 max=99 min=1)
                             button(class="font-Roboto button-active-count text-[2rem] font-bold rounded-[0.4rem] h-[4.5rem] w-[4.5rem] flex items-center justify-center")
                                 img(src="../images/cong.svg" alt="plus")
                     div(class="product-button mt-[2rem] text-[1.8rem] font-bold")
-                    div(class="add-to-cart  ")
+                    div(class="btn-add-to-cart  ")
                         button(class="bg-main w-full flex justify-center text-white items-center gap-2 p-[1.3rem_2rem] lg:p-[2rem_3.2rem] rounded-[0.4rem]")
                             img(src="../images/add-cart.svg" alt="cart")
                             span(class="text-[1.8rem] font-bold") カートに入れる
@@ -190,7 +189,7 @@ block script
     script(src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js") 
     script(src="../js/client/swiper-custom.js")
     script(src="../js/client/loading-image.js")
-
+    script(src="../js/client/add-to-cart-api.js")
     script(src="../js/client/detail-product-options.js") 
     script(src="../js/client/detail-product.js") 
     script(src="../js/client/detail-product-menutab.js")
