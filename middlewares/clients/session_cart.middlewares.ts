@@ -1,7 +1,8 @@
-import { Request, Response, NextFunction } from "express"; // Import các kiểu dữ liệu từ express
-import { v4 as uuidv4 } from "uuid"; // Import hàm uuidv4 từ thư viện uuid để tạo mã UUID
+import {NextFunction, Request, Response} from "express"; // Import các kiểu dữ liệu từ express
+import {v4 as uuidv4} from "uuid"; // Import hàm uuidv4 từ thư viện uuid để tạo mã UUID
 import Cart from "../../models/cart.model"; // Import model Cart từ thư mục models
-import { decodeJwtToken, generalJwtCustom } from "../../helpers/jwt_custom"; // Import các hàm decodeJwtToken và generalJwtCustom từ thư mục helpers
+import {decodeJwtToken, generalJwtCustom} from "../../helpers/jwt_custom";
+import CartItems from "../../models/cart_items.model";
 
 export const session_cart = async function (
   req: Request,
@@ -30,10 +31,16 @@ export const session_cart = async function (
 
     // Kiểm tra nếu token vẫn hợp lệ (còn hạn)
     const decodedToken = decodeJwtToken(sessionCartToken, secretKey); // Giải mã token
+    const quantityCart = await CartItems.sum('Quantity', {where: {Cart_ID: cart_code}});
+    res.locals.quantityCart = quantityCart;
+    req.body.quantityCart = quantityCart;
     if (decodedToken && decodedToken.cart_code === cart_code) {
       next(); // Nếu token hợp lệ, chuyển sang middleware tiếp theo
       return;
     }
+    //lấy tổng quantity của các sản phẩm trong giỏ hàng
+
+
 
     // Tạo token mới và thiết lập cookie
     generalJwtCustom(

@@ -13,137 +13,141 @@ block main
             +process-bar()
             div(class="header-main pt-[1.8rem]")
                 h1(class="text-[2.8rem] lg:text-[3rem] font-bold") #{title}
-            div(class="box-cart mt-[4.5rem] flex relative ")
-                div(class="cart-left max-w-[calc(100%-45rem)] w-full grow-[1] ")
-                   
-                    div(class="cart-left_label flex border-dotted border-2 border-[#c4c4c6] text-center text-[1.4rem] leading-[2.24rem] mb-[1.6rem] justify-center items-center text-main  p-[0.8rem]")
-                        span(class="") 商品の在庫はまだ確保されていません。
-                        span(class="") 次の画面に進むと30分在庫が確保されます。
-                    div(class="cart-left_freeships")
-                        div(class="cart-left_freeship text-main text-[1.6rem] mb-[1.6rem] leading-[1.6] p-[0.8rem] text-center bg-[#f4eede]")
-                            div(class="inline-block ")
-                                a(href="#" class="text-main truncate cursor-pointer underline")
-                                    span(class="") 店舗受け取
-                                span() なら
-                            div(class="inline-block font-bold text-[#7f0019]")
-                                span(class="") 配送料無料
-                        div(class="cart-left_freeship flex items-center justify-center mb-[2.4rem] place-content-center ")
-                            div(class="text-[1.6rem] mr-[1.6rem] font-bold !text-[#7f0019] text-center leading-[1.6] p-[0.8rem] ")
-                                a(href="#" class=" underline cursor-pointer hover:text-[#7f0019]")
-                                    span(class="") 対象商品
-                                span(class="") をあと1,130円購入で、配送料無料
-                            div(class="recomment font-bold text-[1.4rem]" )
-                                a(href="#recomment" class="flex items-center justify-center gap-1 hover:underline")
-                                    span(class="") おすすめの商品を見る
-                                    <i class="co-icon rotate-90"><svg role="img" width="12" height="12" viewBox="0 0 12 12"><path d="M323.069,1045.75a.75.75,0,0,1-.53-1.28l3.47-3.47-3.47-3.47a.75.75,0,1,1,1.061-1.061l4.53,4.53-4.53,4.53A.748.748,0,0,1,323.069,1045.75Z" transform="translate(-319.069 -1035)" fill="currentColor"></path><rect width="12" height="12" fill="none"></rect></svg></i>
-                    div(class="cart-left-products")
-                        div(class="count-product")
-                            h2(class="text-[1.6rem] font-bold leading-[1.5] text-main flex items-center gap-4")
-                                span(class="") アイテム数
-                                span(class="inner-text") #{cartItems.length}
-                        div(class="info-product mt-[1.7rem]")
-                            each item,index in cartItems
-                                div(class="product" id-product=item.ID)
-                                    div(class=`${index===0 ? "border-t" :""} border-b border-[#dbdbdb] py-[3rem]`)
-                                        div(class="flex flex-row ")
-                                            div(class="image-product basis-[15rem] max-w-[15rem] flex-shrink-0 items-start")
-                                                a(class="bg-transparent group cursor-pointer")
-                                                    div(class="relative after:absolute after:content-[''] after:inset-0 after:opacity-[0.1] after:transition-all group-hover:after:bg-main")
-                                                        img(class="w-full" src=item.ImageLink alt=item.Title)
-                                            div(class="info-product-detail flex-grow-[1] flex flex-col ml-[3rem]")
-                                                div(class="item-details")
-                                                    a(class="text-[1.8rem] font-bold text-main leading-[1.5] -my-[0.25em] hover:underline" href=`/product/${item.Slug}`) #{item.Title}
-                                                    div(class="mt-[0.5rem]")
-                                                        p(class="text-[1.4rem] font-[400] text-main-300 leading-[1.5] -my-[0.25em] id-color-and-size-product" sizeProduct=item.SizeProduct colorId=item.Product_Option_ID,) #{item.SizeProduct}・#{item.TitleColor}
-                                                        div(class="mt-[1rem]")
-                                                            p(class="price flex gap-3 text-[1.4rem] text-main-300 leading-[1.5rem] -my-[0.25em]")
-                                                                span(class="font-Roboto font-semibold  text-[1.6rem] price-origin" priceOrigin=item.Price) #{ parseInt(item.Price).toLocaleString()}
-                                                                span(class="") 円 / 点
-                                                            p(class="id-product text-[1.1rem] mt-[1rem] text-main-300 leading-[1.5]")
-                                                                span(class="") 商品番号: GD#{item.ID}
-                                                            div(class="mt-[0.2rem] tag")
-                                                                div(class="tag_top flex flex-row")
-                                                                    div(class="tag_top-left mt-[1.5rem] mr-[1rem]")
-                                                                        span(class="inline-block leading-[1.5] -mt-[0.25em] text-[#6d6d72] p-[0.2rem_1rem] text-[1.2rem] font-bold bg-[#f5f5f5]") 店舗受け取り可
-                                                                    div(class="tag_top-right mt-[1.5rem] mr-[1rem]")
-                                                                        span(class="inline-block leading-[1.5] -mt-[0.25em] text-[#6d6d72] p-[0.2rem_1rem] text-[1.2rem] font-bold bg-[#f5f5f5]") コンビニ受け取り可
-                                                                div(class="tag_bottom  flex max-w-[33rem]")
-                                                                    div(class="mr-[1rem] mt-[1rem]")
-                                                                        span(class="text-main-300 font-[1.2rem] leading-[1.5]") d払い可・つど後払い可・atone翌月払い可
-                                                div(class="item-count_price flex justify-between items-center m-[3rem_0px]")
-                                                    
-                                                    div(class="count-product")
-                                                        p(class=`text-full-count-warning mb-3 text-red-400  text-[1.4rem] leading-[1.5]  ` style=`${item.Quantity === webOptions.CartMaxItems ? "opacity:100%" : "opacity:0" }`) 購入可能な個数は#{webOptions.CartMaxItems}までです
-                                                        div(class="flex items-center justify-center gap-3")
-                                                            button(class="btn-minus font-Roboto size-[4.8rem] flex justify-center items-center border-main border-solid border rounded-[0.4rem]")
-                                                                img(src="../images/tru.svg" alt="minus")
-                                                            input( class="outline-none quantity-cart text-[1.4rem] text-center w-[7.2rem] h-[4.8rem] border border-[#c4c4c6] rounded-[0.4rem] p-[0.8rem] font-bold leading-[5rem] " value=item.Quantity max=99 min=0)
-                                                            button(class="btn-plus font-Roboto size-[4.8rem] flex justify-center items-center border-main border-solid border rounded-[0.4rem]")
-                                                                img(src="../images/cong.svg" alt="plus")    
-                                                    div(class="price-product")
-                                                        div(class="price w-[21rem] items-end grow-[1] text-right")
-                                                            p(class="text-[1.4rem] mt-[0.5rem] text-main-300 leading-[1.5] flex justify-end gap-2  items-center")
-                                                                
-                                                                span(class="text-[2.4rem] font-bold font-Roboto sumPrice" sumPrice=item.sumPrice) #{parseInt(item.sumPrice).toLocaleString()}
-                                                                span(class="") 円
-                                                            p(class="text-[1.4rem] mt-[0.5rem] text-main-300 leading-[1.5]")
-                                                                span(class="") 小計（消費税込）
-                                                        div(class="delete_other flex flex-row justify-end")
-                                                            div(class="ml-[3rem]")
-                                                                button(class=" p-0 text-[1.4rem] font-[400] text-main-300 leading-[1.5] inline underline")
-                                                                    span(class="btn-delete") 削除
-                                                            div(class="ml-[3rem]")
-                                                                button(class="p-0 text-[1.4rem] font-[400] text-main-300 leading-[1.5] inline underline")
-                                                                    span() あとで買う
-             
-                              
-                                                        
-                div(class="cart-right max-w-[45rem] w-full ml-[4.28571%]")
-                    div(class="info-shipping-guilde p-[3rem] border")
-                        div(class="flex items-center gap-3")
-                            label(for="checkbox_shipping" class=' cursor-pointer flex items-center gap-2 text-[1.4rem]  text-main-300 leading-[1.6] py-[0.8rem]')
-                                input(type="checkbox" id="checkbox_shipping" class="custom-checkbox-i relative rounded-lg cursor-pointer size-[2.5rem] accent-black appearance-none  border  checked:bg-[#000] ")
-                                span(class="") ギフト包装を利用する（消費税込<strong>160</strong>円/包装)
-                            button(class="shipping-question")
-                                img(class="size-[2rem]" src="../images/question.svg" alt="question")
-                        div(class="shipping-content  py-[0.8rem]")
-                            div(class="text-[1.2rem] table text-main-200 leading-[1.5] text")
-                                span(class="start table-cell mr-[1rem]") ※
-                                span(class="tracking-[0.1rem]") ギフト包装は、原則カートに含まれる小物全商品が対象となります。店舗で商品をお受け取りになるお客様は、店頭にてギフト包装を承りますので、こちらのボタンは選択せず、お進みください。
-                    div(class="info-price-all-product mt-[1.6rem]")
-                        div(class="mt-[4rem] p-[3rem] bg-[#f5f5f5]")
-                            div(class="title-content flex justify-between items-center gap-2")
-                                h3(class="text-[2.6rem] font-bold text-main-300 leading-[1.5] ") お支払い金額
-                            div(class="all-product-count mt-[3rem]")
-                                ul(class="")
-                                    li(class="flex justify-between items-center gap-2 text-[1.4rem] text-main-300 leading-[1.5] ")
-                                        span(class="") 商品小計 1点
-                                        p(class="flex gap-2")
-                                            span(class="text-[1.6rem] font-bold sumAllPrice" sumAllPrice=sumAllPrice ) #{parseInt(sumAllPrice).toLocaleString()}
+            if(cartItems.length >0)
+                div(class="box-cart mt-[4.5rem] flex relative ")
+                    div(class="cart-left max-w-[calc(100%-45rem)] w-full grow-[1] ")
+
+                        div(class="cart-left_label flex border-dotted border-2 border-[#c4c4c6] text-center text-[1.4rem] leading-[2.24rem] mb-[1.6rem] justify-center items-center text-main  p-[0.8rem]")
+                            span(class="") 商品の在庫はまだ確保されていません。
+                            span(class="") 次の画面に進むと30分在庫が確保されます。
+                        div(class="cart-left_freeships")
+                            div(class="cart-left_freeship text-main text-[1.6rem] mb-[1.6rem] leading-[1.6] p-[0.8rem] text-center bg-[#f4eede]")
+                                div(class="inline-block ")
+                                    a(href="#" class="text-main truncate cursor-pointer underline")
+                                        span(class="") 店舗受け取
+                                    span() なら
+                                div(class="inline-block font-bold text-[#7f0019]")
+                                    span(class="") 配送料無料
+                            div(class="cart-left_freeship flex items-center justify-center mb-[2.4rem] place-content-center ")
+                                div(class="text-[1.6rem] mr-[1.6rem] font-bold !text-[#7f0019] text-center leading-[1.6] p-[0.8rem] ")
+                                    a(href="#" class=" underline cursor-pointer hover:text-[#7f0019]")
+                                        span(class="") 対象商品
+                                    span(class="") をあと1,130円購入で、配送料無料
+                                div(class="recomment font-bold text-[1.4rem]" )
+                                    a(href="#recomment" class="flex items-center justify-center gap-1 hover:underline")
+                                        span(class="") おすすめの商品を見る
+                                        <i class="co-icon rotate-90"><svg role="img" width="12" height="12" viewBox="0 0 12 12"><path d="M323.069,1045.75a.75.75,0,0,1-.53-1.28l3.47-3.47-3.47-3.47a.75.75,0,1,1,1.061-1.061l4.53,4.53-4.53,4.53A.748.748,0,0,1,323.069,1045.75Z" transform="translate(-319.069 -1035)" fill="currentColor"></path><rect width="12" height="12" fill="none"></rect></svg></i>
+                        div(class="cart-left-products")
+                            div(class="count-product")
+                                h2(class="text-[1.6rem] font-bold leading-[1.5] text-main flex items-center gap-4")
+                                    span(class="") アイテム数
+                                    span(class="inner-text") #{cartItems.length}
+                            div(class="info-product mt-[1.7rem]")
+                                each item,index in cartItems
+                                    div(class="product" id-product=item.ID)
+                                        div(class=`${index===0 ? "border-t" :""} border-b border-[#dbdbdb] py-[3rem]`)
+                                            div(class="flex flex-row ")
+                                                div(class="image-product basis-[15rem] max-w-[15rem] flex-shrink-0 items-start")
+                                                    a(class="bg-transparent group cursor-pointer")
+                                                        div(class="relative after:absolute after:content-[''] after:inset-0 after:opacity-[0.1] after:transition-all group-hover:after:bg-main")
+                                                            img(class="w-full" src=item.ImageLink alt=item.Title)
+                                                div(class="info-product-detail flex-grow-[1] flex flex-col ml-[3rem]")
+                                                    div(class="item-details")
+                                                        a(class="text-[1.8rem] font-bold text-main leading-[1.5] -my-[0.25em] hover:underline" href=`/product/${item.Slug}`) #{item.Title}
+                                                        div(class="mt-[0.5rem]")
+                                                            p(class="text-[1.4rem] font-[400] text-main-300 leading-[1.5] -my-[0.25em] id-color-and-size-product" sizeProduct=item.SizeProduct colorId=item.Product_Option_ID,) #{item.SizeProduct}・#{item.TitleColor}
+                                                            div(class="mt-[1rem]")
+                                                                p(class="price flex gap-3 text-[1.4rem] text-main-300 leading-[1.5rem] -my-[0.25em]")
+                                                                    span(class="font-Roboto font-semibold  text-[1.6rem] price-origin" priceOrigin=item.Price) #{ parseInt(item.Price).toLocaleString()}
+                                                                    span(class="") 円 / 点
+                                                                p(class="id-product text-[1.1rem] mt-[1rem] text-main-300 leading-[1.5]")
+                                                                    span(class="") 商品番号: GD#{item.ID}
+                                                                div(class="mt-[0.2rem] tag")
+                                                                    div(class="tag_top flex flex-row")
+                                                                        div(class="tag_top-left mt-[1.5rem] mr-[1rem]")
+                                                                            span(class="inline-block leading-[1.5] -mt-[0.25em] text-[#6d6d72] p-[0.2rem_1rem] text-[1.2rem] font-bold bg-[#f5f5f5]") 店舗受け取り可
+                                                                        div(class="tag_top-right mt-[1.5rem] mr-[1rem]")
+                                                                            span(class="inline-block leading-[1.5] -mt-[0.25em] text-[#6d6d72] p-[0.2rem_1rem] text-[1.2rem] font-bold bg-[#f5f5f5]") コンビニ受け取り可
+                                                                    div(class="tag_bottom  flex max-w-[33rem]")
+                                                                        div(class="mr-[1rem] mt-[1rem]")
+                                                                            span(class="text-main-300 font-[1.2rem] leading-[1.5]") d払い可・つど後払い可・atone翌月払い可
+                                                    div(class="item-count_price flex justify-between items-center m-[3rem_0px]")
+
+                                                        div(class="count-product")
+                                                            p(class=`text-full-count-warning mb-3 text-red-400  text-[1.4rem] leading-[1.5]  ` style=`${item.Quantity === webOptions.CartMaxItems ? "opacity:100%" : "opacity:0" }`) 購入可能な個数は#{webOptions.CartMaxItems}までです
+                                                            div(class="flex items-center justify-center gap-3")
+                                                                button(class="btn-minus font-Roboto size-[4.8rem] flex justify-center items-center border-main border-solid border rounded-[0.4rem]")
+                                                                    img(src="../images/tru.svg" alt="minus")
+                                                                input( class="outline-none quantity-cart text-[1.4rem] text-center w-[7.2rem] h-[4.8rem] border border-[#c4c4c6] rounded-[0.4rem] p-[0.8rem] font-bold leading-[5rem] " value=item.Quantity max=99 min=0)
+                                                                button(class="btn-plus font-Roboto size-[4.8rem] flex justify-center items-center border-main border-solid border rounded-[0.4rem]")
+                                                                    img(src="../images/cong.svg" alt="plus")
+                                                        div(class="price-product")
+                                                            div(class="price w-[21rem] items-end grow-[1] text-right")
+                                                                p(class="text-[1.4rem] mt-[0.5rem] text-main-300 leading-[1.5] flex justify-end gap-2  items-center")
+
+                                                                    span(class="text-[2.4rem] font-bold font-Roboto sumPrice" sumPrice=item.sumPrice) #{parseInt(item.sumPrice).toLocaleString()}
+                                                                    span(class="") 円
+                                                                p(class="text-[1.4rem] mt-[0.5rem] text-main-300 leading-[1.5]")
+                                                                    span(class="") 小計（消費税込）
+                                                            div(class="delete_other flex flex-row justify-end")
+                                                                div(class="ml-[3rem]")
+                                                                    button(class=" p-0 text-[1.4rem] font-[400] text-main-300 leading-[1.5] inline underline")
+                                                                        span(class="btn-delete") 削除
+                                                                div(class="ml-[3rem]")
+                                                                    button(class="p-0 text-[1.4rem] font-[400] text-main-300 leading-[1.5] inline underline")
+                                                                        span() あとで買う
+
+
+
+                    div(class="cart-right max-w-[45rem] w-full ml-[4.28571%]")
+                        div(class="info-shipping-guilde p-[3rem] border")
+                            div(class="flex items-center gap-3")
+                                label(for="checkbox_shipping" class=' cursor-pointer flex items-center gap-2 text-[1.4rem]  text-main-300 leading-[1.6] py-[0.8rem]')
+                                    input(type="checkbox" id="checkbox_shipping" class="custom-checkbox-i relative rounded-lg cursor-pointer size-[2.5rem] accent-black appearance-none  border  checked:bg-[#000] ")
+                                    span(class="") ギフト包装を利用する（消費税込<strong>160</strong>円/包装)
+                                button(class="shipping-question")
+                                    img(class="size-[2rem]" src="../images/question.svg" alt="question")
+                            div(class="shipping-content  py-[0.8rem]")
+                                div(class="text-[1.2rem] table text-main-200 leading-[1.5] text")
+                                    span(class="start table-cell mr-[1rem]") ※
+                                    span(class="tracking-[0.1rem]") ギフト包装は、原則カートに含まれる小物全商品が対象となります。店舗で商品をお受け取りになるお客様は、店頭にてギフト包装を承りますので、こちらのボタンは選択せず、お進みください。
+                        div(class="info-price-all-product mt-[1.6rem]")
+                            div(class="mt-[4rem] p-[3rem] bg-[#f5f5f5]")
+                                div(class="title-content flex justify-between items-center gap-2")
+                                    h3(class="text-[2.6rem] font-bold text-main-300 leading-[1.5] ") お支払い金額
+                                div(class="all-product-count mt-[3rem]")
+                                    ul(class="")
+                                        li(class="flex justify-between items-center gap-2 text-[1.4rem] text-main-300 leading-[1.5] ")
+                                            span(class="") 商品小計 1点
+                                            p(class="flex gap-2")
+                                                span(class="text-[1.6rem] font-bold sumAllPrice" sumAllPrice=sumAllPrice ) #{parseInt(sumAllPrice).toLocaleString()}
+                                                span(class="") 円
+                                        li(class="flex justify-between items-center gap-2 text-[1.4rem] text-main-300 leading-[1.5] mt-[1.5rem]")
+                                            span(class="") 配送料
+                                            p(class="flex gap-2")
+                                                span(class="text-[1.6rem] font-bold priceShip" priceShip=priceShip) #{parseInt(priceShip).toLocaleString()}
+                                                span(class="") 円
+                                div(class="total-price border-t border-[#dbdbdb] mt-[2rem] pt-[1.6rem]")
+                                    div(class="flex justify-between  mt-[0.4rem] mb-[2rem] items-center gap-2 text-[1.4rem] text-main-300 leading-[1.5] ")
+                                        span(class="font-bold ") 合計金額（消費税込）
+                                        p(class="")
+                                            span(class="text-[3rem] font-bold font-Roboto mr-[0.3rem] inline-block totalPrice" totalPrice=sumAllPrice+priceShip) #{parseInt(sumAllPrice+priceShip).toLocaleString()}
                                             span(class="") 円
-                                    li(class="flex justify-between items-center gap-2 text-[1.4rem] text-main-300 leading-[1.5] mt-[1.5rem]")
-                                        span(class="") 配送料
-                                        p(class="flex gap-2")
-                                            span(class="text-[1.6rem] font-bold priceShip" priceShip=priceShip) #{parseInt(priceShip).toLocaleString()}
-                                            span(class="") 円
-                            div(class="total-price border-t border-[#dbdbdb] mt-[2rem] pt-[1.6rem]")
-                                div(class="flex justify-between  mt-[0.4rem] mb-[2rem] items-center gap-2 text-[1.4rem] text-main-300 leading-[1.5] ")
-                                    span(class="font-bold ") 合計金額（消費税込）
-                                    p(class="")
-                                        span(class="text-[3rem] font-bold font-Roboto mr-[0.3rem] inline-block totalPrice" totalPrice=sumAllPrice+priceShip) #{parseInt(sumAllPrice+priceShip).toLocaleString()}
-                                        span(class="") 円
-                                div(class="text-[1.2rem] table text-main-200 leading-[1.5]")
-                                            span(class="start table-cell") ※
-                                            span(class="tracking-[0.1rem]") 配送料はまだ確定していません。一部地域へのご配達、曜日指定を行った場合は、別途料金が発生する場合がございます。
-                    div(class="button-price")
-                        div(class="m-[4rem_auto_0px] text-center")
-                            div(class="button-buy flex justify-center items-center")
-                                button(class="rounded-lg p-[1.6rem] text-[1.8rem] max-w-[37rem] leading-[1.5] bg-main-400 hover:bg-main transition-all w-full text-center h-auto font-bold text-white")
-                                    span(class="") 次に進む
-                            p(class="desc-buy text-[1.4rem] mt-[1.5rem] text-main-300 leading-[1.5] ")
-                                span(class="") 次に進むと、30分間在庫が確保されます
-                            a(href="#" class="link-buy text-[1.4rem] underline mt-[1.8rem] text-main-300 leading-[1.5]")
-                                span(class="") ショッピングを続ける
+                                    div(class="text-[1.2rem] table text-main-200 leading-[1.5]")
+                                                span(class="start table-cell") ※
+                                                span(class="tracking-[0.1rem]") 配送料はまだ確定していません。一部地域へのご配達、曜日指定を行った場合は、別途料金が発生する場合がございます。
+                        div(class="button-price")
+                            div(class="m-[4rem_auto_0px] text-center")
+                                div(class="button-buy flex justify-center items-center")
+                                    button(class="rounded-lg p-[1.6rem] text-[1.8rem] max-w-[37rem] leading-[1.5] bg-main-400 hover:bg-main transition-all w-full text-center h-auto font-bold text-white")
+                                        span(class="") 次に進む
+                                p(class="desc-buy text-[1.4rem] mt-[1.5rem] text-main-300 leading-[1.5] ")
+                                    span(class="") 次に進むと、30分間在庫が確保されます
+                                a(href="#" class="link-buy text-[1.4rem] underline mt-[1.8rem] text-main-300 leading-[1.5]")
+                                    span(class="") ショッピングを続ける
+            else
+                div(class="h-[40rem] flex justify-center items-center")
+                    span(class="text-[1.4rem] text-main-300 leading-[1.5]") ショッピングカートの中に商品がございません。
             div(class="m-[5.2rem_0] lg:m-[9.6rem_0_6.4rem]")
                 +shopping-guide("配送料について","","配送料区分と配送料について",src="//www.muji.net/mt/contact/detail_list/014397.html")
                 +shopping-guide("お支払い方法","「代金引換」「クレジットカード一括払い」「GNOUD GIFT CARD」「GNOUDショッピングポイント」「d払い」「つど後払い」「atone翌月払い」","詳しくはこちら","//www.muji.net/mt/contact/detail_list/014393.html")

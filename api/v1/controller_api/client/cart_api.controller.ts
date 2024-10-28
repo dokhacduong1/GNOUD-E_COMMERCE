@@ -8,6 +8,8 @@ export const addCart = async function (
 ): Promise<void> {
   try {
     const cartCode = req.cookies.cart_code;
+    const {quantityCart} =req.body
+
     const { Product_ID, Product_Option_ID, SizeProduct, Quantity, Price } =
       req.body;
 
@@ -37,7 +39,7 @@ export const addCart = async function (
       }
     }
 
-    res.status(200).json({ code: 200, message: "success" });
+    res.status(200).json({ code: 200, message: "success",quantity_cart:quantityCart });
   } catch (error) {
     console.error("Error in addCart middleware:", error);
     res.status(500).json({ message: "Error" });
@@ -49,7 +51,7 @@ export const updateQuantity = async function (
 ): Promise<void> {
   try {
     const cartCode = req.cookies.cart_code;
-    const { idProduct, quantity,sizeProduct,idColorProduct } = req.body;
+    const { idProduct, quantity,sizeProduct,idColorProduct,quantityCart } = req.body;
 
     await CartItems.update(
       { Quantity: quantity },
@@ -57,7 +59,7 @@ export const updateQuantity = async function (
     );
 
 
-    res.status(200).json({ code: 200, message: "success" });
+    res.status(200).json({ code: 200, message: "success",quantity_cart:quantityCart });
 
   } catch (error) {
     console.error("Error in updateQuantity middleware:", error);
@@ -70,27 +72,13 @@ export const deleteProduct = async function (
 ): Promise<void> {
   try {
     const cartCode = req.cookies.cart_code;
-    const { idProduct,sizeProduct,idColorProduct} = req.body;
+    const { idProduct,sizeProduct,idColorProduct,quantityCart} = req.body;
 
     await CartItems.destroy(
       { where: { Product_ID: idProduct, Cart_ID: cartCode,SizeProduct:sizeProduct,Product_Option_ID:idColorProduct  } }
     );
 
-    res.status(200).json({ code: 200, message: "success" });
-
-  } catch (error) {
-    console.error("Error in delete middleware:", error);
-    res.status(500).json({ message: "Error" });
-  }
-};
-export const test = async function (
-  req: Request,
-  res: Response
-): Promise<void> {
-  try {
-    
-
-    res.status(200).json({ code: 200, message: "success" });
+    res.status(200).json({ code: 200, message: "success",quantity_cart:quantityCart });
 
   } catch (error) {
     console.error("Error in delete middleware:", error);

@@ -48,5 +48,12 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5",
     "uuid": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
+    "@types/express-session": "^1.18.0",
+    "@types/method-override": "^0.0.35",
+    "@types/uuid": "^10.0.0"
   }
 }

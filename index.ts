@@ -17,7 +17,7 @@ import { getWebOptions } from "./helpers/webOptions";
 
 const app = express();
 
-
+dotenv.config();
 app.use(
   express.static(`${__dirname}/public`, {
     maxAge: 86400000,
@@ -36,7 +36,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ limit: "100mb" }));
 //Cấu hình để hiển thị thông báo (Flash)
 app.use(cookieParser("FJFDSIOSDFIPDSF"));
-app.use(session({ cookie: { maxAge: 60000 } }));
+app.use(session({ secret: process.env.SECRET_KEY_SESSION, cookie: { maxAge: 60000 } }));
 app.use(flash());
 //Cấu hình phương thức gửi đi của form
 app.use(methodOverride("_method"));
@@ -45,7 +45,7 @@ app.use(methodOverride("_method"));
 
 app.set("views", `${__dirname}/views`);
 app.set("view engine", "pug");
-dotenv.config();
+
 
 routes_client(app);
 routes_admin(app);

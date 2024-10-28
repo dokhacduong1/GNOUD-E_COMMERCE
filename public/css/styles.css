@@ -731,6 +731,30 @@ video {
   top: 100%;
 }
 
+.right-\[33\%\] {
+  right: 33%;
+}
+
+.-right-\[15\%\] {
+  right: -15%;
+}
+
+.top-2 {
+  top: 0.5rem;
+}
+
+.-top-\[0\.9rem\] {
+  top: -0.9rem;
+}
+
+.-right-\[14\%\] {
+  right: -14%;
+}
+
+.-top-\[0\.6rem\] {
+  top: -0.6rem;
+}
+
 .z-10 {
   z-index: 10;
 }
@@ -1331,6 +1355,10 @@ video {
 
 .h-\[4\.8rem\] {
   height: 4.8rem;
+}
+
+.h-\[40rem\] {
+  height: 40rem;
 }
 
 .h-\[4px\] {
@@ -3695,6 +3723,10 @@ Select-row */
     top: auto;
   }
 
+  .sm\:-top-\[0\.9rem\] {
+    top: -0.9rem;
+  }
+
   .sm\:order-1 {
     order: 1;
   }
@@ -3851,6 +3883,10 @@ Select-row */
   .sm\:text-\[1\.6rem\] {
     font-size: 1.6rem;
   }
+
+  .sm\:text-\[1\.3rem\] {
+    font-size: 1.3rem;
+  }
 }
 
 @media (min-width: 768px) {
@@ -3974,6 +4010,10 @@ Select-row */
 @media (min-width: 992px) {
   .lg\:bottom-0 {
     bottom: 0px;
+  }
+
+  .lg\:-top-\[0\.9rem\] {
+    top: -0.9rem;
   }
 
   .lg\:col-start-1 {
@@ -4217,6 +4257,10 @@ Select-row */
 
   .lg\:text-\[3rem\] {
     font-size: 3rem;
+  }
+
+  .lg\:text-\[1\.3rem\] {
+    font-size: 1.3rem;
   }
 
   .lg\:hover\:bg-\[\#e8e8e8\]:hover {

@@ -23,7 +23,7 @@ block main
        
         div(class="sm:hidden lg:block mb-3")
             +breadcrumb(breadcrumb)
-        div(class="products-detail-full" maxCountCart=webOptions.CartMaxItems)
+        div(class="list-products" maxCountCart=webOptions.CartMaxItems)
             div(class="info-product  lg:grid lg:grid-cols-[9fr,5fr] lg:gap-x-[98px] w-full" id-product=product.ID)
                 div(class="lg:col-start-2 lg:col-end-3 min-w-0")
                     div(class="product-tag mb-[0.8rem] inline-block")

@@ -52,7 +52,7 @@
 .slick-next:before {
   color: #3c3c43;
   font-weight: 900;
-  font-family: "Font Awesome 6 free";
+  font-family: "Font Awesome 6 free", serif;
   transition: all 0.3s ease;
 }
 
@@ -67,7 +67,7 @@
   content: "\f104";
 }
 
-//Đoạn này của
+/*//Đoạn này của*/
 .slick-item__img {
   opacity: 0;
 }
@@ -100,13 +100,10 @@
 .select2-container .select2-selection--single .select2-selection__rendered {
   padding-left: 0;
 }
-.select2-container--default
-  .select2-selection--single
-  .select2-selection__arrow {
+.select2-container--default .select2-selection--single .select2-selection__arrow {
   top: 0.7rem;
 }
-.select2-container--default
-  .select2-results__option--highlighted.select2-results__option--selectable {
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
   background-color: #3c3c43;
   color: #fff;
 }
@@ -122,9 +119,7 @@
 .select2-container--default .select2-search--dropdown .select2-search__field {
   border-radius: 5px;
 }
-.select2-container--default
-  .select2-search--dropdown
-  .select2-search__field:focus-visible {
+.select2-container--default .select2-search--dropdown .select2-search__field:focus-visible {
   outline: none;
 }
 .select2-results__option {
@@ -397,7 +392,7 @@ input:checked + .slider:before {
   background-position: center;
 }
 
-//swiper-js
+/*//swiper-js*/
 
 .swiper-button-disabled.swiper-button-next,
 .swiper-button-disabled.swiper-button-prev {
@@ -620,7 +615,7 @@ html {
   background: #555;
 }
 .shadow-custom {
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
 }
 .custom-checkbox-i:checked:after {
   position: absolute;
@@ -628,16 +623,16 @@ html {
   border-right: none;
   border-bottom: none;
   border-image: initial;
-  border-top: 0px;
+  border-top: 0;
   width: 100%;
-  border-left: 0px;
+  border-left: 0;
   transform: none;
   opacity: 1;
   transition: none;
   content: " ";
   height: 100%;
-  top: 0px;
-  left: 0px;
+  top: 0;
+  left: 0;
   background-repeat: no-repeat;
   background-position: center center;
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2025%2025%22%3E%20%3Cg%3E%20%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M10.55%2C16.83h0a.75.75%2C0%2C0%2C1-.53-.22L6.76%2C13.36a.77.77%2C0%2C0%2C1%2C0-1.07.75.75%2C0%2C0%2C1%2C1.06%2C0L10.55%2C15l6.63-6.63a.75.75%2C0%2C1%2C1%2C1.06%2C1.06l-7.16%2C7.16A.75.75%2C0%2C0%2C1%2C10.55%2C16.83Z%22%20%2F%3E%20%3Crect%20fill%3D%22none%22%20width%3D%2225%22%20height%3D%2225%22%20%2F%3E%20%3C%2Fg%3E%3C%2Fsvg%3E");

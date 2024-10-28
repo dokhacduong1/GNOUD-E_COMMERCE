@@ -16,7 +16,7 @@ mixin box-icon-menu()
             div(class="relative flex flex-col items-center justify-center ")
                 img(src="../images/icon3.svg " class="mb-[0.5rem] mt-0 mx-auto")
                 span(class="text-[1.1rem] text-main hidden md:block") カート
-                span(class="absolute -top-2 font-bold text-[1.3rem]") 0
+                span(class="inner-text-cart-count text-[1rem] -top-[0.6rem] sm:text-[1.3rem] absolute font-semibold -right-[14%] sm:-top-[0.9rem] ") #{quantityCart > 99 ? '99+' : quantityCart}
         div(href="/donate" class="item-main cursor-pointer h-full  flex-col items-center justify-center w-full   hover:text-main  transition-all min-w-[4.3rem] hover:bg-transparent hidden md:flex md:min-w-[6.3rem] lg:hover:bg-[#e8e8e8]   ")
             div(class="relative flex flex-col items-center justify-center ")
                 img(src="../images/icon4.svg " class="mb-[0.5rem] mt-0 mx-auto")

@@ -5,13 +5,17 @@ const boxFilterClient = document.querySelector('.box-filter-client');
 const buttonFilter = document.querySelector('.filter-button .button-filter');
 const modalFilter = document.querySelector('.filter-button-advanced .filter-button .modal-custom');
 const modalShortedCategory = document.querySelector('.remodal-overlay-category');
+const listIdCategoryProduct = document.querySelector('.category-full')?.getAttribute('listProductId');
+//Tôi muốn đổi hàm này xíu là nếu nó vào hàm này nó sẽ dữ nguyên keyword và page còn các tham số khác sẽ bị xóa
 function redirectToSortedUrl(query, key) {
     const currentUrl = new URL(window.location.href);
     currentUrl.searchParams.set(query, key);
+    currentUrl.searchParams.set('listIdProduct', listIdCategoryProduct);
+
     window.location.assign(currentUrl.toString());
 }
 // Hàm để chuyển hướng đến URL với các tham số đã sắp xếp và giới hạn
-function redirectToSorteLimitUrl(params) {
+function redirectToSortLimitUrl(params) {
     // Tạo một đối tượng URL từ URL hiện tại của cửa sổ
     const currentUrl = new URL(window.location.href);
     const page = new URL(window.location.href).searchParams.get('page');
@@ -20,6 +24,7 @@ function redirectToSorteLimitUrl(params) {
     params['keyword'] = keyword || ''; // Nếu không có tham số keywords, mặc định là ''
     params['page'] = page || '1'; // Nếu không có tham số page, mặc định là '1'
     params['sort'] = sort || ''; // Nếu không có tham số sort, mặc định là 'id'
+    params['listIdProduct'] = listIdCategoryProduct;
     // Lấy tất cả các tham số từ URL hiện tại
     const urlParams = new Set([...currentUrl.searchParams.keys()]);
 
@@ -44,7 +49,7 @@ function redirectToSorteLimitUrl(params) {
                 currentUrl.searchParams.append(key, value);
             }
         } else {
-            currentUrl.searchParams.set(key, values);
+            currentUrl.searchParams.set(key, values.toString());
         }
     })
     console.log(currentUrl.toString());
@@ -59,6 +64,7 @@ if (boxFilterClient) {
     const buttonShortCategory = boxFilterClient.querySelector('.button-shorted-category');
    
     if (buttonSort && listSort) {
+
         buttonSort.addEventListener('click', () => {
             listSort.classList.toggle('hidden');
             buttonSort.classList.toggle('SortButton_sortButton');
@@ -68,6 +74,7 @@ if (boxFilterClient) {
         listSortItems.forEach(item => {
             item.addEventListener('click', () => {
                 const key = item.getAttribute('key');
+
                 redirectToSortedUrl('sort', key);
             });
         });
@@ -122,6 +129,7 @@ if (buttonSubmitFilters.length > 0) {
     buttonSubmitFilters.forEach(buttonSubmitFilter => {
 
         buttonSubmitFilter.addEventListener('click', function(){
+            console.log('click');
             const filyerAdvanced = this.closest(".filter-advanced");
             const checkBoxFilter = filyerAdvanced.querySelectorAll('.checkbox_input_form[type="checkbox"]:checked');
 
@@ -134,7 +142,7 @@ if (buttonSubmitFilters.length > 0) {
             const params = {}
             params['priceMin'] = priceMin.toString();
             params['priceMax'] = priceMax.toString();
-         
+
             checkBoxFilter.forEach(checkBox => {
                 const key = checkBox.getAttribute('query');
                 const value = checkBox.getAttribute('item-query');
@@ -147,8 +155,9 @@ if (buttonSubmitFilters.length > 0) {
                 }
 
             })
+
             if (Object.keys(params).length > 0) {
-                redirectToSorteLimitUrl(params)
+                redirectToSortLimitUrl(params)
             }
 
         });
