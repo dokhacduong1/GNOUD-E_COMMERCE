@@ -1,8 +1,5 @@
-import { Request, Response, query } from "express";
-import ProductPreview from "../../models/product_preview.model"; // Import model ProductPreview
-import Categorie from "../../models/categorie.model"; // Import model Categorie
-import ProductOption from "../../models/product_options.model"; // Import model ProductOption
-import { Op } from "sequelize"; // Import phép toán từ Sequelize
+import { Request, Response } from "express";
+
 import {
   extractUniqueValues,
   extractUniqueValuesArray,
@@ -10,7 +7,7 @@ import {
 import { LinkImageConverter } from "../../helpers/convertLinkImage"; // Import helper để chuyển đổi đường link ảnh
 import {
   IDataSize,
-  IProduct,
+
   IProductOption,
   IProductOptionCorlor,
 } from "../../interfaces/clients/product.interfaces"; // Import các interface cần thiết
@@ -18,167 +15,15 @@ import {
   filterByColor,
   filterBySize,
   getAllChildCategoriesUsingCTE,
-  getBreadcrumbUsingCTE,
+
   getQueryParams,
-  getSortQuery,
+
 } from "../../helpers/categories.helpers"; // Import các hàm trợ giúp liên quan đến category
-import { CategoryInterface } from "../../interfaces/admins/categories.interface"; // Import interface CategoryInterface
-import { filterQueryPagination } from "../../helpers/filterQueryPagination.";
+
+import {getProductDetails, getProducts, prepareProductData} from "../../helpers/categoriesAndSearch.helpers";
 
 const prefix_client = "clients"; // Đặt prefix cho client
 
-const PRODUCT_ATTRIBUTES = [
-  "Product_ID",
-  "Title",
-  "Price",
-  "Slug",
-  "Options",
-  "DiscountPercent",
-  "Featured",
-]; // Đặt các thuộc tính cần lấy của sản phẩm
-
-const LIMITPRODUCT = 12; // Đặt giới hạn số sản phẩm
-
-// Hàm lấy sản phẩm dựa trên category và product ID
-// Hàm getProducts nhận vào idCategory và request, trả về Promise chứa danh sách sản phẩm và thông tin phân trang
-async function getProducts(
-  keyword: string,
-  idCategory: number,
-  req: Request
-): Promise<{
-  products: IProduct[];
-  objectPagination?: {
-    currentPage: number;
-    limitItem: number;
-    skip: number;
-    totalPage: number;
-  };
-}> {
-  // Lấy số trang từ query, nếu không có hoặc không phải số thì mặc định là 1
-  const page = parseInt(req.query.page?.toString()) || 1;
-
-  // Lấy thông tin sắp xếp từ query
-  const sortQuery = getSortQuery(req.query.sort?.toString());
-
-  // Tạo điều kiện tìm kiếm
-  const findRecord: {
-    Category_ID?: number;
-    Status: string;
-    Deleted: boolean;
-    price?: any;
-    [Op.or]?: any;
-  } = {
-    Status: "active",
-    Deleted: false,
-  };
-  // Nếu idCategory lớn hơn 0, thêm idCategory vào findRecord
-  if (idCategory > 0) {
-    findRecord.Category_ID = idCategory;
-  }
-  if (keyword) {
-    findRecord[Op.or] = [
-      { Slug: { [Op.like]: `%${keyword}%` } },
-      { Title: { [Op.like]: `%${keyword}%` } },
-    ];
-  }
-  // Đếm số lượng bản ghi phù hợp với điều kiện tìm kiếm
-  const countRecord = await ProductPreview.count({ where: findRecord });
-  // Tính toán thông tin phân trang
-  const objectPagination = filterQueryPagination(
-    countRecord,
-    page,
-    LIMITPRODUCT
-  );
-
-  // Lấy giá trị tối thiểu và tối đa của giá sản phẩm từ query
-  const priceMin = parseInt(req.query.priceMin?.toString() ?? "0");
-  const priceMax = parseInt(req.query.priceMax?.toString() ?? "0");
-
-  // Nếu giá trị tối thiểu nhỏ hơn giá trị tối đa thì thêm điều kiện tìm kiếm theo giá
-  if (
-    req.query.priceMin &&
-    req.query.priceMax &&
-    priceMin < priceMax &&
-    priceMax > 0
-  ) {
-    findRecord.price = {
-      [Op.gt]: priceMin,
-      [Op.lt]: priceMax,
-    };
-  }
-
-  // Tìm tất cả sản phẩm phù hợp với điều kiện tìm kiếm
-  const products = (await ProductPreview.findAll({
-    where: findRecord,
-    attributes: PRODUCT_ATTRIBUTES,
-    raw: true,
-    order: [[sortQuery[0], sortQuery[1]]],
-    limit: LIMITPRODUCT,
-    offset: objectPagination.skip,
-  })) as unknown as IProduct[];
-
-  // Trả về danh sách sản phẩm và thông tin phân trang
-  return {
-    products,
-    objectPagination: objectPagination as {
-      currentPage: number;
-      limitItem: number;
-      skip: number;
-      totalPage: number;
-    },
-  };
-}
-
-// Hàm lấy thông tin chi tiết về sản phẩm bao gồm tên category, breadcrumb, và các option sản phẩm
-async function getProductDetails(
-  idCategory: number,
-  products: IProduct[]
-): Promise<{
-
-  breadcrumb: CategoryInterface[];
-  product_options: IProductOption[];
-}> {
-  const [ breadcrumb, product_options] = await Promise.all([
-
-    getBreadcrumbUsingCTE(idCategory) as unknown as CategoryInterface[], // Lấy breadcrumb
-    ProductOption.findAll({
-      where: { Product_ID: products.map((item) => item.Product_ID) },
-      attributes: ["ID", "Product_ID", "List_Options", "Color", "Title"],
-      raw: true,
-    }) as unknown as IProductOption[], // Lấy danh sách các options của sản phẩm
-  ]);
-
-  return {  breadcrumb, product_options }; // Trả về các giá trị cần thiết
-}
-
-// Hàm chuẩn bị dữ liệu sản phẩm để render ra giao diện
-const prepareProductData = (
-  products: IProduct[],
-  productOptions: IProductOption[]
-): any[] =>
-  products.map((product) => {
-    const options = JSON.parse(product.Options?.toString() ?? "[]"); // Lấy các tùy chọn sản phẩm
-    const productOption = productOptions.find(
-      (option) => option.Product_ID === product.Product_ID
-    );
-
-    const listOptions = productOption?.List_Options ?? "[]";
-
-    return {
-      id: product.Product_ID,
-      title: product.Title,
-      listImages: Array.isArray(options)
-        ? options.map((option: IProductOptionCorlor) => ({
-            title: option.title,
-            color: LinkImageConverter(option.color, 37, 37),
-            img: LinkImageConverter(option.image, 400, 400),
-          })) // Tạo danh sách hình ảnh của sản phẩm
-        : [],
-      slug: product.Slug,
-      price: product.Price,
-      size: listOptions ? JSON.parse(listOptions.toString() ?? "[]") : [], // Chuẩn bị kích thước sản phẩm
-    };
-  });
 
 // Hàm xử lý chính của route
 export const index = async function (
@@ -191,10 +36,10 @@ export const index = async function (
     res.status(404).json({ message: "Not found" }); // Kiểm tra nếu category không hợp lệ
     return;
   }
-  let { products, objectPagination } = await getProducts(
-    keyword,
+  let { products, objectPagination,listIdProduct } = await getProducts(
     idCategory,
-    req
+    req,
+    keyword,
   ); // Lấy danh sách sản phẩm
 
   const {  breadcrumb, product_options } = await getProductDetails(
@@ -243,6 +88,7 @@ export const index = async function (
       itemsProducts, // Danh sách sản phẩm
       breadcrumb, // Breadcrumb điều hướng
       categoryShoted,
+      listIdProduct,
       sortQuery: getQueryParams(req.query.sort), // Thông tin sắp xếp
       listSizeTexts: sizeFilters, // Bộ lọc size
       listColorTexts: colorFilters, // Bộ lọc màu
@@ -251,6 +97,8 @@ export const index = async function (
       sizes, // Kích thước sản phẩm
       colors, // Màu sắc sản phẩm
       bgClient: "#e1e1e1", // Màu nền
+      idSearch:idCategory,
+      keyword:keyword,
       objectPagination,
     });
   } catch (error) {

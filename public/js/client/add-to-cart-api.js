@@ -1,5 +1,5 @@
 const buttonAddToCartq = document.querySelector('.btn-add-to-cart');
-
+const cartCount = document.querySelector('.header .inner-text-cart-count');
 if (buttonAddToCartq) {
     buttonAddToCartq.addEventListener('click', async function () {
         const infoProduct = this.closest('.info-product');
@@ -39,7 +39,8 @@ if (buttonAddToCartq) {
         });
         const data = await response.json();
         if(data.code === 200){
-         
+            //Api sẽ trả về số lượng sản phẩm trong giỏ hàng khi chưa thêm sản phẩm vào giỏ hàng lên phải +1
+            cartCount.textContent = data.quantity_cart+1;
         }else{
             alertWeb(data.message);
         }

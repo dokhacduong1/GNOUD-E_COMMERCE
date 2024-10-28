@@ -38,7 +38,7 @@ export const image = async (
     const nameHost = req.headers.host;
     const refererHost = req.headers.referer ? new URL(req.headers.referer).host : null;
 
-    console.log("refererHost", refererHost);
+  
 
     const exceptionHeaders = ["postman-token"];
     const forbiddenUserAgents = [

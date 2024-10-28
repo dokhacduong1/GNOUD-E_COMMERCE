@@ -34,7 +34,7 @@ export const block_api = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-
+  console.log("ok")
     const { cart_code, _session_cart: sessionCart } = req.cookies;
     const nameHost = req.headers.host;
     const refererHost = req.headers.referer

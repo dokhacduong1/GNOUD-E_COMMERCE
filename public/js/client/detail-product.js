@@ -10,7 +10,7 @@ const minInput = 1;
 
 // Lấy giá trị max từ thuộc tính max của inputElement và chuyển thành số nguyên
 const maxInput = parseInt(document.querySelector('.list-products').getAttribute('maxCountCart') ?? 30);
-console.log(maxInput);
+
 // Hàm cập nhật giá trị mới cho inputElement và tất cả các input trong productCounts
 function updateValue(valueNew) {
     productCounts.forEach(pc => {

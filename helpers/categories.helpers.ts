@@ -165,7 +165,7 @@ export const getSortQuery = (sortQuery: string): [string, string] => {
   const sortOptions: Record<string, [string, string]> = {
     "price-high": ["Price", "DESC"],
     "price-low": ["Price", "ASC"],
-    ranking: ["DiscountPercent", "DESC"],
+    "ranking": ["DiscountPercent", "DESC"],
   };
   return sortOptions[sortQuery] || ["Created_At", "ASC"];
 };

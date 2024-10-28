@@ -6,6 +6,7 @@ interface RequiredField {
   validate?: (value: any) => boolean;
 }
 
+//Function validateRequiredFields()
 export const validateRequiredFields = (
   requiredFields: RequiredField[],
   res: Response

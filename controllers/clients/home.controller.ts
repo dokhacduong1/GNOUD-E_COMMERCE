@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Product from "../../models/product.model";
+
 import ProductPreview from "../../models/product_preview.model";
 const prefix_client = "clients";
 // [GET] /
@@ -34,12 +34,12 @@ export const index = async function (
         price: item.Price,
       };
     });
-   
+
 
     const banner = [
-      "https://www.muji.com/public/media/jp/img/top_banner/1640_fan-goods_240816.jpg",
-      "https://www.muji.com/public/media/jp/img/top_banner/1640_naturalmaterials-skincare_240816.jpg",
-      "https://www.muji.com/public/media/jp/img/top_banner/1640_autumn_240816.png",
+      "https://www.muji.com/public/media/jp/img/top_banner/1640_ryohinweek_241021.jpg",
+      "https://www.muji.com/public/media/jp/img/top_banner/1640_skincare_1021.jpg",
+      "https://www.muji.com/public/media/jp/img/top_banner/1640_winter-appliances_241025.jpg",
     ];
 
     const slickItemsSampleOne = [

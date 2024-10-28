@@ -2,20 +2,33 @@ const boxProduct = document.querySelector('.cart-left-products');
 const totalPrice = document.querySelector('.cart-right .info-price-all-product .total-price .totalPrice');
 const sumAllPrice = document.querySelector('.cart-right .all-product-count .sumAllPrice');
 const priceShip = document.querySelector('.cart-right .all-product-count .priceShip');
+const textCountCart = document.querySelector(".cart .cart-left-products .count-product .inner-text")
 const countProduct = parseInt(document?.querySelector('.cart')?.getAttribute('maxCountCart')) ?? 30;
-
+const cartCount = document.querySelector('.header .inner-text-cart-count');
 function updateDomTotalPrice() {
     const listProduct = boxProduct.querySelectorAll('.product');
     let total = 0;
+    let sumQuantity = 0;
+
     listProduct.forEach(product => {
-        const sumPrice = product.querySelector('.sumPrice')?.getAttribute('sumprice');
-        total += parseInt(sumPrice) || 0;
+        const sumPrice = parseInt(product.querySelector('.sumPrice')?.getAttribute('sumprice')) || 0;
+
+        total += sumPrice;
     });
+
     const priceShipValue = total < 1500 ? 500 : 0;
+    const totalWithShipping = total + priceShipValue;
+
     priceShip.textContent = priceShipValue.toLocaleString();
     sumAllPrice.textContent = total.toLocaleString();
-    countProduct.textContent = listProduct.length;
-    totalPrice.textContent = (total + priceShipValue).toLocaleString();
+    totalPrice.textContent = totalWithShipping.toLocaleString();
+    textCountCart.textContent = listProduct.length.toString();
+    if (listProduct.length === 0) {
+        location.reload();
+        return;
+    }
+
+
 }
 
 let debounceTimeout;
@@ -59,6 +72,7 @@ async function updateQuantityProduct(idProduct, quantity,sizeProduct,idColorProd
                 },
                 body: JSON.stringify({ idProduct, quantity,sizeProduct,idColorProduct })
             });
+
             turnOffLoading();
             return await response.json();
         }
@@ -67,6 +81,16 @@ async function updateQuantityProduct(idProduct, quantity,sizeProduct,idColorProd
         console.error('Error updating product quantity:', error);
         return { code: 500 };
     }
+}
+function checkWarningCountProduct(warningCountProduct,valueNew,countProduct) {
+    if(valueNew === countProduct) {
+        warningCountProduct.style.opacity = '100%';
+    }else{
+        warningCountProduct.style.opacity = '0';
+    }
+}
+function  updateCartItemCount(record) {
+    cartCount.textContent = record.quantity_cart > 99 ? "99+" : (record.quantity_cart+1).toString();
 }
 //Hàm cập nhật giá sản phẩm trên giao diện
 function updateDomPriceProduct(sumPrice, priceOrigin, quantity) {
@@ -79,11 +103,9 @@ const debouncedUpdateQuantity = debounce(async (idProduct, valueNew, sumPrice, p
     const record = await updateQuantityProduct(idProduct, valueNew,sizeProduct,idColorProduct);
     
     if (record.code === 200) {
-        if(valueNew == countProduct) {
-            warningCountProduct.style.opacity = '100%';
-        }else{
-            warningCountProduct.style.opacity = '0';
-        }
+
+        updateCartItemCount(record);
+        checkWarningCountProduct(warningCountProduct,valueNew,countProduct);
         updateDomPriceProduct(sumPrice, priceOrigin, valueNew);
         updateDomTotalPrice();
     }else{
@@ -101,6 +123,9 @@ async function handleDeleteProduct(event) {
     const idColorProduct = product.querySelector('.id-color-and-size-product')?.getAttribute("colorId");
     const record = await deleteProduct(idProduct,sizeProduct,idColorProduct);
     if(record.code === 200) {
+
+        updateCartItemCount(record);
+
         product.remove();
         updateDomTotalPrice();
         alertWeb('製品は正常に削除されました。');
@@ -117,7 +142,7 @@ async function handleInputChange(event) {
     const warningCountProduct = product.querySelector('.text-full-count-warning');
     const idColorProduct = product.querySelector('.id-color-and-size-product')?.getAttribute("colorId");
     const priceOrigin = product.querySelector('.price-origin').getAttribute('priceOrigin') ?? 1;
-    let valueNew = parseInt(event.target.value);
+    let valueNew = parseInt(event.target.value.toString());
     if (isNaN(valueNew) || valueNew < 1) valueNew = 1;
     if (valueNew > countProduct) valueNew = countProduct;
     event.target.value = valueNew;
@@ -153,11 +178,9 @@ async function handleButtonClick(event) {
     const record = await updateQuantityProduct(idProduct, inputQuantity.value,sizeProduct,idColorProduct);
     
     if (record.code === 200) {
-        if(inputQuantity.value == countProduct) {
-            warningCountProduct.style.opacity = '100%';
-        }else{
-            warningCountProduct.style.opacity = '0';
-        }
+        updateCartItemCount(record);
+        checkWarningCountProduct(warningCountProduct,parseInt(inputQuantity.value ?? 0),countProduct);
+
         updateDomPriceProduct(sumPrice, priceOrigin, inputQuantity.value);
         updateDomTotalPrice();
     }else{
@@ -168,16 +191,16 @@ async function handleButtonClick(event) {
 if (boxProduct) {
     boxProduct.addEventListener('click', function (event) {
         if(event.target.classList.contains('btn-delete')) {
-            handleDeleteProduct(event);
+            handleDeleteProduct(event).then(r => r);
         }
         if (event.target.classList.contains('btn-plus') || event.target.classList.contains('btn-minus') || event.target.tagName === 'IMG') {
-            handleButtonClick(event);
+            handleButtonClick(event).then(r => r);
         }
     });
 
     boxProduct.addEventListener('input', function (event) {
         if (event.target.classList.contains('quantity-cart')) {
-            handleInputChange(event);
+            handleInputChange(event).then(r => r);
         }
     });
 }
