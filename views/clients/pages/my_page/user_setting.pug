@@ -1,0 +1,15 @@
+mixin user_setting(data=[],title="")
+
+    div(class="box-user-setting bg-white shadow-[rgba(88,88,88,0.3)_0px_1px_3px_0px] mt-[2rem]")
+        div(class="text-main text-[1.3rem] leading-[1.3rem]")
+            div(class="user-setting_header border-b-[rgb(232,232,232)] border-b border-solid p-[1.6rem]")
+                h2(class="text-main font-bold text-[1.5rem] leading-[2.2rem]") #{title}
+            div(class="user-setting_body")
+                div(class="user-body_container")
+                    each item in data
+                        a(class="cursor-pointer" href=item.link)
+                            div(class="border-b-[rgb(232,232,232)] border-b border-solid p-[1.6rem] flex justify-between items-center")
+                                span(class="text-main text-[1.3rem] leading-[1.3rem]") #{item.text}
+                                img(src="../images/arrow-right.svg" alt="arrow-right" class="size-[1.7rem]")
+            div(class="user-setting_footer  p-[1.6rem]")
+                block

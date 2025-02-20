@@ -1,19 +1,37 @@
-mixin process-bar()
+mixin process-bar(active=0)
+    - const steps = ['ショッピング\nカート', 'ご注文\n手続き', 'ご注文内容\n確認', 'ご注文\n完了']
+
     div(class="process-bar relative bg-white mt-[4rem] pb-[4rem] w-full")
         ul(class="p-0 max-w-[56rem] flex m-[2rem_auto] text-[1rem] sm:text-[1.2rem] md:text-[1.3rem] text-center")
-            li(class="active process_bar  basis-1/4")
-                div(class="flex  flex-col justify-center items-center")
-                    span(class="") ショッピング
-                    span(class="") カート
-            li(class="process_bar   basis-1/4 ")
-                div(class="flex flex-col justify-center items-center")
-                    span(class="") ご注文
-                    span(class="") 手続き
-            li(class="process_bar basis-1/4")
-                div(class="flex flex-col justify-center items-center")
-                    span(class="") ご注文内容
-                    span(class="") 確認
-            li(class="process_bar basis-1/4")
-                div(class="flex flex-col justify-center items-center")
-                    span(class="") ご注文
-                    span(class="") 完了
+            each step, index in steps
+                li(class=`process_bar basis-1/4 ${active === index ? 'active' : ''} ${active > index ? 'active_dot_process_bar' : ''} ${active >= index ? 'active_process_bar' : ''}`)
+                    div(class="flex flex-col justify-center items-center py-2")
+                        span= step.split('\n')[0]
+                        span= step.split('\n')[1]
+
+mixin process-bar-circle(percentage, r=17, h="196px", w="196px")
+    - const circleCircumference = 2 * Math.PI * r // Chu vi của vòng tròn với bán kính r
+    - const dashOffsetAll = circleCircumference * (1 - percentage / 100)
+    div(class='relative bg-white rounded-full' style=`height:${h};width:${w}`)
+        svg(class='size-full -rotate-90' viewBox='0 0 36 36' xmlns='http://www.w3.org/2000/svg')
+            // Background Circle
+            circle(cx='18' cy='18' r=r fill='none' class='stroke-current text-gray-200 dark:text-neutral-700' stroke-width='2')
+            // Progress Circle with Transition Effect
+            circle(
+                cx='18'
+                cy='18'
+                r=r
+                fill='none'
+                class='stroke-current text-[#7f0019] dark:text-blue-500 transition-all duration-1000 ease-out'
+                stroke-width='2'
+                stroke-dasharray=circleCircumference
+                stroke-dashoffset=dashOffsetAll
+                stroke-linecap='round'
+            )
+        // Percentage Text
+        div(class='absolute top-1/2 start-1/2 transform -translate-y-1/2 -translate-x-1/2')
+            block
+
+
+
+    // End Circular Progress

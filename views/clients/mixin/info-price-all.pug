@@ -1,0 +1,26 @@
+mixin info-price-all(sumAllPrice, priceShip)
+    div(class="info-price-all-product mt-[1.6rem]")
+        div(class="mt-[4rem] p-[3rem] bg-[#f5f5f5]")
+            div(class="title-content flex justify-between items-center gap-2")
+                h3(class="text-[2.6rem] font-bold text-main-300 leading-[1.5] ") お支払い金額
+            div(class="all-product-count mt-[3rem]")
+                ul(class="")
+                    li(class="flex justify-between items-center gap-2 text-[1.4rem] text-main-300 leading-[1.5] ")
+                        span(class="") 商品小計 1点
+                        p(class="flex gap-2")
+                            span(class="text-[1.6rem] font-bold sumAllPrice" sumAllPrice=sumAllPrice ) #{parseInt(sumAllPrice).toLocaleString()}
+                            span(class="") 円
+                    li(class="flex justify-between items-center gap-2 text-[1.4rem] text-main-300 leading-[1.5] mt-[1.5rem]")
+                        span(class="") 配送料
+                        p(class="flex gap-2")
+                            span(class="text-[1.6rem] font-bold priceShip" priceShip=priceShip) #{parseInt(priceShip).toLocaleString()}
+                            span(class="") 円
+            div(class="total-price border-t border-[#dbdbdb] mt-[2rem] pt-[1.6rem]")
+                div(class="flex justify-between  mt-[0.4rem] mb-[2rem] items-center gap-2 text-[1.4rem] text-main-300 leading-[1.5] ")
+                    span(class="font-bold ") 合計金額（消費税込）
+                    p(class="")
+                        span(class="text-[3rem] font-bold font-Roboto mr-[0.3rem] inline-block totalPrice" totalPrice=sumAllPrice + priceShip) #{parseInt(sumAllPrice + priceShip).toLocaleString()}
+                        span(class="") 円
+                div(class="text-[1.2rem] table text-main-200 leading-[1.5]")
+                    span(class="start table-cell") ※
+                    span(class="tracking-[0.1rem]") 配送料はまだ確定してい

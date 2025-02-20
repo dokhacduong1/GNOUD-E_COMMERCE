@@ -8,7 +8,7 @@ export const addCart = async function (
 ): Promise<void> {
   try {
     const cartCode = req.cookies.cart_code;
-    const {quantityCart} =req.body
+
 
     const { Product_ID, Product_Option_ID, SizeProduct, Quantity, Price } =
       req.body;
@@ -38,6 +38,7 @@ export const addCart = async function (
         });
       }
     }
+    const quantityCart = await CartItems.sum('Quantity', {where: {Cart_ID: cartCode}});
 
     res.status(200).json({ code: 200, message: "success",quantity_cart:quantityCart });
   } catch (error) {
@@ -51,15 +52,16 @@ export const updateQuantity = async function (
 ): Promise<void> {
   try {
     const cartCode = req.cookies.cart_code;
-    const { idProduct, quantity,sizeProduct,idColorProduct,quantityCart } = req.body;
+    const { idProduct, quantity,sizeProduct,idColorProduct } = req.body;
 
     await CartItems.update(
       { Quantity: quantity },
       { where: { Product_ID: idProduct, Cart_ID: cartCode,SizeProduct:sizeProduct,Product_Option_ID:idColorProduct } }
     );
-
+    const quantityCart = await CartItems.sum('Quantity', {where: {Cart_ID: cartCode}});
 
     res.status(200).json({ code: 200, message: "success",quantity_cart:quantityCart });
+
 
   } catch (error) {
     console.error("Error in updateQuantity middleware:", error);
@@ -72,13 +74,13 @@ export const deleteProduct = async function (
 ): Promise<void> {
   try {
     const cartCode = req.cookies.cart_code;
-    const { idProduct,sizeProduct,idColorProduct,quantityCart} = req.body;
+    const { idProduct,sizeProduct,idColorProduct} = req.body;
 
     await CartItems.destroy(
       { where: { Product_ID: idProduct, Cart_ID: cartCode,SizeProduct:sizeProduct,Product_Option_ID:idColorProduct  } }
     );
-
-    res.status(200).json({ code: 200, message: "success",quantity_cart:quantityCart });
+    const quantityCart = await CartItems.sum('Quantity', {where: {Cart_ID: cartCode}});
+    res.status(200).json({ code: 200, message: "success",quantity_cart:quantityCart || 0 });
 
   } catch (error) {
     console.error("Error in delete middleware:", error);

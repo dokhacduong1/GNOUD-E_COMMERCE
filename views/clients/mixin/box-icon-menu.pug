@@ -1,24 +1,36 @@
 include ./dropMenu-header.pug
 mixin box-icon-menu()
+
     div(class="nav__icon items-center  flex-[0_0_auto] flex-nowrap m-[0_0_0_auto] min-h-[7.1rem] p-0 absolute  top-0  flex mr-[3.333vw] md:mr-0 xl:my-0 right-0 md:right-[5.6rem] xl:mr-0 xl:ml-auto xl:static xl:h-full")
-        div(href="/login" class="relative item-main cursor-pointer h-full flex flex-col items-center justify-center w-full   hover:text-main  transition-all min-w-[4.3rem] hover:bg-transparent lg:hover:bg-[#e8e8e8]   md:min-w-[6.3rem]")
+        div(href="/login" class="hidden relative item-main cursor-pointer h-full md:flex flex-col items-center justify-center w-full   hover:text-main  transition-all min-w-[4.3rem] hover:bg-transparent lg:hover:bg-[#e8e8e8]   md:min-w-[6.3rem]")
             div(class="flex flex-col items-center justify-center ")
-                img(src="../images/icon1.svg " class="mb-[0.5rem] mt-0 mx-auto")
-                span(class="text-[1.1rem] text-main hidden md:block") ログイン
+                img(src="/images/icon1.svg " class="mb-[0.5rem] mt-0 mx-auto")
+                if(verifyUser && verifyUser.fullName)
+                    span(class="text-[1.1rem] text-main hidden md:block truncate max-w-[5rem]" title=verifyUser.fullName) #{verifyUser.fullName}
+                else
+                    span(class="text-[1.1rem] text-main hidden md:block") ログイン
             div(class="hidden md:block")
-                +drop-menu-header(['新規会員登録', 'ログイン'],'30rem')
-                
+                if(verifyUser && verifyUser.fullName)
+                    +drop-menu-header([{title:'マイページ',link:'/my_page'}, {title:'ログアウト',link:"/logout"}],'30rem')
+                else
+                    +drop-menu-header([{title:'新規会員登録',link:'/registration'}, {title:'ログイン',link:"/login"}],'30rem')
+        a(href="/my_page" class="md:hidden h-full flex flex-col items-center justify-center w-full   hover:text-main  transition-all min-w-[4.3rem] hover:bg-transparent lg:hover:bg-[#e8e8e8]   md:min-w-[6.3rem]" )
+            div(class="flex flex-col items-center justify-center ")
+                img(src="/images/icon1.svg " class="mb-[0.5rem] mt-0 mx-auto")
+                span(class="text-[1.1rem] text-main hidden md:block") お気に入り
         a(href="/like" class=" h-full flex flex-col items-center justify-center w-full   hover:text-main  transition-all min-w-[4.3rem] hover:bg-transparent lg:hover:bg-[#e8e8e8]   md:min-w-[6.3rem]" )
             div(class="flex flex-col items-center justify-center ")
-                img(src="../images/icon2.svg " class="mb-[0.5rem] mt-0 mx-auto")
+                img(src="/images/icon2.svg " class="mb-[0.5rem] mt-0 mx-auto")
                 span(class="text-[1.1rem] text-main hidden md:block") お気に入り
         a(href="/cart" class="h-full flex flex-col items-center justify-center w-full   hover:text-main  transition-all min-w-[4.3rem] hover:bg-transparent lg:hover:bg-[#e8e8e8]   md:min-w-[6.3rem]")
             div(class="relative flex flex-col items-center justify-center ")
-                img(src="../images/icon3.svg " class="mb-[0.5rem] mt-0 mx-auto")
+                img(src="/images/icon3.svg " class="mb-[0.5rem] mt-0 mx-auto")
                 span(class="text-[1.1rem] text-main hidden md:block") カート
-                span(class="inner-text-cart-count text-[1rem] -top-[0.6rem] sm:text-[1.3rem] absolute font-semibold -right-[14%] sm:-top-[0.9rem] ") #{quantityCart > 99 ? '99+' : quantityCart}
-        div(href="/donate" class="item-main cursor-pointer h-full  flex-col items-center justify-center w-full   hover:text-main  transition-all min-w-[4.3rem] hover:bg-transparent hidden md:flex md:min-w-[6.3rem] lg:hover:bg-[#e8e8e8]   ")
-            div(class="relative flex flex-col items-center justify-center ")
-                img(src="../images/icon4.svg " class="mb-[0.5rem] mt-0 mx-auto")
+
+                span(class="inner-text-cart-count text-[1.2rem] -top-[0.6rem] sm:text-[1.3rem] absolute font-semibold right-[11%] sm:-right-[14%] sm:-top-[0.9rem] ") #{quantityCart > 99 ? '99+' : quantityCart < 1 ? 0 : quantityCart}
+        div(href="/donate" class="hidden md:flex relative item-main cursor-pointer h-full  flex-col items-center justify-center w-full   hover:text-main  transition-all min-w-[4.3rem] hover:bg-transparent lg:hover:bg-[#e8e8e8]   md:min-w-[6.3rem]")
+            div(class="flex flex-col items-center justify-center ")
+                img(src="/images/icon4.svg " class="mb-[0.5rem] mt-0 mx-auto")
                 span(class="text-[1.1rem] text-main ") サポート
-            +drop-menu-header(['お問い合わせ', 'ご利用ガイド','重要なお知らせ','サイトからのお知らせ'],'20rem')
+            div(class="hidden md:block")
+                +drop-menu-header([{title:'お問い合わせ',link:"/"}, {title:'ご利用ガイド',link:"/"},{title:'重要なお知らせ',link:"/"},{title:'サイトからのお知らせ',link:"/"}],'20rem')

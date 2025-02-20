@@ -1,0 +1,12 @@
+extends ../../layout/default.pug
+include ../../mixin/process-bar.pug
+include ../../mixin/shopping-guide.pug
+
+block style
+
+block main
+    div(class="")
+        div(class="cart" maxCountCart=webOptions.CartMaxItems)
+            +process-bar(1)
+            div(class="header-main pt-[1.8rem]")
+                h1(class="text-[2.4rem] md:text-[2.8rem] lg:text-[3rem] font-bold") #{title}

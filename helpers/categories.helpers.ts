@@ -161,7 +161,7 @@ export const getQueryParams = (query: unknown): string[] =>
     : [];
 
 // Hàm lấy thông tin sắp xếp từ query
-export const getSortQuery = (sortQuery: string): [string, string] => {
+export const getSortQuery = (sortQuery: string ): [string, string] => {
   const sortOptions: Record<string, [string, string]> = {
     "price-high": ["Price", "DESC"],
     "price-low": ["Price", "ASC"],

@@ -1,0 +1,64 @@
+extends ../../layout/default-no_header-no_footer.pug
+include ../../mixin/alert.pug
+include ../../mixin/password.pug
+block style
+block main
+    div(class="inner-l-r")
+        div(class="flex items-center max-[1200px]:flex-col-reverse")
+            div(class="inner-content-auth flex flex-1 flex-col h-[100vh] overflow-y-auto p-[6rem_1.6rem_2rem] relative ")
+                div(class="auth-inner flex items-center flex-1 justify-center")
+                    div(class="auth-form ")
+
+                        div(class="auth-form__header mb-[2rem] text-center")
+                            h2(class="text-[2rem] lg:text-[2.4rem] font-bold text-[#333] mb-[1rem]") お帰りなさい、GNOUDへようこそ。
+                            p(class="text-[1.4rem] text-[#666]") 便利なショッピングカート、高品質の商品 - ご家族で簡単にお買い物！
+                        +alert-error-inner-text()
+                        +alert-success-inner-text()
+                        div(class="auth-form__body mb-2")
+                            form(action=`${redirect ? `/login?redirect=${redirect}` : '/login'} ` method="POST")
+
+
+                                div(class="form-group mb-[1rem]")
+                                    label(for="email" class="mb-[0.8rem] inline-block text-main text-[1.4rem] leading-[2rem]") メールアドレス
+                                    div(class="flex items-center input-group border rounded-xl")
+                                        div(class="input-prefix select-none")
+                                            span(class="icon-user flex size-[5rem] p-[0.6rem_1.2rem]")
+                                                img(src="../images/email.svg" alt="icon")
+                                        input(type="text" autocomplete="off"   name="email" id="email" class="form-control outline-none w-full p-[0.7rem_1.8rem_0.7rem_0] text-[1.4rem]" placeholder="メールアドレス" required)
+                                div(class="form-group mb-[1rem]")
+                                    label(for="password" class="mb-[0.8rem] inline-block text-main text-[1.4rem] leading-[2rem]") パスワード
+                                    +password_mixin('password','パスワード')
+                                div(class="form-group mb-[1rem] text-right text-[1.4rem]")
+                                    a(href="/forgot-password" class="text-[#7f0019] hover:text-[#7f0019] font-bold") パスワードを忘れた場合
+
+
+
+                                div(class="form-group")
+                                    button(type="submit" class="btn btn-primary w-full text-[1.6rem] font-bold py-[1.2rem] bg-[#7f0019] rounded-xl text-white") 登録する
+                                    p(class="text-center mt-[2rem] text-[1.4rem] text-main-300") または、でログインします。
+                        div(class="auth_form-body-social")
+                            div(class="flex items-center  gap-[1rem] mb-[1rem]")
+                                a(href=`${redirect ? `/login/auth/google?redirect=${redirect}` : '/login/auth/google'} ` class="basis-1/2 p-[0.6rem_1.2rem] rounded-xl flex justify-center items-center gap-3 border ")
+                                    img(class="fill-white size-[2.8rem]" src="../images/google.svg" alt="google")
+                                    span(class="text-[1.4rem]") Google
+                                a(href="/login/auth/facebook" class="basis-1/2 p-[0.6rem_1.2rem] rounded-xl flex justify-center items-center gap-3 border ")
+                                    img(class="fill-white size-[2.8rem]" src="../images/facebook.svg" alt="facebook")
+                                    span(class="text-[1.4rem]") Facebook
+                            label(for="clause_social" class=' cursor-pointer flex  gap-3 text-[1.1rem] md:text-[1.4rem]  text-main-300 leading-[1.6] py-[0.8rem]')
+                                input(type="checkbox" name="clause_social" id="clause_social" class="custom-checkbox-i relative rounded-lg cursor-pointer size-[2.5rem] accent-black appearance-none  border  checked:bg-[#000] ")
+                                p(class="w-full lg:w-[53.2rem]")
+                                    span ソーシャル ネットワーク アカウントでログインすることにより、GNOUD の
+                                    a(href="#!" class="font-semibold text-[#7f0019] mx-[0.5rem]") 利用規約
+                                    span と
+                                    a(href="#!" class="font-semibold text-[#7f0019] mx-[0.5rem]") プライバシーポリシー
+                                    span ポリシーを読んで同意したことになります。
+                            p(class="text-center mt-[1rem] text-[1.4rem] text-main-300")
+                                span まだアカウントをお持ちでない場合は?
+                                a(href="/registration" class="ml-3 text-[#7f0019] font-bold") 今すぐ登録してください
+                        div(class="auth-form__footer mt-[1rem] border-t")
+                            p(class="text-[1.4rem] text-main-300 text-center p-[1rem]") お客様のプライバシーを尊重します。GNOUD は、お客様の情報を第三者と共有しません。
+
+
+            div(class="image-box  overflow-hidden relative  bg-no-repeat bg-cover h-[25rem] w-full hidden lg:block lg:bg-[url('../images/banner-login-mobile.gif')]  min-[1200px]:w-[50rem] min-[1200px]:h-[100vh] min-[1200px]:bg-[url('../images/banner-login.gif')]" )
+            img(src="../images/banner-login-mobile.png" alt="banner" class=" lg:hidden w-full h-[16rem] md:h-full object-cover object-center")
+block script

@@ -1,6 +1,6 @@
 mixin loading(status=false)
     
-    div( id= "loading-box" class=`  fixed left-0 top-0 w-0 bg-[#0000001f] block min-h-[100vh] z-[99] transition-all` style=`width: 100%; ${status ? 'display:block' : 'display:none'}`)
+    div( id= "loading-box" class=`  fixed left-0 top-0 w-0 bg-[#0000001f] block min-h-[100vh] z-[9999999] transition-all` style=`width: 100%; ${status ? 'display:block' : 'display:none'}`)
         div(class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2")
             div(class="flex items-center justify-center")
                 div(class="loader")

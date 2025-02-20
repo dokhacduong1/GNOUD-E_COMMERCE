@@ -29,7 +29,7 @@ let config = {
 async function test() {
   try {
     let res = await axios(config);
-    console.log(res.status);
+
   } catch (error) {
     console.error(error.response.data);
   }

@@ -19,3 +19,16 @@ export const validateRequiredFields = (
   }
   return true;
 };
+export const validateRequiredFieldsFlask = (
+    requiredFields: RequiredField[],
+    res: Response,
+    req: any
+): boolean => {
+  for (const { field, message, validate } of requiredFields) {
+    if (!field || (validate && !validate(field))) {
+      req.flash("error", message);
+      return false;
+    }
+  }
+  return true;
+};

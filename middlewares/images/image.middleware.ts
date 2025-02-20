@@ -34,10 +34,16 @@ export const image = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    next();
+    return ;
+
     const { cart_code, _session_cart: sessionCart } = req.cookies;
+
     const nameHost = req.headers.host;
     const refererHost = req.headers.referer ? new URL(req.headers.referer).host : null;
-
+    if(refererHost !== nameHost){
+        return res.status(403).render("errors/403", { text: "ERROR: ACCESS DENIED" });
+    }
   
 
     const exceptionHeaders = ["postman-token"];

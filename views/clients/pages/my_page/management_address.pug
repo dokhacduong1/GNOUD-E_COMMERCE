@@ -1,0 +1,36 @@
+extends ../../layout/default.pug
+include ../../mixin/process-bar.pug
+include ./user_setting.pug
+block style
+
+block main
+    div(class="management-address text-[1.2rem]  lg:text-[1.3rem]")
+        div(class=" p-[2rem] max-w-[120.2rem] w-full m-[1.5rem_auto] bg-[#f2f2f2] ")
+            div(class="")
+                div(class="bg-white")
+                    div(class='info-profile pt-[2rem] px-[1.5rem] lg:px-[4.5rem] ')
+                        if(messages.error)
+                            p(class="text-[1.3rem]  text-erro text-[#7f0019] font-[500]") #{messages.error}
+                        if(messages.success)
+                            p(class="text-[1.3rem]  text-success text-[#cda845] font-[500]") #{messages.success}
+                        h2(class="text-[1.8rem] font-bold mb-2 tracking-widest text-left ") 住所を予約する
+                    div(class="list-address py-[1rem] px-[1rem] lg:px-[4rem] ")
+                        div(class="flex items-center flex-wrap flex-col lg:flex-row ")
+                            for item in DeliveryAddressData
+                                div(class="basis-full lg:basis-1/2 p-2 w-full")
+                                    div(class="item-address  relative  tick-before")
+                                        div(class="border border-dashed border-main min-h-[8.4rem] h-full p-[1rem]")
+                                            div(class="flex items-start lg:items-center justify-between lg:flex-row flex-col")
+                                                div(class="name-address mb-[0.5rem] ")
+                                                    span(class="font-Aria")
+                                                        strong #{item.FullName}
+                                                    span(class="text-main-300 tracking-tighter") - #{item.PhoneNumber}
+                                                a(class="underline mb-[0.5rem] " href=`/my_page/edit-address/${item.ID}`) 住所の編集
+                                            div(class="address-info")
+                                                p(class="truncate" title="") #{item.Address}
+
+                    div(class="add-address py-[1rem] px-[1.5rem] lg:px-[4.5rem] ")
+                        span(class="mr-3 lg:mb-0 mb-3 inline-block") 別の住所に配送したいですか?
+                        a(href="/my_page/create-address" class="bg-main text-center text-white p-3 rounded lg:rounded-3xl select-none lg:inline lg:w-auto block w-full hover:text-white") 新しいアドレスを追加
+
+block script

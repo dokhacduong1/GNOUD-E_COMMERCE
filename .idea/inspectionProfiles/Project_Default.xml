@@ -1,0 +1,39 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="CssUnknownProperty" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myCustomPropertiesEnabled" value="true" />
+      <option name="myIgnoreVendorSpecificProperties" value="false" />
+      <option name="myCustomPropertiesList">
+        <value>
+          <list size="1">
+            <item index="0" class="java.lang.String" itemvalue="transform" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="HtmlUnknownAttribute" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="myValues">
+        <value>
+          <list size="13">
+            <item index="0" class="java.lang.String" itemvalue="maxCountCart" />
+            <item index="1" class="java.lang.String" itemvalue="id-product" />
+            <item index="2" class="java.lang.String" itemvalue="sizeProduct" />
+            <item index="3" class="java.lang.String" itemvalue="colorId" />
+            <item index="4" class="java.lang.String" itemvalue="priceOrigin" />
+            <item index="5" class="java.lang.String" itemvalue="style" />
+            <item index="6" class="java.lang.String" itemvalue="id-category" />
+            <item index="7" class="java.lang.String" itemvalue="href" />
+            <item index="8" class="java.lang.String" itemvalue="id-main-category" />
+            <item index="9" class="java.lang.String" itemvalue="id-product-img" />
+            <item index="10" class="java.lang.String" itemvalue="id-color" />
+            <item index="11" class="java.lang.String" itemvalue="id-size" />
+            <item index="12" class="java.lang.String" itemvalue="stock" />
+          </list>
+        </value>
+      </option>
+      <option name="myCustomValuesEnabled" value="true" />
+    </inspection_tool>
+    <inspection_tool class="XmlInvalidId" enabled="false" level="ERROR" enabled_by_default="false" />
+  </profile>
+</component>

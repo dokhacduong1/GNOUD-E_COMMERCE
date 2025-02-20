@@ -1,0 +1,162 @@
+extends ../../layout/default.pug
+include ../../mixin/process-bar.pug
+include ./user_setting.pug
+block style
+
+block main
+    div(class="edit-profile ")
+        div(class=" p-[2rem] max-w-[120.2rem] w-full m-[1.5rem_auto] bg-[#f2f2f2] ")
+            div(class="relative block_info_account_v2")
+
+                div(class="flex bg-white flex-col lg:flex-row ")
+
+                    div(class='info-profile basis-1/2  py-[2rem] px-[4rem] ')
+                        if(messages.error)
+                            p(class="text-[1.3rem]  text-erro text-[#7f0019] font-[500]") #{messages.error}
+                        if(messages.success)
+                            p(class="text-[1.3rem]  text-success text-[#cda845] font-[500]") #{messages.success}
+                        h2(class="text-[1.8rem] font-bold mb-3 tracking-widest sm:text-left text-center") アカウント情報
+                        div(class="flex ")
+                            div(class="flex gap-5 w-full sm:flex-row flex-col")
+                                div(class="image-profile flex  items-center flex-col basis-1/4 mt-[1.6rem]")
+                                    img(id="profileImage"  src=`/images/item/${verifyUser.avatar}.avif?w=98&h=98` class="mb-2 rounded-full size-[9.8rem]" alt="user_info")
+                                    button(onclick="document.getElementById('fileInput').click()" class="btn-change-image text-center block w-full text-[1.2rem] text-[#7f0019]") 画像を変更
+                                    input(
+                                        type="file"
+                                        id="fileInput"
+                                        class="hidden"
+                                        accept="image/*"
+                                        onchange="updateProfileImage(event)"
+                                    )
+                                div(class="i-profile basis-3/4")
+                                    form(action="/my_page/edit-profile" method="POST" id="form-profile")
+                                        div(class="form-group pb-5")
+                                            label(for="email" class=" block text-xl font-semibold mb-2 text-main-300"  ) メールアドレス
+                                            input(disabled value=verifyUser.email id="email" class="text-[1.3rem] form-control border border-main  py-3 outline-none rounded-lg  px-5 block w-full" name='email', type='email' placeholder='メールアドレスを入力')
+                                        div(class="form-group pb-5")
+                                            label(for="fullName" class="block text-xl font-semibold mb-2 text-main-300") 名前
+                                            input(id="fullName" value=verifyUser.fullName class="text-[1.3rem] form-control border border-main  py-3 outline-none rounded-lg  px-5 block w-full" name='fullName', type='text' placeholder='名前を入力')
+                                        div(class="form-group mb-5")
+                                            label(for="sex" class="block text-xl font-semibold mb-3 text-main-300") 性別
+                                            div(class="flex gap-6")
+
+                                                label(class="flex items-center gap-2 cursor-pointer")
+                                                    input(id="gender-male " class="form-control accent-[#232323]" checked=(verifyUser.sex == "Male")  name="sex" type="radio" value="Male")
+                                                    span(class="text-[1.3rem]") 男性
+                                                label(class="flex items-center gap-2 cursor-pointer")
+                                                    input(id="gender-female" class="form-control accent-[#232323] " checked=(verifyUser.sex == "Female")   name="sex" type="radio" value="Female")
+                                                    span(class="text-[1.3rem]") 女性
+                                                label(class="flex items-center gap-2 cursor-pointer")
+                                                    input(id="gender-other" class="form-control accent-[#232323] " checked=(verifyUser.sex == "Other")  name="sex" type="radio" value="Other")
+                                                    span(class="text-[1.3rem]") その他
+
+                                        div(class="form-group pb-5")
+                                            - const [yearC, monthC, dayC] = verifyUser.birthday.split('-')
+                                            label(for="birthday" class="block text-xl font-semibold mb-2 text-main-300") 生年月日
+                                            fieldset(class="flex gap-3 w-full" id="birthday")
+                                                legend(class="sr-only") 生年月日
+                                                select(name="day" id="day" class="basis-1/3 form-control py-4 px-3 text-[1.3rem] cursor-pointer outline-none bg-[#f2f2f2] rounded-lg" required)
+                                                    option(value="" disabled) 日
+                                                    each day in [...Array(31).keys()]
+                                                        option(value=day + 1 selected=day + 1 === parseInt(dayC))= day + 1
+                                                select(name="month" id="month" class="basis-1/3 form-control py-4 px-3 text-[1.3rem] cursor-pointer outline-none bg-[#f2f2f2] rounded-lg" required)
+                                                    option(value="" disabled) 月
+                                                    each month, index in ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"]
+                                                        option(value=index + 1 selected=index + 1 === parseInt(monthC))= month
+                                                select(name="year" id="year" class="basis-1/3 form-control py-4 px-3 text-[1.3rem] cursor-pointer outline-none bg-[#f2f2f2] rounded-lg" required)
+                                                    option(value="" disabled) 年
+                                                    each year in [...Array(100).keys()].map(x => new Date().getFullYear() - x)
+                                                        option(value=year selected=year === parseInt(yearC))= year
+
+                                        div(class="form-group ")
+                                            button(type="submit" class="text-[1.3rem] block w-full btn bg-main text-white  p-4 rounded-3xl cursor-pointer hover:text-ellipsis") 保存
+
+                    hr(class="lg:hidden my-2")
+                    div(class="info-contact basis-1/2 py-[2rem] px-[4rem]")
+                        div(class="mb-6 border-b pb-5")
+                            h2(class="text-[1.8rem] font-bold mb-3 tracking-widest") 電話番号とメールアドレス
+                            div(class="box-contact flex gap-4 flex-col")
+                                div(class="flex justify-between items-center")
+                                    div(class="flex gap-6 flex-row items-center")
+                                        div(class="icon-contact")
+                                            img(src="/images/phone.svg" class="size-[2rem]" alt="phone")
+                                        div(class="text-contact")
+                                            p(class="text-[1.3rem] tracking-widest ") 電話番号
+                                            p(class="text-[1.3rem]  text-main-50 tracking-widest") 電話番号を更新する
+                                    a(class="cursor-pointer text-[1.3rem] font-bold text-main-200 bg-[#f1f2f6] p-3 flex justify-center items-center rounded-lg w-[10rem]") アップデート
+                                div(class="flex justify-between items-center")
+                                    div(class="flex gap-6 flex-row items-center")
+                                        div(class="icon-contact")
+                                            img(src="/images/mail.svg" class="" alt="phone")
+                                        div(class="text-contact")
+                                            p(class="text-[1.3rem] tracking-widest ") メール
+                                            p(class="text-[1.3rem]  text-main-50 tracking-widest") #{verifyUser.email}
+                        div(class="mb-6 border-b pb-5")
+                            h2(class="text-[1.8rem] font-bold mb-3 tracking-widest") 安全
+                            div(class="box-contact flex gap-4 flex-col")
+                                div(class="flex justify-between items-center")
+                                    div(class="flex gap-6 flex-row items-center")
+                                        div(class="icon-contact")
+                                            img(src="/images/icon_key.svg" class="size-[2rem]" alt="key")
+                                        div(class="text-contact")
+                                            p(class="text-[1.3rem] tracking-widest ") パスワードを変更する
+                                    a(href="/my_page/change-password" class="cursor-pointer text-[1.3rem] font-bold text-main-200 bg-[#f1f2f6] p-3 flex justify-center items-center rounded-lg w-[10rem]") アップデート
+                        div(class="mb-6 border-b pb-5")
+                            h2(class="text-[1.8rem] font-bold mb-3 tracking-widest") ソーシャルネットワークリンク
+                            div(class="box-contact flex gap-5 flex-col")
+                                div(class="flex justify-between items-center")
+                                    div(class="flex gap-6 flex-row items-center")
+                                        div(class="icon-contact")
+                                            img(src="/images/facebook.svg" class="size-[2rem]" alt="facebook")
+                                        div(class="text-contact")
+                                            p(class="text-[1.4rem] tracking-widest font-Roboto") Facebook
+                                    if(findAccoundFacebook)
+                                        p(class="text-[1.3rem] font-bold text-main bg-[#f1f2f6] p-3 flex justify-center items-center rounded-lg w-[10rem]") リンク済み
+                                    else
+                                        a(href="/login/auth/facebook" class="cursor-pointer text-[1.3rem] font-bold text-main-200 bg-[#f1f2f6] p-3 flex justify-center items-center rounded-lg w-[10rem]") アップデート
+                                div(class="flex justify-between items-center")
+                                    div(class="flex gap-6 flex-row items-center")
+                                        div(class="icon-contact")
+                                            img(src="/images/google.svg" class="size-[2rem]" alt="google")
+                                        div(class="text-contact")
+                                            p(class="text-[1.4rem] tracking-widest font-Roboto") Google
+                                    if(findAccoundGoogle)
+                                        p(class="text-[1.3rem] font-bold text-main bg-[#f1f2f6] p-3 flex justify-center items-center rounded-lg w-[10rem]") リンク済み
+                                    else
+                                        a(href="/login/auth/google" class="cursor-pointer text-[1.3rem] font-bold text-main-200 bg-[#f1f2f6] p-3 flex justify-center items-center rounded-lg w-[10rem]") アップデート
+
+
+
+block script
+    script(src="/js/client/edit-profile.js")
+    script.
+        function updateProfileImage(event) {
+            const file = event.target.files[0]; // Lấy file được chọn
+            const validImageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/avif', 'image/webp']; // Các định dạng hợp lệ
+            const maxSize = 5 * 1024 * 1024; // Kích thước tối đa: 5MB
+
+            if (file) {
+                // Kiểm tra định dạng ảnh
+                if (!validImageTypes.includes(file.type)) {
+                    alert('画像形式は JPEG、PNG、GIF、AVIF、WEBP のみ対応しています。');
+                    return;
+                }
+
+                // Kiểm tra kích thước ảnh
+                if (file.size > maxSize) {
+                    alert('画像サイズは5MBを超えることはできません。');
+                    return;
+                }
+
+                const reader = new FileReader();
+
+                // Khi file được đọc thành công
+                reader.onload = function (e) {
+                    const img = document.getElementById('profileImage'); // Lấy thẻ img
+                    img.src = e.target.result; // Cập nhật thuộc tính src
+                };
+
+                reader.readAsDataURL(file); // Đọc file dưới dạng URL
+            }
+        }
+

@@ -1,0 +1,5 @@
+mixin select-search(items,name="")
+    select(class="form-control custom-select outline-none bg-[#f2f2f2] rounded-lg  px-5" id=name name=name disabled=items.length === 0)
+        option(value='') 選択してください
+        each item in items
+            option(value=item.ID) #{item.name}

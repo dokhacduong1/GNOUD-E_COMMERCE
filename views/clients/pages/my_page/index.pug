@@ -1,0 +1,59 @@
+extends ../../layout/default.pug
+include ../../mixin/process-bar.pug
+include ./user_setting.pug
+block style
+
+block main
+    div(class="my_page-main max-w-[73.2rem] w-full m-[1.5rem_auto]")
+        div(class="relative")
+            div(class="my_page-container")
+                h1(class="text-main text-[1.9rem] font-[500]") マイページ
+                div(class="info-wrapper flex-col gap-4 bg-[#f2f2f2] text-center flex justify-center p-[4rem_4.4rem] mt-[1.6rem]")
+                    div(class="text-center flex justify-center")
+                        +process-bar-circle(20)
+                            div(class="content-warp text-center")
+                                span(class="text-[1.4rem] text-main-300 font-[300]") GNOUD Point
+                                p(class="text-[3.4rem] text-main font-bold font-Roboto") 10
+                                p(class="text-[1.2rem] leading-[0.9rem] text-main-300 font-Roboto") / 100
+                                p(class="text-[#dd0214] mt-[2rem] font-Roboto leading-[1.2rem] text-[1.2rem]") Basic
+                    div
+                        p(class="text-point")
+                            span(class="point text-[1.3rem] leading-[1.3rem] font-Aria text-main-200") ご利用可能なポイント
+                            span(class="point text-[#7f0019] text-[2.2rem] leading-[1.8rem] font-Roboto align-top mx-[0.4rem]") 10
+                            span(class="point text-[1.3rem] leading-[1.3rem] font-Aria text-main-200") pt
+                    div(class="mt-[2rem]")
+                        p(class="text-point_other")
+                            span(class="point text-[1.3rem] leading-[1.3rem] font-Aria text-main-200") ご利用開始時からの累計マイル :
+                                span(class="point text-main text-[2.2rem] leading-[1.8rem] font-Roboto mx-[0.4rem]") 10
+                                span(class="point text-[1.3rem] leading-[1.3rem] font-Aria text-main-200 font-bold") マイル
+                div(class="user_info p-[3.2rem_1.6rem_0px] relative flex-wrap gap-4 flex justify-between ")
+                    div(class="info flex justify-start text-main")
+                        img(class="size-[7rem] rounded-full object-cover" src=`/images/item/${verifyUser.avatar}.avif` alt="user_info")
+                        div(class="content-info pl-[3.6rem]")
+                            p(class="info-name text-[2.2rem] leading-[2.2rem]") #{verifyUser.fullName}
+                            ul(class="mt-[1.6rem]")
+                                li(class="text-center text-[1.3rem] leading-[1.5rem] inline-block")
+                                    dl
+                                        dt(class=" ") 0
+                                        dd(class=" ")
+                                            span フォロワー
+                                li(class="text-center text-[1.3rem] leading-[1.5rem] inline-block pl-[1.6rem]")
+                                    dl
+                                        dt(class=" ") 0
+                                        dd(class=" ")
+                                            span フォロー中
+                    div(class="change-info")
+                        a(href="/my_page/edit-profile" class="text-[1.2rem] text-[#7f0019] cursor-pointer  font-[400] underline  font-Aria")
+                            span メンバー情報変更
+                div(class="user-settings bg-[#f2f2f2] mt-[3rem] p-[1.6rem] ")
+                    +user_setting(listLinkOrderInformation,'ご注文の情報')
+                        div(class="text-[1.2rem]")
+                            h3(class="font-bold mb-3") 注文
+                            p ユーザー注文情報
+                    +user_setting(listLinkLikeUser,'お気に入り')
+                        div(class="text-[1.2rem]")
+                            h3(class="font-bold mb-3") お気に入り
+                            p ユーザーのお気に入り情報
+
+
+block script

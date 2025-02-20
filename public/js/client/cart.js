@@ -84,13 +84,13 @@ async function updateQuantityProduct(idProduct, quantity,sizeProduct,idColorProd
 }
 function checkWarningCountProduct(warningCountProduct,valueNew,countProduct) {
     if(valueNew === countProduct) {
-        warningCountProduct.style.opacity = '100%';
+        warningCountProduct.style.display = 'block';
     }else{
-        warningCountProduct.style.opacity = '0';
+        warningCountProduct.style.display = 'none';
     }
 }
 function  updateCartItemCount(record) {
-    cartCount.textContent = record.quantity_cart > 99 ? "99+" : (record.quantity_cart+1).toString();
+    cartCount.textContent = record.quantity_cart > 99 ? "99+" : (record.quantity_cart).toString();
 }
 //Hàm cập nhật giá sản phẩm trên giao diện
 function updateDomPriceProduct(sumPrice, priceOrigin, quantity) {

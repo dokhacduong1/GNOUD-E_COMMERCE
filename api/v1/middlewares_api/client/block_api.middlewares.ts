@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { decodeJwtToken } from "../../../../helpers/jwt_custom";
-
+import Cart from "../../../../models/cart.model";
+import { Op } from "sequelize";
 // Hàm helper để kiểm tra xem yêu cầu có chứa header ngoại lệ nào không
 const hasExceptionHeader = (
   req: Request,
@@ -34,8 +35,8 @@ export const block_api = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-  console.log("ok")
-    const { cart_code, _session_cart: sessionCart } = req.cookies;
+
+    const { cart_code} = req.cookies;
     const nameHost = req.headers.host;
     const refererHost = req.headers.referer
       ? new URL(req.headers.referer).host
@@ -73,16 +74,22 @@ export const block_api = async (
       "api", // Một số yêu cầu từ API
     ];
 
-    const isInvalidJwt =
-      !sessionCart ||
-      !isValidJwt(sessionCart, cart_code, process.env.SECRET_KEY_API_LOCK);
+    const isInvalidCart = await Cart.findOne({
+      where: {
+        Cart_ID: cart_code,
+        User_ID: { [Op.ne]: null }, // Kiểm tra User_ID khác null
+      },
+      raw: true, // Lấy kết quả dạng plain object
+    });
+
+
 
     const hasForbiddenReferrer = refererHost && refererHost !== nameHost;
     const hasExceptionOrForbiddenAgent =
       hasExceptionHeader(req, exceptionHeaders) ||
       hasForbiddenUserAgent(req, forbiddenUserAgents);
 
-    if (isInvalidJwt || hasForbiddenReferrer || hasExceptionOrForbiddenAgent) {
+    if ( hasForbiddenReferrer || hasExceptionOrForbiddenAgent) {
       res.send("");
       return;
     }

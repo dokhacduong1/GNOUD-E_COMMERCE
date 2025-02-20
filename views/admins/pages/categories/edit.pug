@@ -11,12 +11,12 @@ block main
             form(method='POST', action=`/admin/categories/edit/${idMain}?_method=PATCH`, enctype='multipart/form-data')
                 div(class='form-group pb-5')
                     label(for='title' class="block text-2xl font-semibold mb-2 text-main-300") Title
-                    input(id="name" value=category.Title class="form-control w-full py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5" name='title', type='text', placeholder='Enter name')
+                    input(value=category.Title class="form-control w-full py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5" name='title', type='text', placeholder='Enter name')
                 div(class='form-group pb-5')
                     label(for='slug_title' class="block text-2xl font-semibold mb-2 text-main-300") Slug Title
-                    input(id="name" value=category.Slug_Title class="form-control w-full py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5" name='slug_title', type='text', placeholder='Enter slug title')
+                    input(id="slug_title" value=category.Slug_Title class="form-control w-full py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5" name='slug_title', type='text', placeholder='Enter slug title')
                 div(class='form-group pb-5 ')
-                    label(for='title' class="block text-2xl font-semibold mb-2 text-main-300") Parent Categories
+                    label(for='parent_id' class="block text-2xl font-semibold mb-2 text-main-300") Parent Categories
                     select(id="parent_id" class="form-control custom-select  py-3 outline-none bg-[#f2f2f2] rounded-lg  px-5 " name='parent_id')
                         option(value='') Select Categories
                         +select-tree-edit(categories,1,idOrigin)

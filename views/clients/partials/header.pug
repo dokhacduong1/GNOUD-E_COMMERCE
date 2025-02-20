@@ -5,6 +5,7 @@ include ../mixin/search-menu.pug
 include ../mixin/box-icon-menu.pug
 //- đây cho mobile
 div(class="search-modal-container hidden  bg-white transition-all  modal-custom")
+
     div(class="remodal-overlay fixed  bg-overview-close  w-full h-full bg-[#0000004d] animate-modalSlideIn z-[2000]  transition-all")
         div(class="remodal-wrapper fixed w-[90%] h-full z-[2001] bg-white")
             div(class="co-remodal bg-white relative text-left w-full ")
@@ -25,6 +26,7 @@ div(class="search-modal-container hidden  bg-white transition-all  modal-custom"
                                         
 //- đây cho desktop
 header(class="border-b border-[#d9d9d9] relative z-[27]")
+
     div(class="")
         div(class="nav header flex flex-wrap items-center mx-auto  my-0    max-h-full  relative px-0 md:px-[56px] xl:flex-nowrap  xl:h-[7rem]  xl:flex-row xl:px-[10rem] xl:max-w-[184rem] xl:bg-white  xl:max-h-[120px]")
             div(class="nav__logo h-full flex gap-5  md:block  items-center mr-0 min-h-[5.1rem] p-[0_0_0] w-full xl:w-auto xl:mr-[5rem] xl:flex")
@@ -66,7 +68,7 @@ div(class="category-modal hidden")
                                     dd(class="dropMenuCategory__menu_link mt-[1rem]")
                                         ul(class="dropMenuCategory__menu_linkList")
                                             li(class="dropMenuCategory__menu_linkList__item")
-                                                a(href="/category/1" class="text-[1.3rem] font-[400] leading-6 px-[0.5rem] py-[0.8rem] block hover:bg-[#f5f5f5] hover:text-main") 特集
+                                                a(href="/category/1" class="text-[1.3rem] font-[400] leading-6 px-[0.5rem] py-[0.8rem] block hover:bg-[#f5f5f5] hover:text-main") 特集1
                                             li(class="dropMenuCategory__menu_linkList__item")
                                                 a(href="/category/2" class="text-[1.3rem] font-[400] leading-6 px-[0.5rem] py-[0.8rem] block hover:bg-[#f5f5f5] hover:text-main") 新商品
                                             li(class="dropMenuCategory__menu_linkList__item")
