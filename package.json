@@ -7,7 +7,8 @@
     "debug": "nodemon --exec \"node --inspect --require ts-node/register index.ts\"",
     "start": "nodemon index.ts",
     "build:css": "npx tailwindcss -i ./public/css/input.css -o ./public/css/styles.css --watch",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc && copyfiles -u 1 views/**/* dist/views && copyfiles -u 1 public/**/* dist/public"
   },
   "keywords": [],
   "author": "",
@@ -62,6 +63,7 @@
     "@types/cors": "^2.8.17",
     "@types/express-session": "^1.18.0",
     "@types/method-override": "^0.0.35",
-    "@types/uuid": "^10.0.0"
+    "@types/uuid": "^10.0.0",
+    "copyfiles": "^2.4.1"
   }
 }

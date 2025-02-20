@@ -1,7 +1,7 @@
 
 
 const linkGetCity = "/api/v1/locations/regions/city";
-const linkGetWard = "https://localhost:3000/api/v1/locations/regions/ward";
+const linkGetWard = "http://localhost:9191/api/v1/locations/regions/ward";
 const boxCreateAddrss = document.querySelector('.create-address')
 const boxEditAddrss = document.querySelector('.edit-address')
 const selectProvince = document.getElementById('province_id');

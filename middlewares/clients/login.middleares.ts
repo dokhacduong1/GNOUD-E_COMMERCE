@@ -14,7 +14,7 @@ passport.use(
         {
             clientID: process.env.CLIENT_ID_GOOGLE,
             clientSecret: process.env.CLIENT_SECRET_GOOGLE,
-            callbackURL: 'https://localhost:3000/login/auth/google/callback',
+            callbackURL: `${process.env.HTTP_REQUEST}/login/auth/google/callback`,
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
@@ -34,7 +34,7 @@ passport.use(
         {
             clientID: process.env.CLIENT_ID_FACEBOOK,
             clientSecret: process.env.CLIENT_SECRET_FACEBOOK,
-            callbackURL: 'https://localhost:3000/login/auth/facebook/callback',
+            callbackURL: `${process.env.HTTP_REQUEST}/login/auth/facebook/callback`,
             profileFields: ['id', 'emails', 'name'], // Yêu cầu thông tin từ Facebook
         },
         async (accessToken, refreshToken, profile, done) => {
@@ -52,7 +52,7 @@ passport.use(
 
 passport.serializeUser((user, done) => {
     try {
-        console.log("ok1")
+      
         done(null, user.sub || user.id); // Lưu ID người dùng vào session
     } catch (err) {
         console.error('Error in serializeUser:', err);

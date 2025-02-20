@@ -16,7 +16,7 @@ router.get('/auth/google',
         if (req.query) {
 
             req.session['queryBackUp'] = req.query; // Lưu vào session
-            console.log(req.session);
+    
         }
         next();
     },
@@ -24,7 +24,9 @@ router.get('/auth/google',
 
 // Callback từ Google
 router.get('/auth/google/callback',
+    
     (req:any, res:any, next) => {
+        console.log("ok")
         const reqSession = req.session['queryBackUp'];
         if(reqSession) {
             req['queryBackup'] = reqSession;

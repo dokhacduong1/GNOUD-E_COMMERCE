@@ -97,7 +97,7 @@ mixin uploadBoxMultipleEdit(nameClass="",maxFile=1,thumbWidth=120, thumbHeight=1
             thumbnailHeight: #{thumbHeight},
             init: function() {
                 !{JSON.stringify(dataImage)}.forEach((item)=>{
-                    const linkURL = `https://localhost:3000/images/item/${item.ImageURL}.avif?${!{JSON.stringify(sizeEdit)}}`
+                    const linkURL = `http://localhost:9191/images/item/${item.ImageURL}.avif?${!{JSON.stringify(sizeEdit)}}`
                    
                     let mockFile = { status: "no-edit", size: 12345, accepted: true,ID:item.ID };
                     this.emit("addedfile", mockFile);

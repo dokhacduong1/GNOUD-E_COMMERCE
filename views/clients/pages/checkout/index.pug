@@ -19,7 +19,7 @@ block script
                     e.set("libraries", [...r] + "");
                     for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]);
                     e.set("callback", c + ".maps." + q);
-                    a.src = `https://localhost:3000/api/v1/locations/maps/api/js?` + e;
+                    a.src = `http://localhost:9191/api/v1/locations/maps/api/js?` + e;
 
                     d[q] = f;
                     a.onerror = () => h = n(Error(p + " could not load."));

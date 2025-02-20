@@ -28,7 +28,7 @@ app.use(
 );
 app.use(
   cors({
-    origin: "https://localhost:3000",
+    origin: process.env.HTTP_REQUEST,
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
@@ -46,10 +46,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 //Cấu hình phương thức gửi đi của form
 app.use(methodOverride("_method"));
-// app.use((req, res, next) => {
-//    console.log("ok")
-//     next();
-// });
 
 
 app.set("views", `${__dirname}/views`);
@@ -61,41 +57,41 @@ routes_admin(app);
 routes_images(app);
 routesClientVersion1(app);
 routesProxyVersion1(app);
-https
-  .createServer(
-    {
-      key: fs.readFileSync("testcookie.com+2-key.pem"),
-      cert: fs.readFileSync("testcookie.com+2.pem"),
-    },
-    app
-  )
-  .listen(3000, async function () {
-    app.locals.dataCategories = await updateCategoriesData();
-    app.locals.webOptions = await getWebOptions();
+// https
+//   .createServer(
+//     {
+//       key: fs.readFileSync("testcookie.com+2-key.pem"),
+//       cert: fs.readFileSync("testcookie.com+2.pem"),
+//     },
+//     app
+//   )
+//   .listen(3000, async function () {
+//     app.locals.dataCategories = await updateCategoriesData();
+//     app.locals.webOptions = await getWebOptions();
 
-    // app.locals.dataCategories = {
-    //   dataCategorieClothes: [],
-    //   dataCategorieHouseholdGoods: [],
-    //   categoryAll:[],
-    // }
+//     // app.locals.dataCategories = {
+//     //   dataCategorieClothes: [],
+//     //   dataCategorieHouseholdGoods: [],
+//     //   categoryAll:[],
+//     // }
 
-    console.log(
-      "Example app listening on port 3000! Go to https://localhost:3000/"
-    );
-  });
+//     console.log(
+//       "Example app listening on port 3000! Go to http://localhost:9191/"
+//     );
+//   });
 
-// app
-//     .listen(3000, async function () {
-//         app.locals.dataCategories = await updateCategoriesData();
-//         app.locals.webOptions = await getWebOptions();
-//
-//         // app.locals.dataCategories = {
-//         //   dataCategorieClothes: [],
-//         //   dataCategorieHouseholdGoods: [],
-//         //   categoryAll:[],
-//         // }
-//
-//         console.log(
-//             "Example app listening on port 3000! Go to http://localhost:3000/"
-//         );
-//     });
+app
+    .listen(9191, async function () {
+        app.locals.dataCategories = await updateCategoriesData();
+        app.locals.webOptions = await getWebOptions();
+
+        // app.locals.dataCategories = {
+        //   dataCategorieClothes: [],
+        //   dataCategorieHouseholdGoods: [],
+        //   categoryAll:[],
+        // }
+
+        console.log(
+            "Example app listening on port 9191! Go to http://localhost:9191"
+        );
+    });
