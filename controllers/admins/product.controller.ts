@@ -833,7 +833,7 @@ export const reloadCount = async function (
   res: Response
 ): Promise<void> {
   try {
-    console.log(req);
+
     const productActive = await Product.count({
       where: {
         Status: "active",

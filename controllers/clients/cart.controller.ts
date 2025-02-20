@@ -7,12 +7,11 @@ import { LinkImageConverter } from "../../helpers/convertLinkImage";
 const prefix_client = "clients"; // Đặt prefix cho client
 
 export const index = async function (
-  req: Request,
-  res: Response
+    req: Request,
+    res: Response
 ): Promise<void> {
   try {
     const cartCode = req.cookies.cart_code;
-
     if (!cartCode) {
       res.status(400).json({ message: "Cart code is missing" });
       return;
@@ -23,6 +22,7 @@ export const index = async function (
           p.ID,
           p.Title,
           p.Slug,
+          p.DiscountPercent,
           ci.Price,
           ci.SizeProduct,
           ci.Product_Option_ID,
@@ -50,19 +50,30 @@ export const index = async function (
       replacements: { cartCode },
       type: QueryTypes.SELECT,
     })) as unknown as ICartItemn[];
-    
+
+    // Tính toán giá sau khi giảm giá và tổng số lượng/tổng giá trị
     const sumQuantity = cartItems.reduce((sum, item) => sum + item.Quantity, 0);
-    const sumAllPrice = cartItems.reduce(
-      (sum, item) => sum + item.Price * item.Quantity,
-      0
-    );
-    cartItems.forEach((item) => {
-        item.ImageLink = LinkImageConverter(item.ImageLink, 400, 400);
-        item.sumPrice = item.Price * item.Quantity;
-      });
-     
+    let sumAllPrice = 0; // Tổng giá trị sau khi giảm giá
+
+    cartItems.forEach((item: any) => {
+      // Tính giá sau khi giảm giá
+      const discountedPrice = item.Price * (1 - (item.DiscountPercent || 0) / 100);
+
+      // Cập nhật giá trị cho từng item
+      item.discountedPrice = discountedPrice; // Giá sau khi giảm
+      item.sumPrice = discountedPrice * item.Quantity; // Tổng giá trị của item này
+
+      // Cộng vào tổng giá trị giỏ hàng
+      sumAllPrice += item.sumPrice;
+
+      // Chuyển đổi đường dẫn ảnh
+      item.ImageLink = LinkImageConverter(item.ImageLink, 400, 400);
+    });
+
+    // Tính phí vận chuyển
     const priceShip = sumAllPrice < 1500 ? 500 : 0;
 
+    // Render trang với dữ liệu mới
     res.render(`${prefix_client}/pages/cart/index`, {
       title: "ショッピングカート",
       sumQuantity,

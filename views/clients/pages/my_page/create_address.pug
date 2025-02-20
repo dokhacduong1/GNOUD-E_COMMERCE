@@ -1,0 +1,43 @@
+extends ../../layout/default.pug
+
+include ../../mixin/select-search.pug
+
+
+block style
+    script(src="https://code.jquery.com/jquery-3.6.0.min.js")
+    link(rel="stylesheet", href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css")
+block main
+    - arrTest = [{ID:1,name:"Hà Nội"},{ID:4,name:"Hồ Chí Minh"}]
+    div(class="create-address text-[1.3rem]")
+        div(class=" p-[2rem] max-w-[120.2rem] w-full m-[1.5rem_auto] bg-[#f2f2f2] ")
+            div(class="bg-white  ")
+                div(class='info-profile basis-1/2  py-[2rem] px-[4rem] ')
+                    if(messages.error)
+                        p(class="text-[1.3rem]  text-erro text-[#7f0019] font-[500]") #{messages.error}
+                    if(messages.success)
+                        p(class="text-[1.3rem]  text-success text-[#cda845] font-[500]") #{messages.success}
+                    h2(class="text-[1.8rem] font-bold mb-3 tracking-widest sm:text-left text-center") 住所を編集する
+
+                    div(class="form-address")
+                        form(class="w-full" action="/my_page/create-address" method="POST")
+                            div(class="form-group mb-[2rem] flex flex-col")
+                                label(for="name " class="mb-2 inline-block")  お名前
+                                input(type="text" name="name" id="name" class="form-control border-main border px-3 py-4 rounded w-full" placeholder="お名前" required)
+                            div(class="form-group mb-[2rem] flex flex-col")
+                                label(for="phone " class="mb-2 inline-block") 電話番号
+                                input(type="text" name="phone" id="phone" class="form-control border-main border px-3 py-4 rounded w-full" placeholder="電話番号" required)
+                            div(class='form-group')
+                                label(for='province_id' class="mb-2 inline-block") 都市州
+                                +select-search(arrTest,"province_id")
+                            div(class='form-group mt-[2rem]')
+                                label(for='ward_id' class="mb-2 inline-block") 区/コミューン
+                                +select-search([],"ward_id")
+                            div(class='form-group mt-[2rem]')
+                                label(for='address' class="mb-2 inline-block") 詳しい住所
+                                input( type="text" name="address" id="address" class="form-control border-main border px-3 py-4 rounded w-full" placeholder="家番号/番地名" required)
+                            div(class='form-group button mt-[2rem]')
+                                button(type="submit" class="btn bg-main w-full text-white p-4 rounded") 住所を更新する
+block script
+    script(src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js")
+    script(src="/js/admins/select-custom.js")
+    script(src="/js/client/address.js")

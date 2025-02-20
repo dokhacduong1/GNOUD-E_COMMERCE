@@ -162,4 +162,9 @@ Select-row */
   left: -50%;
   z-index: 0;
 }
-
+.active_dot_process_bar::before{
+  background-color: rgb(60, 60, 67) !important;
+}
+.active_process_bar::after{
+  background-color: rgb(60, 60, 67) !important;
+}

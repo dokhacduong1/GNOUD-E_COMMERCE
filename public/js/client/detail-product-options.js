@@ -61,12 +61,12 @@ function removeDomAndActive(className="", activeDom="", dom) {
 
 // Hàm xử lý sự kiện khi người dùng chọn kích thước sản phẩm trên giao diện di động
 function handleSizeMobileClick() {
-   
+
     const checkStockMobile = this.classList.contains('no-stock-mobile');
     if (checkStockMobile) return;
     const idSize = this.getAttribute('id-size');
    
-    const idProduct = this.getAttribute('id-product');
+    const idColor = this.getAttribute('id-color');
     const titleProduct = this.getAttribute('title');
     updateContentCategory(idSize, titleProduct);
 
@@ -76,7 +76,7 @@ function handleSizeMobileClick() {
     removeDomAndActive('.item-size.size-select', 'size-select', sizeItem);
 
     // Lấy phần tử màu sắc sản phẩm tương ứng và kích hoạt sự kiện click
-    const colorItem = document.querySelector(`.color-list .color-item[id-product="${idProduct}"]`);
+    const colorItem = document.querySelector(`.color-list .color-item[id-color="${idColor}"]`);
     colorItem.click();
     modelShowOptionMobile.classList.toggle('hidden');
     //Keos len dau trang

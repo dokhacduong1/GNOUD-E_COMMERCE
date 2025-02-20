@@ -1,8 +1,9 @@
 import { Router } from "express";
 import * as controller from "../../controllers/clients/category.controller";
-import * as middleware from "../../middlewares/clients/session_cart.middlewares"
-const router: Router = Router();
 
-router.get("/:id",middleware.session_cart, controller.index);
+import * as middlewareAuthen from "../../middlewares/clients/authen.middlewares";
+const router: Router = Router();
+router.use(middlewareAuthen.authenMiddlewares);
+router.get("/:id", controller.index);
 
 export const categoryRoutes: Router = router;

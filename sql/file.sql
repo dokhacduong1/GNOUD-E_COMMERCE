@@ -148,19 +148,46 @@ CREATE TABLE WebOptions(
 INSERT INTO WebOptions (CartMaxItems) VALUES (20);
 CREATE INDEX idx_cartitems_all ON CartItems(Cart_ID, Product_ID, Product_Option_ID, SizeProduct);
 -- Tạo bảng Users
+
 CREATE TABLE Users (
-    UserID INT AUTO_INCREMENT PRIMARY KEY,
-    Username VARCHAR(255) NOT NULL UNIQUE,
-    Password VARCHAR(255) NOT NULL,
-    Address VARCHAR(255),
-    Role ENUM('Admin', 'User') DEFAULT 'User',
-    Status ENUM('Active', 'Inactive','Ban') DEFAULT 'Active',
-    Email VARCHAR(255),
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Email VARCHAR(100) NOT NULL UNIQUE,
+    PasswordHash VARCHAR(255) NOT NULL,
+    FullName VARCHAR(100),
+    Avatar VARCHAR(255),
+    Status ENUM('Active', 'Inactive', 'Ban') DEFAULT 'Active',
+    Birthday DATE,
+    Sex ENUM('Male', 'Female', 'Other') DEFAULT 'Other',
     Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+CREATE TABLE `user_providers` (
+  `ID` int NOT NULL AUTO_INCREMENT,
+  `UserID` int NOT NULL,
+  `Provider` enum('Facebook', 'Google') NOT NULL,
+  `ProviderID` varchar(255) NOT NULL,
+  `Linked_At` timestamp DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `unique_provider_user` (`UserID`, `Provider`),
+  KEY `idx_provider` (`ProviderID`),
+  CONSTRAINT `fk_user_provider` FOREIGN KEY (`UserID`) REFERENCES `users` (`ID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-
+CREATE INDEX idx_email ON Users(Email);
+CREATE TABLE DeliveryAddress (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    User_ID INT NOT NULL,
+    FullName VARCHAR(100),
+    PhoneNumber VARCHAR(15),
+    City VARCHAR(50),
+    District VARCHAR(50),
+    Ward VARCHAR(50),
+    Address TEXT,
+    Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (User_ID) REFERENCES Users(ID) ON DELETE CASCADE
+);
+CREATE INDEX idx_user_id ON DeliveryAddress(User_ID);
 -- Tạo bảng Customers
 -- Tạo bảng Customers
 CREATE TABLE Customers (
@@ -199,7 +226,17 @@ CREATE TABLE OrderDetails (
 );
 
 
-
+CREATE TABLE RefreshTokens (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    Token Text NOT NULL,
+    User_ID INT NOT NULL,
+    ExpiresAt TIMESTAMP NOT NULL,
+    Is_Revoked BOOLEAN DEFAULT FALSE,
+    Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (User_ID) REFERENCES Users(ID) ON DELETE CASCADE
+);
+CREATE INDEX idx_token ON RefreshTokens(Token);
 
 
 

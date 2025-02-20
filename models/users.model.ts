@@ -1,46 +1,59 @@
 import {DataTypes} from 'sequelize';
 import sequelize from '../configs/database';
 import bcrypt from "bcrypt";
+import UserProvider from "./user_providers";
 // -- Tạo bảng Users
 // CREATE TABLE Users (
-//     UserID INT AUTO_INCREMENT PRIMARY KEY,
-//     Username VARCHAR(255) NOT NULL UNIQUE,
-//     Password VARCHAR(255) NOT NULL,
-//     Address VARCHAR(255),
-//     Role ENUM('Admin', 'User') DEFAULT 'User',
-//     Status ENUM('Active', 'Inactive','Ban') DEFAULT 'Active',
-//     Email VARCHAR(255),
+//     ID INT AUTO_INCREMENT PRIMARY KEY,
+//     Username VARCHAR(50) NOT NULL UNIQUE,
+//     Email VARCHAR(100) NOT NULL UNIQUE,
+//     PasswordHash VARCHAR(255) NOT NULL,
+//     FullName VARCHAR(100),
+//     Status ENUM('Active', 'Inactive', 'Ban') DEFAULT 'Active',
+//     Birthday DATE,
+//     Sex ENUM('Male', 'Female', 'Other') DEFAULT 'Other',
+//     TypeAccount ENUM('Normal', 'Social') DEFAULT 'Normal',
 //     Created_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 //     Updated_At TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 // );
 const User = sequelize.define('User', {
-    UserID: {
+    ID: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    Username: {
-        type: DataTypes.STRING,
+    Email: {
+        type: DataTypes.STRING(100),
         allowNull: false,
         unique: true
     },
-    Password: {
-        type: DataTypes.STRING,
+    PasswordHash: {
+        type: DataTypes.STRING(255),
         allowNull: false
     },
-    Address: {
-        type: DataTypes.STRING
-    },
-    Role: {
-        type: DataTypes.ENUM('Admin', 'User'),
-        defaultValue: 'User'
+
+    FullName: {
+        type: DataTypes.STRING(100)
     },
     Status: {
         type: DataTypes.ENUM('Active', 'Inactive', 'Ban'),
         defaultValue: 'Active'
     },
-    Email: {
-        type: DataTypes.STRING
+    Birthday: {
+        type: DataTypes.DATE,
+        defaultValue: "1990-01-01"
+    },
+    Sex:{
+        type: DataTypes.ENUM('Male','Female','Other'),
+        defaultValue: 'Other'
+    },
+    Avatar: {
+        type: DataTypes.STRING(255),
+        defaultValue: 'tos-alisg-i-375lmtcpo0-sg/e121c12adb474c83a39f39adf18d3bba~tplv-375lmtcpo0-image'
+    },
+    TypeAccount: {
+        type: DataTypes.ENUM('Normal', 'Social'),
+        defaultValue: 'Normal'
     }
 }, {
     tableName: 'Users',
@@ -50,14 +63,16 @@ const User = sequelize.define('User', {
     hooks: {
         beforeCreate: async (user: any) => {
             const salt = await bcrypt.genSalt(10);
-            user.Password = await bcrypt.hash(user.Password, salt);
+            user.PasswordHash = await bcrypt.hash(user.PasswordHash, salt);
         },
         beforeUpdate: async (user: any) => {
-            if (user.changed('Password')) {
+
+            if (user.changed('PasswordHash')) {
                 const salt = await bcrypt.genSalt(10);
-                user.Password = await bcrypt.hash(user.Password, salt);
+                user.PasswordHash = await bcrypt.hash(user.PasswordHash, salt);
             }
         }
     }
 })
+
 export default User;

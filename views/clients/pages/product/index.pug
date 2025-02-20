@@ -11,6 +11,7 @@ include ../../mixin/box-comment-review.pug
 include ../../mixin/items-product.pug
 include ../../mixin/shopping-guide.pug
 include ../../mixin/box-color.pug
+include ../../mixin/modal.pug
 block style
     link(rel="stylesheet", href="../css/swiper-custom.css")
 
@@ -19,8 +20,7 @@ block main
     -let check = 0;
     -let stringC = ''
     -let indexSize = 0
-    div(class="max-w-[calc(1352px)] mx-auto ")
-       
+    div(class="max-w-[calc(1352px)] mx-auto products-detail")
         div(class="sm:hidden lg:block mb-3")
             +breadcrumb(breadcrumb)
         div(class="list-products" maxCountCart=webOptions.CartMaxItems)
@@ -184,6 +184,18 @@ block main
                                 button(class="w-full bg-main text-white text-[1.4rem] p-[0.8rem] font-bold") カートに入れる
                 div(class="bg-white h-[100vh] -ml-[1.5rem] fixed top-0 w-[100vh] hidden modal-show-otion-mobile")
                     +box-color-mobile(productOptions,indexSize)
+        +modal-custom("カートに追加しました")
+            div(class="modal-cart-product")
+                div(class="modal-noti text-[1.1rem]  md:text-[1.4rem] flex-wrap md:flex-nowrap flex justify-center text-[#7f0019]  gap-[0.8rem] mb-[1.6rem]")
+                    span(class="mt-[0.4rem] md:basis-[3%]")
+                        img(class="size-[1.5rem]" src="../images/noti.svg" alt="noti")
+                    p(class=" md:basis-[97%]") この商品は【ネットストア限定、消費税込5,000円以上で配送料無料、対象商品】です
+                a(href="/cart")
+                    span(class="min-w-full md:min-w-[37rem] w-full flex bg-main-400 transition-all hover:bg-main text-white p-[1.5rem_3.2rem] md:p-[2rem_3.2rem] text-[1.5rem]  md:text-[1.8rem] font-bold items-center rounded-[0.4rem] cursor-pointer justify-center relative" )
+                        span カートを見る
+                div(class="modal_close cursor-pointer flex justify-center mt-[2rem] md:mt-[4rem] text-[1.4rem] font-bold")
+                    button(class="text-main underline hover:no-underline") 閉じる
+
 block script
     script(id="list" type="application/json") !{JSON.stringify(listImages)}
     script(src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js") 
@@ -196,4 +208,5 @@ block script
     script(src="../js/client/comment-review.js")
     script(src="../js/client/items-product.js") 
     script(src="../js/client/shopping-guide.js")
+    script(src="../js/client/modal-custom.js")
     //- h-[32.8rem]

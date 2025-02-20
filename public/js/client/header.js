@@ -1,4 +1,6 @@
-
+function getFormObject(form) {
+    return Array.from(new FormData(form).entries()).reduce((obj, [key, value]) => ({ ...obj, [key]: value }), {});
+}
 //Đây là chọn category select ở ô search
 // Khởi tạo các phần tử DOM
 const elements = {
@@ -129,7 +131,7 @@ const btnCloseModal = document.querySelector('.close-modal-button');
 const removePlay = document.querySelector(".remodal-overlay")
 if (btnCategory) {
     btnCategory.addEventListener('click', () => {
-        console.log('click');
+
         modalCategory.classList.remove('hidden');
        
       

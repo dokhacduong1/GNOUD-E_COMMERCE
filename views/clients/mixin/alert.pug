@@ -3,3 +3,56 @@ mixin alert-all-web()
         div(class="fixed z-[999999999] top-3 right-1/2 transform translate-x-1/2 alert")
             div(class="bg-main-400 text-white p-[1rem_1.6rem] rounded-md text-[1.4rem]")
                 p(class="inner-text-alert")
+
+
+
+mixin alert-success(time)
+    if (messages.success)
+        .message.info
+        div(
+            class="alert alert-success text-2xl bg-[#f4eede] text-black rounded-xl p-[1rem_3rem] flex items-center gap-[3rem]"
+            show-alert
+            data-time=time
+        )
+            div(class="flex gap-5 ")
+                div(class="icon-demo")
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                div(class="content-message flex")
+                    span(class="font-bold mr-2") 成功:
+                    span(class="inline-block max-w-[43.6rem] ") #{messages.success}
+
+            <div close-alert class="cursor-pointer  rounded-full w-[2.5rem] h-[2.5rem] flex items-center justify-center"><i class="fa-solid fa-xmark font-bold"></i></div>
+
+mixin alert-error(time)
+    if (messages.error)
+        .message.error
+        div(
+            class="alert alert-danger text-2xl bg-[#7f0019] text-white rounded-xl p-[1rem_3rem] inline-flex items-center gap-[3rem]"
+            show-alert
+            data-time=time
+        )
+            div(class="flex gap-5 ")
+                div(class="icon-demo")
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                div(class="content-message flex")
+                    span(class="font-bold mr-2") エラー:
+                    span(class="inline-block  ") #{messages.error}
+
+            <div close-alert class="cursor-pointer  rounded-full w-[2.5rem] h-[2.5rem] flex items-center justify-center"><i class="fa-solid fa-xmark font-bold"></i></div>
+
+mixin alert-success-inner-text()
+    if (messages.success)
+        div(class="text-[#006b27] font-bold text-[1.4rem] max-w-[59.9rem] flex gap-3  mb-[1rem]")
+            div(class="icon-demo")
+                <i class="fa-solid fa-check"></i>
+
+            p(class="inline-block ") #{messages.success}
+
+mixin alert-error-inner-text()
+    if (messages.error)
+        div(class="text-[#7f0019]  font-bold text-[1.4rem] max-w-[59.9rem] flex gap-3  mb-[1rem]")
+            div(class="icon-demo")
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            p(class="inline-block ") #{messages.error}
+
+

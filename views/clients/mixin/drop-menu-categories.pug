@@ -25,4 +25,4 @@ mixin drop-menu-categories-mobile(categories,title='')
                                 ul(class="co-dropMenuCategory__menu_linkList")
                                     each val3 in val2.items
                                         li(class="co-dropMenuCategory__menu_linkList__item mb-[2.6rem]")
-                                            a(href="/category/1" class="text-[1.3rem] font-[400] leading-6 px-[0.5rem] py-[0.8rem] block hover:bg-[#f5f5f5] hover:text-main select-none") #{val3.Title}
+                                            a(href=`/category/GD${val3.ID}` class="text-[1.3rem] font-[400] leading-6 px-[0.5rem] py-[0.8rem] block hover:bg-[#f5f5f5] hover:text-main select-none") #{val3.Title}

@@ -39,22 +39,22 @@ export async function getProducts(
     const listIdProduct = req.query.listIdProduct?.toString().split(",").map(Number) || [];
 
     const categoryIds = idCategory ? (await getAllChildCategoriesUsingCTE(idCategory)) as CategoryInterface[] : [];
-    const sortQuery = getSortQuery(req.query.sort?.toString());
+    const sortQuery = (!req.query.sort || !req.query.listIdProduct) ? ["Created_At", "ASC"] : getSortQuery(req.query.sort?.toString());
 
     const listIdConvert = idCategory ? [idCategory, ...categoryIds.map(item => parseInt(String(item.ID)))] : [];
-      console.log(listIdConvert);
+
     const findRecord: {
       Status: string;
       Deleted: boolean;
       Category_ID?: number[] | number;
       Product_ID?: number[];
       ID?: { [Op.gt]: number; [Op.lt]: number };
-      price?: { [Op.gt]: number; [Op.lt]: number };
+      price?: { [Op.gte]: number; [Op.lte]: number };
       [Op.or]?: any;
     } = {
       Status: "active",
       Deleted: false,
-      ...(listIdConvert.length && { Category_ID: listIdConvert }),
+      ...((listIdConvert.length && listIdProduct.length<1) && { Category_ID: listIdConvert }),
       ...(keyword && {
         [Op.or]: [
           { Slug: { [Op.like]: `%${keyword}%` } },
@@ -63,6 +63,16 @@ export async function getProducts(
       }),
       ...(listIdProduct.length && { Product_ID: listIdProduct }),
     };
+    const priceMin = parseInt(req.query.priceMin?.toString() ?? "0");
+    const priceMax = parseInt(req.query.priceMax?.toString() ?? "0");
+
+    if (req.query.priceMin && req.query.priceMax && priceMin < priceMax && priceMax > 0) {
+      findRecord.price = {
+        [Op.gte]: priceMin,
+        [Op.lte]: priceMax,
+      };
+    }
+
 
     const findRecordForCount = { ...findRecord };
     delete findRecordForCount.Product_ID;
@@ -70,15 +80,7 @@ export async function getProducts(
     const countRecord = await ProductPreview.count({ where: findRecordForCount });
     const objectPagination = filterQueryPagination(countRecord, page, LIMITPRODUCT);
 
-    const priceMin = parseInt(req.query.priceMin?.toString() ?? "0");
-    const priceMax = parseInt(req.query.priceMax?.toString() ?? "0");
 
-    if (req.query.priceMin && req.query.priceMax && priceMin < priceMax && priceMax > 0) {
-      findRecord.price = {
-        [Op.gt]: priceMin,
-        [Op.lt]: priceMax,
-      };
-    }
 
     const products = (await ProductPreview.findAll({
       where: findRecord,
@@ -99,7 +101,7 @@ export async function getProducts(
         skip: number;
         totalPage: number;
       },
-      listIdProduct: products.map(item => item.Product_ID),
+      listIdProduct: listIdProduct.length>0 ? listIdProduct : products.map(item => item.Product_ID),
     };
   } catch (error) {
     return {

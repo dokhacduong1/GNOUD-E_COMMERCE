@@ -16,25 +16,23 @@ mixin modal(title="",src="")
                 iframe(  class="w-full h-[50rem]" frameborder="0")
 
 mixin modal-custom(title)
-  div(class="flex modal-custom items-center justify-center h-full fixed left-0 top-0 w-full z-[99999] hidden ")
+  div(class="flex hidden modal-custom items-center justify-center h-full fixed left-0 top-0 w-full z-[99999]  ")
     div(class="modal_inner w-[60rem] bg-white rounded-md flex flex-col m-[4.8rem_1.5rem] max-h-[calc(100vh-48px*2)] max-w-[calc(100vw-15px*2)] min-h-[30rem] p-[2.4rem] relative z-10")
       div(class="modal_heading flex justify-between items-center flex-grow-[0] mb-[1.6rem] p-[0_2rem] flex-shrink-0")
-        span(class="text-[2.2rem] font-[700]") #{title}
+        span(class="text-[1.9rem] md:text-[2.2rem] font-[700]") #{title}
         button(class="modal_close")
           img(src="../images/close.svg" alt="close")
           
       div(class="modal-content")
         block
-      div(class="modal-button-submit flex items-center justify-center gap-[2.4rem] mt-[2.4rem]")
-        block button1
-        block button2
+
         
         
 
-    div(class="bg-black bg-overview-close cursor-pointer opacity-50 fixed top-0 left-0 w-full h-full z-[2]")
+    div(class="bg-black cursor-pointer opacity-50 fixed top-0 left-0 w-full h-full z-[2] bg-overview-close")
 
 mixin modal-custom-test(title)
-  div(class="flex modal-custom items-center justify-center h-full fixed left-0 top-0 w-full z-[99999]  ")
+  div(class="flex  modal-custom items-center justify-center h-full fixed left-0 top-0 w-full z-[99999]  hidden")
     div(class="modal_inner w-[60rem] bg-white rounded-md flex flex-col m-[4.8rem_1.5rem] max-h-[calc(100vh-48px*2)] max-w-[calc(100vw-15px*2)] min-h-[30rem] p-[2.4rem] relative z-10")
       div(class="modal_heading flex justify-between items-center flex-grow-[0] mb-[1.6rem] p-[0_2rem] flex-shrink-0")
         span(class="text-[2.2rem] font-[700]") #{title}

@@ -2,4 +2,4 @@ mixin slick-banner(items)
     div(class="slick-banner flex items-center justify-center mb-[2.4rem]")
         each item in items
             div
-                img(src=item  alt="banner")
+                img(src=item loading="lazy"  alt="banner")

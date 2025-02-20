@@ -37,9 +37,9 @@ export const index = async function (
 
 
     const banner = [
-      "https://www.muji.com/public/media/jp/img/top_banner/1640_ryohinweek_241021.jpg",
-      "https://www.muji.com/public/media/jp/img/top_banner/1640_skincare_1021.jpg",
-      "https://www.muji.com/public/media/jp/img/top_banner/1640_winter-appliances_241025.jpg",
+      "images/item/tos-alisg-i-375lmtcpo0-sg/b6be080e784d45518c6d428928c7308e~tplv-375lmtcpo0-image.avif",
+      "images/item/tos-alisg-i-375lmtcpo0-sg/7b4262fd046f4252b86057c40da3960a~tplv-375lmtcpo0-image.avif",
+      "images/item/tos-alisg-i-375lmtcpo0-sg/eacf95269234415d9e8f95037d020359~tplv-375lmtcpo0-image.avif",
     ];
 
     const slickItemsSampleOne = [

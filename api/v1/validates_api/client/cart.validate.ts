@@ -15,6 +15,7 @@ export const addCart = async function (
   next: NextFunction
 ): Promise<void> {
   try {
+
     const { Product_ID, Product_Option_ID, SizeProduct, Quantity } = req.body;
     const cartMaxItems = req.app.locals.webOptions.CartMaxItems;
 
@@ -80,10 +81,20 @@ export const addCart = async function (
     const listOptionSize = JSON.parse(
       findProductOption.List_Options.toString()
     );
+
     if (
       listOptionSize.findIndex((item: any) => item.size === SizeProduct) === -1
     ) {
       res.status(404).json({ code: 404, message: "サイズが見つかりません。" });
+      return;
+    }
+    //Neu thay size co stock = 0 thi tra ve loi
+    if (
+      listOptionSize.findIndex(
+        (item: any) => item.size === SizeProduct && item.stock === 0
+      ) !== -1
+    ) {
+      res.status(404).json({ code: 404, message: "この製品はもう入手できません。" });
       return;
     }
     req.body.Price = parseFloat(findProduct.Price.toString());
